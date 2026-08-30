@@ -108,8 +108,7 @@ export default async function CampaignPage({
                 Solicitar acceso beta <ArrowRight aria-hidden="true" />
               </TrackedBetaLink>
               <p className="hero-note">
-                Empezamos por Madrid, Barcelona y Mataró. Locapto ofrece
-                orientación preliminar y no concede licencias.
+                Locapto ofrece orientación preliminar y no concede licencias.
               </p>
             </div>
             <TrackedProductPreview variant={campaign.variant} compact />

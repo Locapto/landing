@@ -97,8 +97,8 @@ const faqs = [
     "No. Locapto no concede licencias, no representa una aprobación municipal y no sustituye la revisión profesional o administrativa necesaria.",
   ],
   [
-    "¿Qué municipios cubrirá inicialmente?",
-    "La cobertura inicial en desarrollo se centra en Madrid, Barcelona y Mataró.",
+    "¿Cómo puedo consultar la cobertura?",
+    "La página de cobertura recoge los municipios y actividades disponibles. Cada precalificación también indica su alcance y las fuentes revisadas.",
   ],
   [
     "¿Para quién está pensado?",
@@ -165,8 +165,6 @@ export default function Home() {
               </div>
               <p className="hero-note">
                 Para gestorías, técnicos, empresas y emprendedores.
-                <br />
-                Empezamos por Madrid, Barcelona y Mataró.
               </p>
             </div>
             <TrackedProductPreview variant="home" />
@@ -324,13 +322,11 @@ export default function Home() {
         <section className="section alt-section" id="cobertura">
           <div className="shell coverage-layout">
             <div>
-              <p className="eyebrow">Cobertura inicial</p>
-              <h2>
-                Empezamos con una cobertura limitada para poder hacerla bien.
-              </h2>
+              <p className="eyebrow">Cobertura</p>
+              <h2>Consulta municipios y actividades disponibles en Locapto.</h2>
               <p>
-                Ampliamos cobertura progresivamente según demanda y
-                disponibilidad de fuentes oficiales verificables.
+                Revisa el alcance de cada precalificación y las fuentes
+                oficiales que la sustentan.
               </p>
               <Link className="button button-quiet" href="/cobertura">
                 Ver cobertura <ArrowRight aria-hidden="true" />

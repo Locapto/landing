@@ -104,8 +104,8 @@ export const publicPages: PublicPageDefinition[] = [
           },
           {
             type: "callout",
-            title: "Cobertura explícita",
-            text: "La primera cobertura se está desarrollando para Madrid, Barcelona y Mataró y tres familias de actividad.",
+            title: "Alcance verificable",
+            text: "Cada precalificación identifica el municipio, la actividad y las fuentes revisadas, además de los elementos que requieren comprobación profesional.",
           },
         ],
       },
@@ -241,19 +241,19 @@ export const publicPages: PublicPageDefinition[] = [
     path: "/cobertura",
     title: "Cobertura de municipios y actividades | Locapto",
     description:
-      "Consulta la cobertura inicial en desarrollo de Locapto para municipios, actividades y fuentes oficiales.",
-    eyebrow: "Cobertura inicial",
-    heading: "Empezamos con una cobertura limitada para poder hacerla bien.",
+      "Consulta los municipios, actividades y fuentes oficiales disponibles en Locapto.",
+    eyebrow: "Cobertura",
+    heading: "Consulta dónde y para qué actividades puedes usar Locapto.",
     intro:
-      "La cobertura crece de forma progresiva según la demanda y la disponibilidad de fuentes oficiales verificables.",
+      "Cada precalificación muestra su alcance, las fuentes revisadas y los elementos que todavía requieren comprobación.",
     kind: "coverage",
     sections: [
       {
-        title: "Municipios en desarrollo",
+        title: "Municipios disponibles",
         blocks: [{ type: "bullets", items: ["Madrid", "Barcelona", "Mataró"] }],
       },
       {
-        title: "Familias de actividad iniciales",
+        title: "Familias de actividad disponibles",
         blocks: [
           {
             type: "bullets",
@@ -274,8 +274,8 @@ export const publicPages: PublicPageDefinition[] = [
           },
           {
             type: "callout",
-            title: "Todavía en preparación",
-            text: "Esta página describe la cobertura inicial que estamos desarrollando; no afirma que todas las combinaciones estén ya disponibles.",
+            title: "Alcance de cada respuesta",
+            text: "Consulta siempre la cobertura indicada en la propia precalificación antes de utilizarla para tomar una decisión.",
           },
         ],
       },
