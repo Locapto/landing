@@ -17,7 +17,6 @@ function setup() {
   }
   sheet.setFrozenRows(1);
   sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight("bold").setBackground("#10152f").setFontColor("#ffffff");
-  if (!sheet.getFilter()) sheet.getRange(1, 1, Math.max(sheet.getMaxRows(), 2), HEADERS.length).createFilter();
   sheet.autoResizeColumns(1, HEADERS.length);
   return { spreadsheetId: spreadsheetId, sheetName: SHEET_NAME, headers: HEADERS.length };
 }
