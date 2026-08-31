@@ -7,7 +7,7 @@ const groups = [
     "Producto",
     [
       ["Cómo funciona", "/como-funciona"],
-      ["Acceso beta", "/#acceso-beta"],
+      ["Lista de acceso", "/#acceso-beta"],
     ],
   ],
   [

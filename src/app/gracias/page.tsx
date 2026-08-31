@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Gracias por tu interés | Locapto",
-  description: "Hemos recibido tu solicitud de acceso anticipado a Locapto.",
+  description: "Te has apuntado para cuando Locapto esté disponible.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/gracias" },
 };
@@ -19,12 +19,12 @@ export default function ThanksPage() {
           <span className="thanks-check" aria-hidden="true">
             ✓
           </span>
-          <p className="eyebrow">Solicitud recibida</p>
+          <p className="eyebrow">Lista de acceso</p>
           <h1>Gracias por tu interés en Locapto.</h1>
           <p>
-            Hemos recibido tu solicitud. Cuando abramos nuevas plazas de acceso
-            anticipado podremos contactar contigo usando los datos que nos has
-            facilitado.
+            Te has apuntado para cuando Locapto esté disponible. Podremos
+            contactarte usando los datos que nos has facilitado cuando abramos
+            nuevas plazas.
           </p>
           <Link className="button button-dark" href="/">
             <ArrowLeft aria-hidden="true" />

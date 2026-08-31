@@ -86,7 +86,7 @@ export function PricingExperiment() {
         ))}
       </ul>
       <button className="button button-dark" type="button" onClick={select}>
-        Quiero acceso Pro
+        Avisadme sobre Locapto Pro
       </button>
       <small>
         Precio orientativo en fase de validación. No se realizará ningún cargo.

@@ -1,3 +1,5 @@
+export const BETA_CTA_LABEL = "Avisadme cuando esté disponible";
+
 export const marketingConfig = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://locapto.com",
   professionalPricingExperimentEnabled: false,

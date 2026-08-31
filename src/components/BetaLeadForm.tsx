@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
-import type { LandingVariant } from "@/config/marketing";
+import { BETA_CTA_LABEL, type LandingVariant } from "@/config/marketing";
 import { getFirstTouchAttribution } from "@/lib/analytics/attribution";
 import { track } from "@/lib/analytics/events";
 import {
@@ -203,10 +203,10 @@ export function BetaLeadForm({
     return (
       <div className="form-success" role="status">
         <span aria-hidden="true">✓</span>
-        <h3>Gracias. Hemos recibido tu solicitud.</h3>
+        <h3>Ya estás en la lista de acceso.</h3>
         <p>
-          Cuando abramos nuevas plazas de acceso anticipado podremos contactar
-          contigo usando los datos que nos has facilitado.
+          Podremos contactarte usando los datos que nos has facilitado cuando
+          Locapto esté disponible y abramos nuevas plazas.
         </p>
       </div>
     );
@@ -217,10 +217,10 @@ export function BetaLeadForm({
         <form onSubmit={submitPartial} noValidate>
           <div className="form-heading">
             <p className="form-step">Paso 1 de 2</p>
-            <h3>Solicita acceso beta</h3>
+            <h3>Apúntate para cuando esté disponible</h3>
             <p>
-              Empieza con dos datos. Guardaremos tu solicitud antes de pedir
-              información opcional.
+              Empieza con dos datos. Los guardaremos para poder contactarte
+              cuando abramos el acceso.
             </p>
           </div>
           <div className="form-field">
@@ -283,11 +283,11 @@ export function BetaLeadForm({
             type="submit"
             disabled={pending}
           >
-            {pending ? "Guardando…" : "Solicitar acceso beta"}
+            {pending ? "Guardando…" : BETA_CTA_LABEL}
           </button>
           <p className="privacy-copy">
-            Usaremos tus datos para gestionar tu solicitud de acceso beta.
-            Consulta nuestra{" "}
+            Usaremos tus datos para gestionar tu solicitud y avisarte cuando
+            Locapto esté disponible. Consulta nuestra{" "}
             <Link href="/privacidad">Política de privacidad</Link>.
           </p>
         </form>
@@ -295,7 +295,7 @@ export function BetaLeadForm({
         <form onSubmit={finish} noValidate>
           <div className="form-heading">
             <p className="form-step">Solicitud guardada</p>
-            <h3>Dos preguntas para priorizar tu acceso</h3>
+            <h3>Dos preguntas para priorizar el contacto</h3>
             <p>
               Todo lo siguiente es opcional. Tu solicitud inicial ya está
               guardada.

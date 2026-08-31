@@ -21,6 +21,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { TrackedBetaLink } from "@/components/TrackedBetaLink";
 import { TrackedProductPreview } from "@/components/TrackedProductPreview";
+import { BETA_CTA_LABEL } from "@/config/marketing";
 
 export const metadata: Metadata = {
   title: "Precalificación para abrir negocios y locales | Locapto",
@@ -146,7 +147,7 @@ export default function Home() {
         <section className="hero-section">
           <div className="shell hero-grid">
             <div className="hero-copy">
-              <p className="eyebrow">BETA PRIVADA · Acceso anticipado</p>
+              <p className="eyebrow">BETA PRIVADA · Lista de acceso</p>
               <h1>Precalifica aperturas de negocio con fuentes oficiales.</h1>
               <p className="hero-lead">
                 Locapto reúne requisitos, procedimientos, documentación y
@@ -155,7 +156,7 @@ export default function Home() {
               </p>
               <div className="hero-actions">
                 <TrackedBetaLink variant="home">
-                  Solicitar acceso beta <ArrowRight aria-hidden="true" />
+                  {BETA_CTA_LABEL} <ArrowRight aria-hidden="true" />
                 </TrackedBetaLink>
                 <Link className="button button-quiet" href="#como-funciona">
                   Ver cómo funciona
@@ -298,7 +299,7 @@ export default function Home() {
                 repetidamente con aperturas, actividades y locales.
               </p>
               <TrackedBetaLink variant="home" href="#acceso-beta">
-                Solicitar acceso profesional <ArrowRight aria-hidden="true" />
+                {BETA_CTA_LABEL} <ArrowRight aria-hidden="true" />
               </TrackedBetaLink>
             </div>
             <ul className="benefit-list">
@@ -321,12 +322,11 @@ export default function Home() {
         <section className="beta-section" id="acceso-beta">
           <div className="shell beta-grid">
             <div>
-              <p className="eyebrow">Beta privada</p>
-              <h2>¿Quieres ser de los primeros en probar Locapto?</h2>
+              <p className="eyebrow">Lista de acceso a la beta</p>
+              <h2>Apúntate para cuando Locapto esté disponible.</h2>
               <p>
-                La beta está disponible para solicitudes de todo el territorio
-                nacional. Déjanos tu contacto y cuéntanos brevemente cómo
-                trabajas.
+                Déjanos tu contacto ahora y podremos avisarte cuando abramos el
+                acceso en todo el territorio nacional.
               </p>
               <div className="beta-points">
                 <span>

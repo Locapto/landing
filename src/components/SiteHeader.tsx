@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BETA_CTA_LABEL } from "@/config/marketing";
 
 export function SiteHeader({ reduced = false }: { reduced?: boolean }) {
   return (
@@ -33,13 +34,13 @@ export function SiteHeader({ reduced = false }: { reduced?: boolean }) {
               <Link href="/para-gestorias">Para profesionales</Link>
               <Link href="/recursos">Recursos</Link>
               <Link className="button button-dark" href="/#acceso-beta">
-                Solicitar acceso beta
+                {BETA_CTA_LABEL}
               </Link>
             </nav>
           </details>
         )}
         <Link className="button button-dark header-cta" href="/#acceso-beta">
-          Solicitar acceso beta
+          {BETA_CTA_LABEL}
         </Link>
       </div>
     </header>

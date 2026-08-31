@@ -37,11 +37,13 @@ test("homepage loads and navigation works", async ({ page }) => {
 test("beta CTA reaches form and validates Step 1", async ({ page }) => {
   await page.goto("/");
   await page
-    .getByRole("link", { name: /Solicitar acceso beta/ })
+    .getByRole("link", { name: /Avisadme cuando esté disponible/ })
     .first()
     .click();
   await expect(page.locator("#acceso-beta")).toBeInViewport();
-  await page.getByRole("button", { name: "Solicitar acceso beta" }).click();
+  await page
+    .getByRole("button", { name: "Avisadme cuando esté disponible" })
+    .click();
   await expect(page.locator("#form-error-home")).toContainText(
     "Completa el email profesional",
   );
@@ -54,17 +56,19 @@ test("Step 1 saves before optional Step 2 and can be abandoned", async ({
   await page.goto("/#acceso-beta");
   await page.getByLabel(/Email profesional/).fill("qa@example.com");
   await page.getByLabel(/Persona/).selectOption("gestoria");
-  await page.getByRole("button", { name: "Solicitar acceso beta" }).click();
+  await page
+    .getByRole("button", { name: "Avisadme cuando esté disponible" })
+    .click();
   await expect(page.getByText("Solicitud guardada")).toBeVisible();
   await expect(
     page.getByRole("heading", {
-      name: "Dos preguntas para priorizar tu acceso",
+      name: "Dos preguntas para priorizar el contacto",
     }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Ahora no" }).click();
   await expect(
     page.getByRole("heading", {
-      name: "Gracias. Hemos recibido tu solicitud.",
+      name: "Ya estás en la lista de acceso.",
     }),
   ).toBeVisible();
 });
@@ -74,7 +78,9 @@ test("full beta form completes", async ({ page }) => {
   await page.goto("/lp/gestorias#acceso-beta");
   await page.getByLabel(/Email profesional/).fill("qa@example.com");
   await page.getByLabel(/Persona/).selectOption("gestoria");
-  await page.getByRole("button", { name: "Solicitar acceso beta" }).click();
+  await page
+    .getByRole("button", { name: "Avisadme cuando esté disponible" })
+    .click();
   await page.getByLabel("Nombre").fill("Prueba QA");
   await page.getByLabel("Empresa").fill("Locapto QA");
   await page.getByLabel(/Cuántos expedientes/).selectOption("3-5");
@@ -83,7 +89,7 @@ test("full beta form completes", async ({ page }) => {
   await page.getByRole("button", { name: "Terminar" }).click();
   await expect(
     page.getByRole("heading", {
-      name: "Gracias. Hemos recibido tu solicitud.",
+      name: "Ya estás en la lista de acceso.",
     }),
   ).toBeVisible();
 });
@@ -96,7 +102,7 @@ test("thank-you page is honest", async ({ page }) => {
       name: "Gracias por tu interés en Locapto.",
     }),
   ).toBeVisible();
-  await expect(page.getByText(/Cuando abramos nuevas plazas/)).toBeVisible();
+  await expect(page.getByText(/cuando abramos nuevas plazas/i)).toBeVisible();
 });
 
 test("mobile menu is usable", async ({ page }) => {

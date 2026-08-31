@@ -7,7 +7,11 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { TrackedBetaLink } from "@/components/TrackedBetaLink";
 import { TrackedProductPreview } from "@/components/TrackedProductPreview";
-import { marketingConfig, type LandingVariant } from "@/config/marketing";
+import {
+  BETA_CTA_LABEL,
+  marketingConfig,
+  type LandingVariant,
+} from "@/config/marketing";
 
 const campaigns = {
   gestorias: {
@@ -93,7 +97,7 @@ export default async function CampaignPage({
         <section className="campaign-hero">
           <div className="shell hero-grid">
             <div>
-              <p className="eyebrow">BETA PRIVADA · Acceso anticipado</p>
+              <p className="eyebrow">BETA PRIVADA · Lista de acceso</p>
               <h1>{campaign.title}</h1>
               <p className="hero-lead">{campaign.intro}</p>
               <ul className="campaign-benefits">
@@ -105,7 +109,7 @@ export default async function CampaignPage({
                 ))}
               </ul>
               <TrackedBetaLink variant={campaign.variant} href="#acceso-beta">
-                Solicitar acceso beta <ArrowRight aria-hidden="true" />
+                {BETA_CTA_LABEL} <ArrowRight aria-hidden="true" />
               </TrackedBetaLink>
               <p className="hero-note">
                 Disponible para solicitudes de toda España. Locapto ofrece
@@ -126,11 +130,11 @@ export default async function CampaignPage({
         <section className="beta-section" id="acceso-beta">
           <div className="shell beta-grid">
             <div>
-              <p className="eyebrow">Acceso anticipado</p>
-              <h2>Cuéntanos cómo trabajas.</h2>
+              <p className="eyebrow">Lista de acceso</p>
+              <h2>Apúntate para cuando Locapto esté disponible.</h2>
               <p>
-                La primera parte tarda menos de un minuto y queda guardada antes
-                de pedir información opcional.
+                La primera parte tarda menos de un minuto. Guardaremos tus datos
+                para poder contactarte cuando abramos el acceso.
               </p>
             </div>
             <BetaLeadForm landingVariant={campaign.variant} />

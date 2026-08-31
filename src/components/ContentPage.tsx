@@ -1,6 +1,6 @@
 import { AlertTriangle, ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
-import type { LandingVariant } from "@/config/marketing";
+import { BETA_CTA_LABEL, type LandingVariant } from "@/config/marketing";
 import type { PublicPageDefinition } from "@/content/types";
 import { pageLabel } from "@/content/pages";
 import { BetaLeadForm } from "./BetaLeadForm";
@@ -117,14 +117,14 @@ export function ContentPage({ page }: { page: PublicPageDefinition }) {
           </article>
           <aside className="article-aside">
             <div className="aside-card">
-              <p className="eyebrow">Beta privada</p>
+              <p className="eyebrow">Lista de acceso</p>
               <h2>Precalifica con fuentes oficiales.</h2>
               <p>
-                Solicita acceso desde cualquier municipio de España y cuéntanos
-                brevemente cómo trabajas.
+                Apúntate desde cualquier municipio de España y podremos
+                contactarte cuando abramos el acceso.
               </p>
               <Link className="button button-dark" href="#acceso-beta">
-                Solicitar acceso <ArrowRight aria-hidden="true" />
+                {BETA_CTA_LABEL} <ArrowRight aria-hidden="true" />
               </Link>
             </div>
           </aside>
@@ -148,12 +148,11 @@ export function ContentPage({ page }: { page: PublicPageDefinition }) {
         <section className="beta-section" id="acceso-beta">
           <div className="shell beta-grid">
             <div>
-              <p className="eyebrow">Acceso anticipado</p>
-              <h2>¿Quieres ser de los primeros en probar Locapto?</h2>
+              <p className="eyebrow">Lista de acceso</p>
+              <h2>Apúntate para cuando Locapto esté disponible.</h2>
               <p>
-                La beta está disponible para solicitudes de todo el territorio
-                nacional. Déjanos tu contacto y cuéntanos brevemente cómo
-                trabajas.
+                Déjanos tu contacto ahora y podremos avisarte cuando abramos el
+                acceso en todo el territorio nacional.
               </p>
             </div>
             <BetaLeadForm landingVariant={variant} />
