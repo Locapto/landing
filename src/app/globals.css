@@ -2329,6 +2329,10 @@ button:disabled {
 .thanks-check {
   margin-inline: auto;
 }
+.thanks-check svg {
+  width: 23px;
+  height: 23px;
+}
 .consent-banner {
   position: fixed;
   right: 18px;

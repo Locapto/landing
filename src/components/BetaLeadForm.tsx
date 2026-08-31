@@ -219,7 +219,7 @@ export function BetaLeadForm({
         <p>
           {saving
             ? "Estamos terminando de guardar la información."
-            : "Te avisaremos usando los datos que nos has facilitado en cuanto Locapto esté disponible."}
+            : "Revisa tu bandeja de entrada para confirmar el correo. Después te avisaremos cuando Locapto esté disponible."}
         </p>
       </div>
     );
@@ -322,7 +322,8 @@ export function BetaLeadForm({
           </button>
           <p className="privacy-copy">
             Usaremos tus datos para gestionar tu solicitud y avisarte cuando
-            Locapto esté disponible. Consulta nuestra{" "}
+            Locapto esté disponible. Te enviaremos un correo para confirmar la
+            dirección. Consulta nuestra{" "}
             <Link href="/privacidad">Política de privacidad</Link>.
           </p>
         </form>
@@ -332,8 +333,9 @@ export function BetaLeadForm({
             <p className="form-step">Ya estás en la lista</p>
             <h3>Cuéntanos un poco más</h3>
             <p>
-              Todo lo siguiente es opcional y nos ayudará a entender mejor lo
-              que necesitas.
+              Te enviaremos un enlace para confirmar el correo. Todo lo
+              siguiente es opcional y nos ayudará a entender mejor lo que
+              necesitas.
             </p>
           </div>
           <div className="form-row">

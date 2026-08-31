@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/gracias", "/lp/"],
+        disallow: ["/api/", "/confirmar-email", "/gracias", "/lp/"],
       },
       { userAgent: "OAI-SearchBot", allow: "/" },
     ],

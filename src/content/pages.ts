@@ -666,7 +666,7 @@ export const publicPages: PublicPageDefinition[] = [
               "Titular: Víctor Saavedra.",
               "NIF: ES38872240D.",
               "Domicilio: Avinguda Jaume Recoder, 53, 08301 Mataró, Barcelona, España.",
-              "Correo electrónico: contacto@locapto.com.",
+              "Correo electrónico: victor@locapto.com.",
             ],
           },
         ],
@@ -713,7 +713,7 @@ export const publicPages: PublicPageDefinition[] = [
               "Responsable del tratamiento: Víctor Saavedra.",
               "NIF: ES38872240D.",
               "Domicilio: Avinguda Jaume Recoder, 53, 08301 Mataró, Barcelona, España.",
-              "Contacto y ejercicio de derechos: contacto@locapto.com.",
+              "Contacto y ejercicio de derechos: victor@locapto.com.",
             ],
           },
         ],
@@ -723,7 +723,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Tratamos el email profesional, el perfil, los datos opcionales de contacto y la información básica sobre cómo llegaste al sitio para gestionar tu solicitud, entender qué necesitas y avisarte cuando Locapto esté disponible. No solicitamos direcciones IP ni te suscribimos automáticamente a comunicaciones comerciales.",
+            text: "Tratamos el email profesional, el perfil, los datos opcionales de contacto y la información básica sobre cómo llegaste al sitio para gestionar tu solicitud, confirmar que la dirección de correo es correcta, entender qué necesitas y avisarte cuando Locapto esté disponible. Registramos el envío, los errores inmediatos de envío y la confirmación expresa del correo; no utilizamos píxeles para registrar aperturas. No solicitamos direcciones IP ni te suscribimos automáticamente a comunicaciones comerciales.",
           },
         ],
       },
@@ -737,7 +737,7 @@ export const publicPages: PublicPageDefinition[] = [
           {
             type: "bullets",
             items: [
-              "Puedes retirar el consentimiento o solicitar el acceso, rectificación, supresión, oposición, limitación o portabilidad escribiendo a contacto@locapto.com.",
+              "Puedes retirar el consentimiento o solicitar el acceso, rectificación, supresión, oposición, limitación o portabilidad escribiendo a victor@locapto.com.",
               "Los datos se utilizarán para gestionar la lista de espera, avisar de la disponibilidad de Locapto y enviar invitaciones relacionadas con la beta; no se usarán para marketing general sin un consentimiento separado.",
               "Puedes presentar una reclamación ante la Agencia Española de Protección de Datos si consideras que el tratamiento no respeta la normativa aplicable.",
             ],
@@ -749,7 +749,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Utilizamos Vercel para alojar el sitio y Google Sheets y Apps Script para guardar inicialmente las solicitudes. Estos proveedores actúan como encargados del tratamiento y pueden realizar transferencias internacionales con las garantías previstas en sus condiciones y acuerdos de tratamiento. Las herramientas de medición opcionales solo se cargan según tu preferencia de cookies.",
+            text: "Utilizamos Vercel para alojar el sitio, Google Sheets y Apps Script para guardar inicialmente las solicitudes y Zoho Mail para enviar el correo de confirmación. Estos proveedores actúan como encargados del tratamiento y pueden realizar transferencias internacionales con las garantías previstas en sus condiciones y acuerdos de tratamiento. Las herramientas de medición opcionales solo se cargan según tu preferencia de cookies.",
           },
         ],
       },

@@ -27,6 +27,8 @@ Recommended filter views:
 
 `partial` means Step 1 was saved. `complete` means the visitor submitted the optional Step 2. A partial lead must not be discarded merely because Step 2 is empty.
 
+Email columns record the SMTP message ID, the latest status and timestamps for sent, confirmed or immediately failed messages. `confirmed` is an explicit action on `locapto.com`; the system does not use an invisible open-tracking pixel. Standard Zoho Mail SMTP does not populate `email_delivered_at`.
+
 ## Scoring
 
 Scoring is calculated by the Vercel server in `src/lib/leads/scoring.ts`. A lead is qualified only when it is complete, belongs to a professional persona, and reports at least 3 cases per month.
@@ -43,5 +45,15 @@ Scoring is calculated by the Vercel server in `src/lib/leads/scoring.ts`. A lead
 8. Execute as the owner and allow webhook invocation by anyone; the shared secret protects the endpoint.
 9. Copy the deployment URL to Vercel as `GOOGLE_SHEETS_WEBHOOK_URL` and the same secret as `GOOGLE_SHEETS_WEBHOOK_SECRET`.
 10. Submit a synthetic test lead and verify that Step 2 updates the same row.
+
+Run `setup()` again whenever the documented header list changes. The email confirmation version adds `email_provider_id`, `email_status`, `email_sent_at`, `email_delivered_at`, `email_confirmed_at` and `email_failed_at`.
+
+## Confirmation email
+
+1. Confirm the exact outgoing server in **Zoho Mail → Settings → Mail Accounts → Server Configuration Details**.
+2. Set `ZOHO_SMTP_HOST`, `ZOHO_SMTP_PORT`, `ZOHO_SMTP_USER`, `ZOHO_SMTP_PASSWORD`, `ZOHO_FROM_EMAIL`, `ZOHO_REPLY_TO` and `EMAIL_CONFIRMATION_SECRET` in Vercel Production.
+3. Use port `465` with SSL or port `587` with TLS. The code selects SSL automatically for port `465`.
+4. Confirmation is recorded only after the recipient opens the signed link and presses the confirmation button on Locapto.
+5. Send one real test and verify the row progresses from `sent` to `confirmed`. An SMTP authentication or recipient rejection is recorded as `failed`.
 
 Never commit the spreadsheet ID, webhook URL, or secret.

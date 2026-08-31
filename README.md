@@ -34,6 +34,13 @@ pnpm build
 | `INDEX_MUNICIPALITY_ACTIVITIES`   | Optional          | Set `false` to noindex and desitemap final combinations. |
 | `GOOGLE_SHEETS_WEBHOOK_URL`       | For live form     | Server-only Apps Script deployment URL.                  |
 | `GOOGLE_SHEETS_WEBHOOK_SECRET`    | For live form     | Server-only shared webhook secret.                       |
+| `ZOHO_SMTP_HOST`                  | For confirmation  | Account-specific Zoho SMTP server.                       |
+| `ZOHO_SMTP_PORT`                  | Optional          | SMTP port; defaults to `465` with SSL.                   |
+| `ZOHO_SMTP_USER`                  | For confirmation  | Zoho mailbox; use `victor@locapto.com`.                  |
+| `ZOHO_SMTP_PASSWORD`              | For confirmation  | Server-only Zoho password or app password.               |
+| `ZOHO_FROM_EMAIL`                 | Optional          | Sender; defaults to `Locapto <ZOHO_SMTP_USER>`.          |
+| `ZOHO_REPLY_TO`                   | Optional          | Reply address; defaults to `ZOHO_SMTP_USER`.             |
+| `EMAIL_CONFIRMATION_SECRET`       | For confirmation  | Random secret used to sign 30-day confirmation links.    |
 | `NEXT_PUBLIC_GTM_ID`              | Optional          | Google Tag Manager container.                            |
 | `NEXT_PUBLIC_GA_ID`               | Optional          | Direct Google Analytics fallback when GTM is absent.     |
 | `NEXT_PUBLIC_LINKEDIN_PARTNER_ID` | Optional          | LinkedIn Insight Tag.                                    |
@@ -42,9 +49,11 @@ Never prefix the webhook URL or secret with `NEXT_PUBLIC_`.
 
 ## Beta form
 
-Step 1 sends email, persona and first-touch attribution to `POST /api/beta`. The server generates a UUID and writes a `partial` lead immediately. Step 2 reuses that UUID and updates the same row to `complete`.
+Step 1 sends email, persona and first-touch attribution to `POST /api/beta`. The server generates a UUID, writes a `partial` lead immediately and schedules an idempotent confirmation email after the response. Step 2 reuses that UUID and updates the same row to `complete`.
 
 The route validates with Zod, enforces same-origin requests, caps values, escapes spreadsheet formulas, uses an eight-second webhook timeout and logs no form PII. Apps Script repeats validation and sanitization and uses `LockService` for concurrent upserts.
+
+Confirmation links open `/confirmar-email` and require a POST from that page, so mail security scanners cannot confirm an address merely by following the link. Zoho SMTP acceptance and immediate failures are written to the same lead row. Open tracking is intentionally disabled.
 
 See [docs/BETA_LEADS.md](docs/BETA_LEADS.md) for the operating workflow and [docs/google-apps-script.gs](docs/google-apps-script.gs) for the copy-ready webhook.
 
@@ -58,6 +67,8 @@ See [docs/BETA_LEADS.md](docs/BETA_LEADS.md) for the operating workflow and [doc
 6. Deploy as a Web app, execute as owner and allow webhook invocation.
 7. Copy its deployment URL and secret into Vercel's server environment.
 8. Submit a real test through the deployed website and verify a single row is updated from `partial` to `complete`.
+
+For confirmation email setup, configure the Zoho SMTP variables and `EMAIL_CONFIRMATION_SECRET` in Vercel Production. Use the exact outgoing server shown in Zoho Mail account settings; this project defaults to port `465` with SSL. Standard Zoho Mail SMTP records provider acceptance or an immediate failure, but does not provide delivery webhooks.
 
 ## Attribution and advertising
 
