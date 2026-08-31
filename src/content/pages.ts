@@ -661,9 +661,13 @@ export const publicPages: PublicPageDefinition[] = [
         title: "Titular del sitio",
         blocks: [
           {
-            type: "callout",
-            title: "Información legal en preparación",
-            text: "Publicaremos aquí la identificación completa del titular, el NIF, el domicilio, el correo de contacto y los datos registrales que correspondan antes del lanzamiento.",
+            type: "bullets",
+            items: [
+              "Titular: Víctor Saavedra.",
+              "NIF: ES38872240D.",
+              "Domicilio: Avinguda Jaume Recoder, 53, 08301 Mataró, Barcelona, España.",
+              "Correo electrónico: contacto@locapto.com.",
+            ],
           },
         ],
       },
@@ -704,9 +708,13 @@ export const publicPages: PublicPageDefinition[] = [
         title: "Responsable",
         blocks: [
           {
-            type: "callout",
-            title: "Información legal en preparación",
-            text: "Publicaremos aquí la identidad completa del responsable, el NIF, el domicilio y el canal para ejercer tus derechos antes del lanzamiento.",
+            type: "bullets",
+            items: [
+              "Responsable del tratamiento: Víctor Saavedra.",
+              "NIF: ES38872240D.",
+              "Domicilio: Avinguda Jaume Recoder, 53, 08301 Mataró, Barcelona, España.",
+              "Contacto y ejercicio de derechos: contacto@locapto.com.",
+            ],
           },
         ],
       },
@@ -723,9 +731,16 @@ export const publicPages: PublicPageDefinition[] = [
         title: "Conservación, base jurídica y derechos",
         blocks: [
           {
-            type: "callout",
-            title: "Información legal en preparación",
-            text: "Antes del lanzamiento publicaremos la base jurídica, el plazo de conservación, los destinatarios, las posibles transferencias y el procedimiento para ejercer tus derechos.",
+            type: "paragraph",
+            text: "La base jurídica es el consentimiento que prestas al solicitar el aviso de disponibilidad. Conservaremos los datos mientras gestionemos la lista de espera y, como máximo, durante 24 meses desde la solicitud. Después los eliminaremos o anonimizaremos, salvo que exista otra relación o una obligación legal que justifique su conservación.",
+          },
+          {
+            type: "bullets",
+            items: [
+              "Puedes retirar el consentimiento o solicitar el acceso, rectificación, supresión, oposición, limitación o portabilidad escribiendo a contacto@locapto.com.",
+              "Los datos se utilizarán para gestionar la lista de espera, avisar de la disponibilidad de Locapto y enviar invitaciones relacionadas con la beta; no se usarán para marketing general sin un consentimiento separado.",
+              "Puedes presentar una reclamación ante la Agencia Española de Protección de Datos si consideras que el tratamiento no respeta la normativa aplicable.",
+            ],
           },
         ],
       },
@@ -734,7 +749,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "La infraestructura prevista utiliza Vercel para alojar el sitio y Google Sheets y Apps Script para guardar inicialmente las solicitudes. Las herramientas de medición opcionales solo se cargan según tu preferencia de cookies.",
+            text: "Utilizamos Vercel para alojar el sitio y Google Sheets y Apps Script para guardar inicialmente las solicitudes. Estos proveedores actúan como encargados del tratamiento y pueden realizar transferencias internacionales con las garantías previstas en sus condiciones y acuerdos de tratamiento. Las herramientas de medición opcionales solo se cargan según tu preferencia de cookies.",
           },
         ],
       },

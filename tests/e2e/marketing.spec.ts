@@ -175,6 +175,60 @@ test("full beta form completes", async ({ page }) => {
   ).toBeVisible();
 });
 
+test("slow lead storage does not block form step transitions", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const originalFetch = window.fetch.bind(window);
+    window.fetch = async (...args) => {
+      const [input, init] = args;
+      const url =
+        typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.href
+            : input.url;
+      if (!url.includes("/api/beta")) return originalFetch(...args);
+      const body = JSON.parse(String(init?.body ?? "{}")) as {
+        stage: string;
+      };
+      await new Promise((resolve) => setTimeout(resolve, 1_000));
+      return new Response(
+        JSON.stringify({
+          ok: true,
+          leadId: "123e4567-e89b-42d3-a456-426614174000",
+          status: body.stage,
+          qualified: body.stage === "complete",
+        }),
+        { status: 200, headers: { "content-type": "application/json" } },
+      );
+    };
+  });
+  await page.goto("/#acceso-beta");
+  await page.getByLabel(/Email profesional/).fill("qa@example.com");
+  await page.getByLabel(/Perfil profesional/).selectOption("gestoria");
+  await page
+    .getByRole("button", { name: "Avisadme cuando esté disponible" })
+    .click();
+
+  await expect(
+    page.getByRole("heading", { name: "Cuéntanos un poco más" }),
+  ).toBeVisible({ timeout: 500 });
+  await expect(
+    page.getByRole("button", { name: "Confirmando alta…" }),
+  ).toBeDisabled();
+  const save = page.getByRole("button", { name: "Guardar respuestas" });
+  await expect(save).toBeEnabled();
+  await save.click();
+
+  await expect(
+    page.getByRole("heading", { name: "Guardando tus respuestas…" }),
+  ).toBeVisible({ timeout: 500 });
+  await expect(
+    page.getByRole("heading", { name: "Ya estás en la lista de avisos." }),
+  ).toBeVisible();
+});
+
 test("thank-you page is honest", async ({ page }) => {
   await page.goto("/gracias");
   await expect(

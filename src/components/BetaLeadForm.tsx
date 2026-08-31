@@ -16,7 +16,7 @@ import {
 import { PRICING_CONTEXT_KEY } from "./PricingExperiment";
 
 const LEAD_KEY = "locapto_beta_lead_id";
-type Step = "partial" | "details" | "done";
+type Step = "partial" | "details-saving" | "details" | "done-saving" | "done";
 type PricingContext = {
   selectedPlan: "professional" | null;
   priceSeen: number | null;
@@ -47,7 +47,6 @@ export function BetaLeadForm({
   const [website, setWebsite] = useState("");
   const [leadId, setLeadId] = useState("");
   const [pricing, setPricing] = useState<PricingContext>(noPricing);
-  const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -118,7 +117,6 @@ export function BetaLeadForm({
       setError("Cuéntanos cuál es tu perfil profesional.");
       return;
     }
-    setPending(true);
     const value = attribution();
     track("beta_step1_submit", {
       persona,
@@ -128,12 +126,17 @@ export function BetaLeadForm({
       utm_source: value.utmSource,
       utm_campaign: value.utmCampaign,
     });
+    const nextLeadId =
+      leadId || sessionStorage.getItem(LEAD_KEY) || crypto.randomUUID();
+    setLeadId(nextLeadId);
+    sessionStorage.setItem(LEAD_KEY, nextLeadId);
+    setStep("details-saving");
     try {
       const data = await post({
         ...commonPayload(),
         stage: "partial",
         email,
-        leadId: leadId || sessionStorage.getItem(LEAD_KEY) || undefined,
+        leadId: nextLeadId,
       });
       setLeadId(data.leadId);
       sessionStorage.setItem(LEAD_KEY, data.leadId);
@@ -147,23 +150,22 @@ export function BetaLeadForm({
         utm_campaign: value.utmCampaign,
       });
     } catch (reason) {
+      setStep("partial");
       setError(
         reason instanceof Error
           ? reason.message
           : "No hemos podido guardar la solicitud.",
       );
-    } finally {
-      setPending(false);
     }
   };
   const finish = async (event: FormEvent) => {
     event.preventDefault();
     setError("");
-    setPending(true);
     track("beta_step2_submit", {
       persona: persona || undefined,
       landing_variant: landingVariant,
     });
+    setStep("done-saving");
     try {
       const data = await post({
         ...commonPayload(),
@@ -185,13 +187,12 @@ export function BetaLeadForm({
       sessionStorage.removeItem(LEAD_KEY);
       setStep("done");
     } catch (reason) {
+      setStep("details");
       setError(
         reason instanceof Error
           ? reason.message
           : "No hemos podido completar la solicitud.",
       );
-    } finally {
-      setPending(false);
     }
   };
   const skip = () => {
@@ -205,17 +206,26 @@ export function BetaLeadForm({
         : [...current, value],
     );
 
-  if (step === "done")
+  if (step === "done" || step === "done-saving") {
+    const saving = step === "done-saving";
     return (
-      <div className="form-success" role="status">
-        <span aria-hidden="true">✓</span>
-        <h3>Ya estás en la lista de avisos.</h3>
+      <div className="form-success" role="status" aria-live="polite">
+        <span aria-hidden="true">{saving ? "…" : "✓"}</span>
+        <h3>
+          {saving
+            ? "Guardando tus respuestas…"
+            : "Ya estás en la lista de avisos."}
+        </h3>
         <p>
-          Te avisaremos usando los datos que nos has facilitado en cuanto
-          Locapto esté disponible.
+          {saving
+            ? "Estamos terminando de guardar la información."
+            : "Te avisaremos usando los datos que nos has facilitado en cuanto Locapto esté disponible."}
         </p>
       </div>
     );
+  }
+
+  const savingDetails = step === "details-saving";
 
   return (
     <div className={compact ? "beta-form compact-form" : "beta-form"}>
@@ -307,12 +317,8 @@ export function BetaLeadForm({
               {error}
             </p>
           )}
-          <button
-            className="button button-dark form-submit"
-            type="submit"
-            disabled={pending}
-          >
-            {pending ? "Guardando…" : BETA_CTA_LABEL}
+          <button className="button button-dark form-submit" type="submit">
+            {BETA_CTA_LABEL}
           </button>
           <p className="privacy-copy">
             Usaremos tus datos para gestionar tu solicitud y avisarte cuando
@@ -403,15 +409,15 @@ export function BetaLeadForm({
             <button
               className="button button-dark"
               type="submit"
-              disabled={pending}
+              disabled={savingDetails}
             >
-              {pending ? "Guardando…" : "Guardar respuestas"}
+              {savingDetails ? "Confirmando alta…" : "Guardar respuestas"}
             </button>
             <button
               className="button button-quiet"
               type="button"
               onClick={skip}
-              disabled={pending}
+              disabled={savingDetails}
             >
               Omitir
             </button>
