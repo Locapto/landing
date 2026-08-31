@@ -55,7 +55,7 @@ test("Step 1 saves before optional Step 2 and can be abandoned", async ({
   await mockBeta(page);
   await page.goto("/#acceso-beta");
   await page.getByLabel(/Email profesional/).fill("qa@example.com");
-  await page.getByLabel(/Persona/).selectOption("gestoria");
+  await page.getByLabel(/Perfil profesional/).selectOption("gestoria");
   await page
     .getByRole("button", { name: "Avisadme cuando esté disponible" })
     .click();
@@ -77,7 +77,7 @@ test("full beta form completes", async ({ page }) => {
   await mockBeta(page);
   await page.goto("/lp/gestorias#acceso-beta");
   await page.getByLabel(/Email profesional/).fill("qa@example.com");
-  await page.getByLabel(/Persona/).selectOption("gestoria");
+  await page.getByLabel(/Perfil profesional/).selectOption("gestoria");
   await page
     .getByRole("button", { name: "Avisadme cuando esté disponible" })
     .click();

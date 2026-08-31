@@ -242,7 +242,7 @@ export function BetaLeadForm({
           </div>
           <div className="form-field">
             <label htmlFor={`persona-${landingVariant}`}>
-              Persona <span aria-hidden="true">*</span>
+              Perfil profesional <span aria-hidden="true">*</span>
             </label>
             <select
               id={`persona-${landingVariant}`}
@@ -250,7 +250,7 @@ export function BetaLeadForm({
               onChange={(e) => setPersona(e.target.value as Persona)}
               required
             >
-              <option value="">Selecciona una opción</option>
+              <option value="">Selecciona tu perfil</option>
               {PERSONAS.map(([value, label]) => (
                 <option key={value} value={value}>
                   {label}
