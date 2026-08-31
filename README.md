@@ -62,7 +62,7 @@ See [docs/BETA_LEADS.md](docs/BETA_LEADS.md) for the operating workflow and [doc
 
 The first page load stores UTMs, landing variant, initial path and referrer in session storage. Internal navigation never overwrites first-touch data. Suggested campaigns include:
 
-- `utm_source=google&utm_campaign=google_madrid_apertura`
+- `utm_source=google&utm_campaign=google_apertura_espana`
 - `utm_source=linkedin&utm_campaign=linkedin_gestorias`
 - `utm_source=linkedin&utm_campaign=linkedin_tecnicos`
 - `utm_source=linkedin&utm_campaign=linkedin_empresas`

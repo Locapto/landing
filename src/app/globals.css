@@ -664,41 +664,6 @@ button:disabled {
   background: var(--accent-100);
   color: var(--accent-700);
 }
-.coverage-layout {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 90px;
-  align-items: center;
-}
-.coverage-layout > div:first-child > .button {
-  margin-top: 20px;
-}
-.coverage-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.coverage-cards article {
-  min-height: 310px;
-  padding: 28px;
-  border: 1px solid var(--line);
-  border-radius: 17px;
-  background: white;
-}
-.coverage-cards svg {
-  width: 46px;
-  height: 46px;
-  padding: 11px;
-  border-radius: 12px;
-  background: var(--accent-100);
-  color: var(--accent-700);
-}
-.coverage-cards h3 {
-  margin-top: 58px;
-}
-.coverage-cards p {
-  line-height: 1.9;
-}
 .beta-section {
   padding: 110px 0;
   background: linear-gradient(135deg, #efecff 0%, #f9f8ff 48%, #edeaff 100%);
@@ -1383,8 +1348,7 @@ button:disabled {
     grid-template-columns: 1fr 1fr;
   }
   .output-layout,
-  .professional-grid,
-  .coverage-layout {
+  .professional-grid {
     gap: 48px;
   }
   .footer-grid {
@@ -1405,7 +1369,6 @@ button:disabled {
   .split-copy,
   .output-layout,
   .professional-grid,
-  .coverage-layout,
   .beta-grid,
   .faq-layout {
     grid-template-columns: 1fr;
@@ -1455,7 +1418,6 @@ button:disabled {
     font-size: clamp(2.05rem, 10vw, 3rem);
   }
   .audience-grid,
-  .coverage-cards,
   .benefit-list,
   .output-grid,
   .pricing-card ul {

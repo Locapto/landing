@@ -8,7 +8,6 @@ import {
   FileText,
   Gauge,
   Landmark,
-  MapPin,
   Network,
   Search,
   ShieldCheck,
@@ -26,12 +25,12 @@ import { TrackedProductPreview } from "@/components/TrackedProductPreview";
 export const metadata: Metadata = {
   title: "Precalificación para abrir negocios y locales | Locapto",
   description:
-    "Consulta requisitos, procedimientos, condicionantes y fuentes oficiales según actividad y municipio. Locapto ayuda a profesionales y empresas a precalificar aperturas.",
+    "Precalifica aperturas en cualquier municipio de España. Consulta requisitos, procedimientos, condicionantes y fuentes oficiales con Locapto.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Precalificación para abrir negocios y locales | Locapto",
     description:
-      "Precalifica aperturas con requisitos, condicionantes y fuentes oficiales.",
+      "Precalifica aperturas en toda España con requisitos, condicionantes y fuentes oficiales.",
     url: "/",
     locale: "es_ES",
     siteName: "Locapto",
@@ -41,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Precalificación para abrir negocios y locales | Locapto",
     description:
-      "Precalifica aperturas con requisitos, condicionantes y fuentes oficiales.",
+      "Precalifica aperturas en toda España con requisitos, condicionantes y fuentes oficiales.",
   },
 };
 
@@ -84,7 +83,6 @@ const outputs = [
   [ShieldCheck, "Bloqueos habituales"],
   [FileCheck2, "Fuentes oficiales"],
   [Network, "Vigencia"],
-  [MapPin, "Cobertura"],
   [Search, "Información pendiente"],
 ] as const;
 const faqs = [
@@ -97,8 +95,8 @@ const faqs = [
     "No. Locapto no concede licencias, no representa una aprobación municipal y no sustituye la revisión profesional o administrativa necesaria.",
   ],
   [
-    "¿Cómo puedo consultar la cobertura?",
-    "La página de cobertura recoge los municipios y actividades disponibles. Cada precalificación también indica su alcance y las fuentes revisadas.",
+    "¿Dónde está disponible la beta?",
+    "Puedes solicitar acceso desde cualquier municipio de España. Locapto está planteado para prestar servicio en todo el territorio nacional.",
   ],
   [
     "¿Para quién está pensado?",
@@ -106,7 +104,7 @@ const faqs = [
   ],
   [
     "¿Qué fuentes utiliza Locapto?",
-    "La propuesta se basa en fuentes oficiales de las administraciones competentes, con trazabilidad, fecha de revisión y cobertura explícita.",
+    "La propuesta se basa en fuentes oficiales de las administraciones competentes, con trazabilidad y fecha de revisión.",
   ],
   [
     "¿Puedo usar Locapto si soy una gestoría?",
@@ -118,7 +116,7 @@ const faqs = [
   ],
   [
     "¿Cuándo estará disponible?",
-    "Estamos preparando una beta privada. No publicamos una fecha cerrada; las solicitudes nos ayudan a priorizar perfiles y cobertura.",
+    "Estamos preparando una beta privada para solicitudes de toda España. No publicamos una fecha cerrada.",
   ],
 ];
 
@@ -135,6 +133,10 @@ export default function Home() {
               name: "Locapto",
               url: "https://locapto.com",
               logo: "https://locapto.com/brand/icon-colors.webp",
+              areaServed: {
+                "@type": "Country",
+                name: "España",
+              },
             },
             {
               "@context": "https://schema.org",
@@ -164,7 +166,8 @@ export default function Home() {
                 </Link>
               </div>
               <p className="hero-note">
-                Para gestorías, técnicos, empresas y emprendedores.
+                Para gestorías, técnicos, empresas y emprendedores de toda
+                España.
               </p>
             </div>
             <TrackedProductPreview variant="home" />
@@ -175,7 +178,7 @@ export default function Home() {
             {[
               "Fuentes oficiales",
               "Trazabilidad",
-              "Cobertura explícita",
+              "Ámbito nacional",
               "Sin falsas certezas",
             ].map((item) => (
               <div key={item}>
@@ -319,53 +322,15 @@ export default function Home() {
             </ul>
           </div>
         </section>
-        <section className="section alt-section" id="cobertura">
-          <div className="shell coverage-layout">
-            <div>
-              <p className="eyebrow">Cobertura</p>
-              <h2>Consulta municipios y actividades disponibles en Locapto.</h2>
-              <p>
-                Revisa el alcance de cada precalificación y las fuentes
-                oficiales que la sustentan.
-              </p>
-              <Link className="button button-quiet" href="/cobertura">
-                Ver cobertura <ArrowRight aria-hidden="true" />
-              </Link>
-            </div>
-            <div className="coverage-cards">
-              <article>
-                <MapPin aria-hidden="true" />
-                <h3>Municipios</h3>
-                <p>
-                  Madrid
-                  <br />
-                  Barcelona
-                  <br />
-                  Mataró
-                </p>
-              </article>
-              <article>
-                <Store aria-hidden="true" />
-                <h3>Actividades</h3>
-                <p>
-                  Comercio minorista
-                  <br />
-                  Peluquería y estética no sanitaria
-                  <br />
-                  Cafetería y restauración
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
         <section className="beta-section" id="acceso-beta">
           <div className="shell beta-grid">
             <div>
               <p className="eyebrow">Beta privada</p>
               <h2>¿Quieres ser de los primeros en probar Locapto?</h2>
               <p>
-                Estamos preparando el acceso inicial. Déjanos tu contacto y
-                cuéntanos brevemente cómo trabajas para poder priorizar la beta.
+                La beta está disponible para solicitudes de todo el territorio
+                nacional. Déjanos tu contacto y cuéntanos brevemente cómo
+                trabajas.
               </p>
               <div className="beta-points">
                 <span>

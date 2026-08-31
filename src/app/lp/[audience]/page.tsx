@@ -108,7 +108,8 @@ export default async function CampaignPage({
                 Solicitar acceso beta <ArrowRight aria-hidden="true" />
               </TrackedBetaLink>
               <p className="hero-note">
-                Locapto ofrece orientación preliminar y no concede licencias.
+                Disponible para solicitudes de toda España. Locapto ofrece
+                orientación preliminar y no concede licencias.
               </p>
             </div>
             <TrackedProductPreview variant={campaign.variant} compact />

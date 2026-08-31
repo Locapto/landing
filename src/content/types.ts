@@ -17,13 +17,7 @@ export type PublicPageDefinition = {
   eyebrow: string;
   heading: string;
   intro: string;
-  kind:
-    | "audience"
-    | "product"
-    | "coverage"
-    | "resource-index"
-    | "article"
-    | "legal";
+  kind: "audience" | "product" | "resource-index" | "article" | "legal";
   sections: ContentSection[];
   relatedPaths: string[];
   indexable: true;

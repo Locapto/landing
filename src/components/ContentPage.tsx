@@ -120,8 +120,8 @@ export function ContentPage({ page }: { page: PublicPageDefinition }) {
               <p className="eyebrow">Beta privada</p>
               <h2>Precalifica con fuentes oficiales.</h2>
               <p>
-                Ayúdanos a priorizar perfiles, municipios y actividades para el
-                acceso inicial.
+                Solicita acceso desde cualquier municipio de España y cuéntanos
+                brevemente cómo trabajas.
               </p>
               <Link className="button button-dark" href="#acceso-beta">
                 Solicitar acceso <ArrowRight aria-hidden="true" />
@@ -151,8 +151,9 @@ export function ContentPage({ page }: { page: PublicPageDefinition }) {
               <p className="eyebrow">Acceso anticipado</p>
               <h2>¿Quieres ser de los primeros en probar Locapto?</h2>
               <p>
-                Estamos preparando el acceso inicial. Déjanos tu contacto y
-                cuéntanos brevemente cómo trabajas para poder priorizar la beta.
+                La beta está disponible para solicitudes de todo el territorio
+                nacional. Déjanos tu contacto y cuéntanos brevemente cómo
+                trabajas.
               </p>
             </div>
             <BetaLeadForm landingVariant={variant} />

@@ -108,9 +108,9 @@ test("mobile menu is usable", async ({ page }) => {
   ).toBeVisible();
   await page
     .getByRole("navigation", { name: "Navegación móvil" })
-    .getByRole("link", { name: "Cobertura" })
+    .getByRole("link", { name: "Recursos" })
     .click();
-  await expect(page).toHaveURL(/\/cobertura$/);
+  await expect(page).toHaveURL(/\/recursos$/);
 });
 
 test("representative viewports have no horizontal overflow", async ({

@@ -61,7 +61,7 @@ export const publicPages: PublicPageDefinition[] = [
     ],
     relatedPaths: [
       "/como-funciona",
-      "/cobertura",
+      "/recursos",
       "/recursos/licencia-actividad-vs-declaracion-responsable",
     ],
     indexable: true,
@@ -112,7 +112,7 @@ export const publicPages: PublicPageDefinition[] = [
     ],
     relatedPaths: [
       "/como-funciona",
-      "/cobertura",
+      "/recursos",
       "/recursos/que-comprobar-antes-de-alquilar-un-local",
     ],
     indexable: true,
@@ -170,7 +170,7 @@ export const publicPages: PublicPageDefinition[] = [
       },
     ],
     relatedPaths: [
-      "/cobertura",
+      "/como-funciona",
       "/recursos/como-abrir-un-negocio-en-un-local",
       "/recursos/que-comprobar-antes-de-alquilar-un-local",
     ],
@@ -231,56 +231,10 @@ export const publicPages: PublicPageDefinition[] = [
       },
     ],
     relatedPaths: [
-      "/cobertura",
+      "/para-gestorias",
       "/recursos",
       "/recursos/licencia-de-actividad",
     ],
-    indexable: true,
-  },
-  {
-    path: "/cobertura",
-    title: "Cobertura de municipios y actividades | Locapto",
-    description:
-      "Consulta los municipios, actividades y fuentes oficiales disponibles en Locapto.",
-    eyebrow: "Cobertura",
-    heading: "Consulta dónde y para qué actividades puedes usar Locapto.",
-    intro:
-      "Cada precalificación muestra su alcance, las fuentes revisadas y los elementos que todavía requieren comprobación.",
-    kind: "coverage",
-    sections: [
-      {
-        title: "Municipios disponibles",
-        blocks: [{ type: "bullets", items: ["Madrid", "Barcelona", "Mataró"] }],
-      },
-      {
-        title: "Familias de actividad disponibles",
-        blocks: [
-          {
-            type: "bullets",
-            items: [
-              "Comercio minorista.",
-              "Peluquería y estética no sanitaria.",
-              "Cafetería y restauración.",
-            ],
-          },
-        ],
-      },
-      {
-        title: "Qué significa cobertura",
-        blocks: [
-          {
-            type: "paragraph",
-            text: "La cobertura debe indicar qué municipio, actividad, procedimiento y variables han sido revisados, cuándo se revisaron las fuentes y qué elementos quedan fuera.",
-          },
-          {
-            type: "callout",
-            title: "Alcance de cada respuesta",
-            text: "Consulta siempre la cobertura indicada en la propia precalificación antes de utilizarla para tomar una decisión.",
-          },
-        ],
-      },
-    ],
-    relatedPaths: ["/como-funciona", "/recursos", "/para-gestorias"],
     indexable: true,
   },
   {
@@ -378,7 +332,7 @@ export const publicPages: PublicPageDefinition[] = [
     relatedPaths: [
       "/recursos/declaracion-responsable",
       "/recursos/licencia-actividad-vs-declaracion-responsable",
-      "/cobertura",
+      "/como-funciona",
     ],
     indexable: true,
   },
@@ -443,7 +397,7 @@ export const publicPages: PublicPageDefinition[] = [
     relatedPaths: [
       "/recursos/licencia-de-actividad",
       "/recursos/licencia-actividad-vs-declaracion-responsable",
-      "/cobertura",
+      "/para-gestorias",
     ],
     indexable: true,
   },
@@ -557,7 +511,7 @@ export const publicPages: PublicPageDefinition[] = [
     relatedPaths: [
       "/recursos/licencia-de-actividad",
       "/recursos/declaracion-responsable",
-      "/cobertura",
+      "/como-funciona",
     ],
     indexable: true,
   },
@@ -614,7 +568,7 @@ export const publicPages: PublicPageDefinition[] = [
     relatedPaths: [
       "/recursos/como-abrir-un-negocio-en-un-local",
       "/para-empresas",
-      "/cobertura",
+      "/recursos/licencia-de-actividad",
     ],
     indexable: true,
   },
@@ -687,7 +641,7 @@ export const publicPages: PublicPageDefinition[] = [
     relatedPaths: [
       "/recursos/que-comprobar-antes-de-alquilar-un-local",
       "/como-funciona",
-      "/cobertura",
+      "/recursos/licencia-de-actividad",
     ],
     indexable: true,
   },
@@ -731,7 +685,7 @@ export const publicPages: PublicPageDefinition[] = [
         ],
       },
     ],
-    relatedPaths: ["/privacidad", "/cookies", "/cobertura"],
+    relatedPaths: ["/privacidad", "/cookies", "/recursos"],
     indexable: true,
   },
   {
@@ -784,7 +738,7 @@ export const publicPages: PublicPageDefinition[] = [
         ],
       },
     ],
-    relatedPaths: ["/cookies", "/aviso-legal", "/cobertura"],
+    relatedPaths: ["/cookies", "/aviso-legal", "/recursos"],
     indexable: true,
   },
   {

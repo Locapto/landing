@@ -25,6 +25,7 @@ describe("SEO route configuration", () => {
       "/lp/tecnicos",
       "/lp/empresas",
       "/gracias",
+      "/cobertura",
     ])
       expect(urls).not.toContain(`https://locapto.com${route}`);
   });

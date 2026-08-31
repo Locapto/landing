@@ -7,7 +7,6 @@ const groups = [
     "Producto",
     [
       ["Cómo funciona", "/como-funciona"],
-      ["Cobertura", "/cobertura"],
       ["Acceso beta", "/#acceso-beta"],
     ],
   ],
@@ -48,7 +47,10 @@ export function SiteFooter() {
             width={128}
             height={37}
           />
-          <p>Precalificación de aperturas de negocio con fuentes oficiales.</p>
+          <p>
+            Precalificación de aperturas de negocio con fuentes oficiales para
+            solicitudes de toda España.
+          </p>
         </div>
         {groups.map(([title, links]) => (
           <div key={title}>

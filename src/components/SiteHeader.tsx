@@ -18,7 +18,6 @@ export function SiteHeader({ reduced = false }: { reduced?: boolean }) {
           <nav aria-label="Navegación principal" className="desktop-nav">
             <Link href="/como-funciona">Cómo funciona</Link>
             <Link href="/para-gestorias">Para profesionales</Link>
-            <Link href="/cobertura">Cobertura</Link>
             <Link href="/recursos">Recursos</Link>
           </nav>
         )}
@@ -32,7 +31,6 @@ export function SiteHeader({ reduced = false }: { reduced?: boolean }) {
             <nav aria-label="Navegación móvil">
               <Link href="/como-funciona">Cómo funciona</Link>
               <Link href="/para-gestorias">Para profesionales</Link>
-              <Link href="/cobertura">Cobertura</Link>
               <Link href="/recursos">Recursos</Link>
               <Link className="button button-dark" href="/#acceso-beta">
                 Solicitar acceso beta

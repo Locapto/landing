@@ -11,8 +11,8 @@ export default function NotFound() {
           <p className="eyebrow">Error 404</p>
           <h1>Esta página no está disponible.</h1>
           <p>
-            Puede que la dirección haya cambiado o que el contenido todavía no
-            forme parte de la cobertura publicada.
+            Puede que la dirección haya cambiado o que el contenido ya no esté
+            disponible.
           </p>
           <Link className="button button-dark" href="/">
             <ArrowLeft aria-hidden="true" />
