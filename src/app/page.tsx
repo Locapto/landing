@@ -114,10 +114,6 @@ const faqs = [
     "¿Puedo utilizarlo para comprobar un local antes de alquilarlo?",
     "La precalificación puede ayudar a detectar preguntas y condicionantes, pero no sustituye visitas, informes técnicos, verificaciones jurídicas ni consultas municipales.",
   ],
-  [
-    "¿Cuándo estará disponible?",
-    "Estamos preparando una beta privada para solicitudes de toda España. No publicamos una fecha cerrada.",
-  ],
 ];
 
 export default function Home() {
