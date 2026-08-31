@@ -18,7 +18,7 @@ const leadId = "123e4567-e89b-42d3-a456-426614174000";
 describe("beta confirmation email", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env.ZOHO_SMTP_HOST = "smtppro.zoho.eu";
+    process.env.ZOHO_SMTP_HOST = "smtp.zoho.eu";
     process.env.ZOHO_SMTP_USER = "victor@locapto.com";
     process.env.ZOHO_SMTP_PASSWORD = "test-password";
     process.env.EMAIL_CONFIRMATION_SECRET = "test-secret-with-enough-entropy";
