@@ -6,12 +6,12 @@ export function SiteHeader({ reduced = false }: { reduced?: boolean }) {
   return (
     <header className="site-header">
       <div className="shell header-inner">
-        <Link href="/" aria-label="Locapto, inicio">
+        <Link className="header-brand" href="/" aria-label="Locapto, inicio">
           <Image
-            src="/brand/full-logo-colors.webp"
-            alt="Locapto"
-            width={128}
-            height={37}
+            src="/brand/full-logo-colors.png"
+            alt=""
+            width={144}
+            height={41}
             priority
           />
         </Link>

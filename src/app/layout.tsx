@@ -17,18 +17,25 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://locapto.com",
   ),
   title: {
-    default: "Precalificación para abrir negocios y locales | Locapto",
+    default: "Qué necesitas para abrir un negocio o local | Locapto",
     template: "%s",
   },
   description:
-    "Consulta requisitos, procedimientos, condicionantes y fuentes oficiales según actividad y municipio.",
+    "Consulta trámites, requisitos, documentos y fuentes oficiales según la actividad y el municipio.",
   applicationName: "Locapto",
   authors: [{ name: "Locapto" }],
   creator: "Locapto",
   publisher: "Locapto",
   formatDetection: { email: false, address: false, telephone: false },
   manifest: "/manifest.webmanifest",
-  icons: { icon: "/icon.png", apple: "/icon.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3", type: "image/x-icon", sizes: "64x64" },
+      { url: "/icon.png?v=3", type: "image/png", sizes: "894x894" },
+    ],
+    shortcut: "/favicon.ico?v=3",
+    apple: [{ url: "/icon.png?v=3", type: "image/png", sizes: "894x894" }],
+  },
   openGraph: { locale: "es_ES", siteName: "Locapto", type: "website" },
   twitter: { card: "summary_large_image" },
 };

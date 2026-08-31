@@ -42,7 +42,7 @@ describe("Apps Script payload", () => {
       utm_source: "linkedin",
     });
     expect("interests" in payload ? payload.interests : "").toContain(
-      "Precalificar actividades",
+      "Revisar los requisitos de una actividad",
     );
   });
   it("stores and sanitizes a custom professional profile", () => {

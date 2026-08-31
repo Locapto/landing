@@ -1,5 +1,15 @@
-import type { ProgrammaticSeoPage } from "./types";
-
-// Add a page only after municipality-specific content and its official sources
-// have been reviewed. Draft entries must remain non-indexable.
-export const programmaticSeoPages: ProgrammaticSeoPage[] = [];
+export {
+  activityBySlug,
+  activitySelection,
+  activitySeoDefinitions,
+} from "./seo/activities";
+export {
+  geographyCatalog,
+  municipalityByCode,
+  municipalityCount,
+} from "./seo/geography";
+export type {
+  ActivitySeoDefinition,
+  GeographyCatalog,
+  OfficialSource,
+} from "./seo/types";

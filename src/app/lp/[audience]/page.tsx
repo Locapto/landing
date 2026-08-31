@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { TrackedBetaLink } from "@/components/TrackedBetaLink";
 import { TrackedProductPreview } from "@/components/TrackedProductPreview";
 import {
+  AVAILABILITY_CHIP_LABEL,
   BETA_CTA_LABEL,
   marketingConfig,
   type LandingVariant,
@@ -19,21 +20,21 @@ const campaigns = {
     title:
       "Reduce el tiempo que dedicas a investigar cada expediente de apertura.",
     intro:
-      "Locapto organiza requisitos, procedimiento probable, información pendiente y fuentes oficiales por actividad y municipio.",
+      "Locapto reúne requisitos, el trámite más probable, datos pendientes y fuentes oficiales según la actividad y el municipio.",
     benefits: [
       "Estructura la investigación inicial",
       "Detecta información pendiente",
-      "Localiza evidencia oficial",
+      "Localiza las fuentes oficiales",
     ],
   },
   tecnicos: {
     variant: "lp_tecnicos" as LandingVariant,
-    title: "Precalifica un local antes de dedicar horas al estudio completo.",
+    title: "Revisa un local antes de dedicar horas al estudio completo.",
     intro:
-      "Identifica procedimiento probable, condicionantes y preguntas pendientes antes de entrar en el análisis técnico completo.",
+      "Identifica el trámite más probable, posibles obstáculos y dudas pendientes antes de iniciar el análisis técnico completo.",
     benefits: [
       "Prioriza comprobaciones",
-      "Ordena condicionantes del local",
+      "Ordena las condiciones del local",
       "Explica riesgos al cliente",
     ],
   },
@@ -97,7 +98,7 @@ export default async function CampaignPage({
         <section className="campaign-hero">
           <div className="shell hero-grid">
             <div>
-              <p className="eyebrow">BETA PRIVADA · Lista de acceso</p>
+              <p className="eyebrow">{AVAILABILITY_CHIP_LABEL}</p>
               <h1>{campaign.title}</h1>
               <p className="hero-lead">{campaign.intro}</p>
               <ul className="campaign-benefits">
@@ -112,8 +113,9 @@ export default async function CampaignPage({
                 {BETA_CTA_LABEL} <ArrowRight aria-hidden="true" />
               </TrackedBetaLink>
               <p className="hero-note">
-                Disponible para solicitudes de toda España. Locapto ofrece
-                orientación preliminar y no concede licencias.
+                Cuando se lance, estará disponible para solicitudes de toda
+                España. Locapto ofrece información inicial y no concede
+                licencias.
               </p>
             </div>
             <TrackedProductPreview variant={campaign.variant} compact />
@@ -130,11 +132,11 @@ export default async function CampaignPage({
         <section className="beta-section" id="acceso-beta">
           <div className="shell beta-grid">
             <div>
-              <p className="eyebrow">Lista de acceso</p>
-              <h2>Apúntate para cuando Locapto esté disponible.</h2>
+              <p className="eyebrow">Aviso de disponibilidad</p>
+              <h2>Te avisaremos cuando Locapto esté disponible.</h2>
               <p>
-                La primera parte tarda menos de un minuto. Guardaremos tus datos
-                para poder contactarte cuando abramos el acceso.
+                El formulario tarda menos de un minuto. Guardaremos tus datos
+                para avisarte cuando puedas utilizarlo.
               </p>
             </div>
             <BetaLeadForm landingVariant={campaign.variant} />

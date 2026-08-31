@@ -3,14 +3,13 @@ import type { PublicPageDefinition } from "./types";
 export const publicPages: PublicPageDefinition[] = [
   {
     path: "/para-gestorias",
-    title:
-      "Locapto para gestorías | Precalificación de aperturas y actividades",
+    title: "Locapto para gestorías | Prepara aperturas con fuentes oficiales",
     description:
-      "Reduce investigación repetitiva en expedientes de apertura y actividad. Organiza requisitos, condicionantes y fuentes oficiales con Locapto.",
+      "Reduce búsquedas repetitivas en expedientes de apertura. Organiza trámites, requisitos y fuentes oficiales con Locapto.",
     eyebrow: "Para gestorías y asesorías",
-    heading: "Cada nuevo expediente no debería empezar desde cero.",
+    heading: "Empieza cada expediente con la información ya ordenada.",
     intro:
-      "Locapto está pensado para estructurar la investigación inicial de aperturas y ayudarte a identificar antes qué información falta.",
+      "Locapto reúne el trámite probable, los documentos habituales y las fuentes oficiales para que no tengas que reconstruir la misma investigación en cada apertura.",
     kind: "audience",
     sections: [
       {
@@ -46,14 +45,14 @@ export const publicPages: PublicPageDefinition[] = [
                 text: "Identifica preguntas pendientes antes de pedir documentación al cliente.",
               },
               {
-                title: "Conserva la evidencia",
-                text: "Localiza la fuente oficial detrás de cada orientación preliminar.",
+                title: "Conserva las fuentes",
+                text: "Localiza la fuente oficial que respalda cada orientación inicial.",
               },
             ],
           },
           {
             type: "callout",
-            title: "Orientación preliminar",
+            title: "Información inicial",
             text: "Locapto no concede licencias ni sustituye la revisión profesional o administrativa que corresponda.",
           },
         ],
@@ -68,13 +67,14 @@ export const publicPages: PublicPageDefinition[] = [
   },
   {
     path: "/para-arquitectos-ingenieros",
-    title: "Locapto para arquitectos e ingenieros | Precalificación de locales",
+    title:
+      "Locapto para arquitectos e ingenieros | Revisión inicial de locales",
     description:
-      "Detecta condicionantes de actividad y local antes de dedicar horas a un estudio o proyecto completo.",
+      "Detecta posibles obstáculos de la actividad y el local antes de dedicar horas a un estudio o proyecto completo.",
     eyebrow: "Para arquitectura e ingeniería",
-    heading: "Precalifica un local antes de dedicar horas al estudio completo.",
+    heading: "Detecta antes qué puede cambiar la viabilidad del local.",
     intro:
-      "Obtén una vista inicial de procedimiento, documentación y variables técnicas que pueden condicionar el encargo.",
+      "Revisa el trámite probable, las obras, las instalaciones y los puntos técnicos pendientes antes de entrar en el estudio completo.",
     kind: "audience",
     sections: [
       {
@@ -100,12 +100,12 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "La precalificación ayuda a ordenar la fase inicial y a explicar riesgos al cliente. El estudio técnico, las visitas, mediciones y verificaciones exigibles siguen correspondiendo al profesional competente.",
+            text: "La revisión inicial ayuda a ordenar la primera fase y a explicar riesgos al cliente. El estudio técnico, las visitas, mediciones y verificaciones exigibles siguen correspondiendo al profesional competente.",
           },
           {
             type: "callout",
-            title: "Alcance verificable",
-            text: "Cada precalificación identifica el municipio, la actividad y las fuentes revisadas, además de los elementos que requieren comprobación profesional.",
+            title: "Qué incluye el resultado",
+            text: "Cada resultado identifica el municipio, la actividad y las fuentes revisadas, además de los elementos que requieren comprobación profesional.",
           },
         ],
       },
@@ -121,11 +121,11 @@ export const publicPages: PublicPageDefinition[] = [
     path: "/para-empresas",
     title: "Locapto para empresas y cadenas | Evalúa locales antes de invertir",
     description:
-      "Compara ubicaciones y detecta condicionantes de una apertura antes de alquilar, reformar o comprometer capital.",
+      "Compara ubicaciones y detecta posibles obstáculos antes de alquilar, reformar o comprometer capital.",
     eyebrow: "Para empresas, cadenas y emprendedores",
-    heading: "Detecta riesgos de un local antes de comprometer una operación.",
+    heading: "Compara locales con mejores datos antes de decidir.",
     intro:
-      "Locapto ayuda a ordenar la investigación previa de una ubicación para que las decisiones comerciales empiecen con mejores preguntas.",
+      "Detecta riesgos, información pendiente y fuentes oficiales antes de alquilar, reformar o comprometer capital.",
     kind: "audience",
     sections: [
       {
@@ -133,13 +133,13 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Dos locales parecidos pueden conducir a trámites y necesidades diferentes. Una precalificación común facilita comparar ubicaciones sin confundir una orientación inicial con una aprobación.",
+            text: "Dos locales parecidos pueden conducir a trámites y necesidades diferentes. Una revisión inicial común facilita comparar ubicaciones sin confundir una orientación con una aprobación.",
           },
           {
             type: "bullets",
             items: [
-              "Procedimiento probable por actividad y municipio.",
-              "Condicionantes que pueden alterar la respuesta.",
+              "Trámite probable por actividad y municipio.",
+              "Factores que pueden cambiar la respuesta.",
               "Documentos e información que faltan.",
               "Bloqueos habituales que merece la pena investigar.",
             ],
@@ -178,13 +178,14 @@ export const publicPages: PublicPageDefinition[] = [
   },
   {
     path: "/como-funciona",
-    title: "Cómo funciona Locapto | Precalificación de aperturas",
+    title: "Cómo funciona Locapto | Revisión inicial de aperturas",
     description:
       "Conoce cómo Locapto estructura actividad, ubicación, requisitos, preguntas pendientes y fuentes oficiales.",
     eyebrow: "Cómo funciona",
-    heading: "De una idea y una ubicación a una precalificación trazable.",
+    heading:
+      "De una idea y una ubicación a una primera revisión con fuentes oficiales.",
     intro:
-      "Locapto organiza la información inicial para mostrar qué parece probable, qué falta por saber y qué fuente oficial respalda cada orientación.",
+      "Locapto organiza la información inicial para mostrar qué parece aplicable, qué falta por saber y qué fuente oficial respalda cada resultado.",
     kind: "product",
     sections: [
       {
@@ -202,8 +203,8 @@ export const publicPages: PublicPageDefinition[] = [
                 text: "Selecciona municipio y, si ya existe un local, aporta sus características conocidas.",
               },
               {
-                title: "3. Consulta la precalificación",
-                text: "Revisa procedimiento probable, requisitos, documentación, preguntas pendientes y evidencia oficial.",
+                title: "3. Consulta el resultado",
+                text: "Revisa el trámite más probable, los requisitos, los documentos, las dudas pendientes y las fuentes oficiales.",
               },
             ],
           },
@@ -215,11 +216,11 @@ export const publicPages: PublicPageDefinition[] = [
           {
             type: "bullets",
             items: [
-              "Actividad normalizada y alcance interpretado.",
-              "Procedimiento administrativo más probable.",
+              "Actividad y servicios incluidos.",
+              "Trámite administrativo más probable.",
               "Requisitos y documentación habituales.",
               "Administraciones y fuentes oficiales implicadas.",
-              "Variables críticas, bloqueos y elementos no evaluados.",
+              "Puntos clave, posibles obstáculos y datos no evaluados.",
             ],
           },
           {
@@ -382,7 +383,7 @@ export const publicPages: PublicPageDefinition[] = [
                 text: "Verifica que la actividad puede utilizar esa vía en el municipio.",
               },
               {
-                title: "Reúne evidencias",
+                title: "Guarda la documentación",
                 text: "Prepara documentos, certificados o proyectos que correspondan.",
               },
               {
@@ -501,7 +502,7 @@ export const publicPages: PublicPageDefinition[] = [
               },
               {
                 title: "Revisa el local",
-                text: "Valida los condicionantes técnicos antes de asumir que una vía es suficiente.",
+                text: "Valida los factores técnicos antes de asumir que una vía es suficiente.",
               },
             ],
           },
@@ -596,7 +597,7 @@ export const publicPages: PublicPageDefinition[] = [
               },
               {
                 title: "2. Comprueba la ubicación",
-                text: "Investiga el uso, antecedentes y condicionantes conocidos.",
+                text: "Investiga el uso, los antecedentes y las condiciones conocidas.",
               },
               {
                 title: "3. Delimita las obras",
@@ -624,12 +625,12 @@ export const publicPages: PublicPageDefinition[] = [
         ],
       },
       {
-        title: "Qué puede aportar una precalificación",
+        title: "Qué puede aportar una primera revisión",
         blocks: [
           {
             type: "bullets",
             items: [
-              "Un procedimiento probable para investigar.",
+              "Un trámite probable para investigar.",
               "Una lista inicial de requisitos y documentos.",
               "Variables que pueden cambiar la respuesta.",
               "Fuentes oficiales para continuar la verificación.",
@@ -661,8 +662,8 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "callout",
-            title: "PENDIENTE DE CONFIRMACIÓN LEGAL",
-            text: "Razón social o nombre del titular, NIF, domicilio, correo de contacto y datos registrales, cuando correspondan.",
+            title: "Información legal en preparación",
+            text: "Publicaremos aquí la identificación completa del titular, el NIF, el domicilio, el correo de contacto y los datos registrales que correspondan antes del lanzamiento.",
           },
         ],
       },
@@ -671,7 +672,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Este sitio informa sobre el producto Locapto y permite solicitar acceso a una beta privada. El contenido es informativo y preliminar; no constituye una licencia, autorización municipal ni asesoramiento profesional individualizado.",
+            text: "Este sitio informa sobre Locapto y permite apuntarse para recibir un aviso cuando el producto esté disponible. El contenido es informativo e inicial; no constituye una licencia, autorización municipal ni asesoramiento profesional individualizado.",
           },
         ],
       },
@@ -692,11 +693,11 @@ export const publicPages: PublicPageDefinition[] = [
     path: "/privacidad",
     title: "Política de privacidad | Locapto",
     description:
-      "Consulta cómo se utilizan los datos enviados para gestionar solicitudes de acceso beta a Locapto.",
+      "Consulta cómo se utilizan los datos enviados para avisarte cuando Locapto esté disponible.",
     eyebrow: "Privacidad",
     heading: "Política de privacidad",
     intro:
-      "Esta política describe el tratamiento previsto para las solicitudes de acceso beta y el uso del sitio.",
+      "Esta política explica cómo trataremos tus datos si solicitas que te avisemos cuando Locapto esté disponible.",
     kind: "legal",
     sections: [
       {
@@ -704,8 +705,8 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "callout",
-            title: "PENDIENTE DE CONFIRMACIÓN LEGAL",
-            text: "Identidad completa del responsable, NIF, domicilio y canal para ejercer derechos.",
+            title: "Información legal en preparación",
+            text: "Publicaremos aquí la identidad completa del responsable, el NIF, el domicilio y el canal para ejercer tus derechos antes del lanzamiento.",
           },
         ],
       },
@@ -714,7 +715,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Tratamos el email profesional, perfil, datos opcionales de contacto y contexto de atribución para gestionar la solicitud, conocer el tipo de uso esperado y priorizar la beta. No solicitamos direcciones IP ni suscribimos automáticamente a comunicaciones comerciales.",
+            text: "Tratamos el email profesional, el perfil, los datos opcionales de contacto y la información básica sobre cómo llegaste al sitio para gestionar tu solicitud, entender qué necesitas y avisarte cuando Locapto esté disponible. No solicitamos direcciones IP ni te suscribimos automáticamente a comunicaciones comerciales.",
           },
         ],
       },
@@ -723,8 +724,8 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "callout",
-            title: "PENDIENTE DE VALIDACIÓN LEGAL",
-            text: "Confirmar base jurídica, plazo de conservación, destinatarios, transferencias y procedimiento de ejercicio de derechos antes del lanzamiento definitivo.",
+            title: "Información legal en preparación",
+            text: "Antes del lanzamiento publicaremos la base jurídica, el plazo de conservación, los destinatarios, las posibles transferencias y el procedimiento para ejercer tus derechos.",
           },
         ],
       },
@@ -733,7 +734,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "La infraestructura prevista utiliza Vercel para alojar el sitio y Google Sheets/Apps Script como almacén inicial de solicitudes. Las herramientas de medición opcionales sólo se cargan según la preferencia de cookies.",
+            text: "La infraestructura prevista utiliza Vercel para alojar el sitio y Google Sheets y Apps Script para guardar inicialmente las solicitudes. Las herramientas de medición opcionales solo se cargan según tu preferencia de cookies.",
           },
         ],
       },
@@ -749,7 +750,7 @@ export const publicPages: PublicPageDefinition[] = [
     eyebrow: "Cookies",
     heading: "Política de cookies",
     intro:
-      "La medición y el marketing están desactivados hasta que la persona visitante elige su preferencia.",
+      "Las estadísticas de uso y las herramientas de marketing están desactivadas hasta que eliges tus preferencias.",
     kind: "legal",
     sections: [
       {
@@ -757,7 +758,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Utilizamos almacenamiento local o de sesión para conservar la preferencia de cookies, la atribución inicial de la visita y el identificador temporal necesario para completar el formulario.",
+            text: "Utilizamos almacenamiento local o de sesión para recordar tus preferencias de cookies, cómo llegaste al sitio y los datos temporales necesarios para completar el formulario.",
           },
         ],
       },
@@ -779,8 +780,8 @@ export const publicPages: PublicPageDefinition[] = [
           },
           {
             type: "callout",
-            title: "PENDIENTE DE VALIDACIÓN LEGAL",
-            text: "Completar inventario, duraciones y terceros cuando se activen etiquetas reales.",
+            title: "Información que completaremos antes del lanzamiento",
+            text: "Publicaremos el inventario de cookies, su duración y los terceros implicados cuando se activen estas herramientas.",
           },
         ],
       },

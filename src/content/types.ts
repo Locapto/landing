@@ -22,16 +22,3 @@ export type PublicPageDefinition = {
   relatedPaths: string[];
   indexable: true;
 };
-
-export type ProgrammaticSeoPage = {
-  slug: string;
-  title: string;
-  description: string;
-  municipality: string;
-  activity: string;
-  content: ContentBlock[];
-  officialSources: Array<{ title: string; url: string }>;
-  lastReviewedAt: string | null;
-  coverageStatus: "planned" | "in_review" | "reviewed";
-  indexable: boolean;
-};

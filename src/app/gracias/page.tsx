@@ -19,12 +19,11 @@ export default function ThanksPage() {
           <span className="thanks-check" aria-hidden="true">
             ✓
           </span>
-          <p className="eyebrow">Lista de acceso</p>
+          <p className="eyebrow">Lista de avisos</p>
           <h1>Gracias por tu interés en Locapto.</h1>
           <p>
-            Te has apuntado para cuando Locapto esté disponible. Podremos
-            contactarte usando los datos que nos has facilitado cuando abramos
-            nuevas plazas.
+            Te avisaremos usando los datos que nos has facilitado en cuanto
+            Locapto esté disponible.
           </p>
           <Link className="button button-dark" href="/">
             <ArrowLeft aria-hidden="true" />

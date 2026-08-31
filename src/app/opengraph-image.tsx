@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 export const alt =
-  "Precalifica aperturas de negocio con fuentes oficiales — Locapto";
+  "Descubre qué necesitas para abrir un negocio con fuentes oficiales — Locapto";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default function OpenGraphImage() {
@@ -59,11 +59,11 @@ export default function OpenGraphImage() {
             letterSpacing: "-3px",
           }}
         >
-          Precalifica aperturas de negocio con fuentes oficiales.
+          Descubre qué necesitas para abrir un negocio con fuentes oficiales.
         </div>
         <div style={{ fontSize: 28, lineHeight: 1.35, color: "#5f6478" }}>
-          Detecta requisitos, condicionantes y preguntas pendientes antes de
-          invertir tiempo o dinero.
+          Consulta trámites, requisitos y datos pendientes antes de invertir
+          tiempo o dinero.
         </div>
       </div>
       <div style={{ display: "flex", gap: 18, fontSize: 22, color: "#6556d9" }}>
@@ -71,7 +71,7 @@ export default function OpenGraphImage() {
         <span>·</span>
         <span>Ámbito nacional</span>
         <span>·</span>
-        <span>Beta privada</span>
+        <span>Próximamente</span>
       </div>
     </div>,
     size,

@@ -21,17 +21,17 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { TrackedBetaLink } from "@/components/TrackedBetaLink";
 import { TrackedProductPreview } from "@/components/TrackedProductPreview";
-import { BETA_CTA_LABEL } from "@/config/marketing";
+import { AVAILABILITY_CHIP_LABEL, BETA_CTA_LABEL } from "@/config/marketing";
 
 export const metadata: Metadata = {
-  title: "Precalificación para abrir negocios y locales | Locapto",
+  title: "Qué necesitas para abrir un negocio o local | Locapto",
   description:
-    "Precalifica aperturas en cualquier municipio de España. Consulta requisitos, procedimientos, condicionantes y fuentes oficiales con Locapto.",
+    "Consulta trámites, requisitos, documentos y fuentes oficiales para abrir un negocio en cualquier municipio de España.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Precalificación para abrir negocios y locales | Locapto",
+    title: "Qué necesitas para abrir un negocio o local | Locapto",
     description:
-      "Precalifica aperturas en toda España con requisitos, condicionantes y fuentes oficiales.",
+      "Consulta trámites, requisitos y fuentes oficiales para preparar una apertura en cualquier municipio de España.",
     url: "/",
     locale: "es_ES",
     siteName: "Locapto",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Precalificación para abrir negocios y locales | Locapto",
+    title: "Qué necesitas para abrir un negocio o local | Locapto",
     description:
-      "Precalifica aperturas en toda España con requisitos, condicionantes y fuentes oficiales.",
+      "Consulta trámites, requisitos y fuentes oficiales para preparar una apertura en cualquier municipio de España.",
   },
 };
 
@@ -49,21 +49,21 @@ const audiences = [
   {
     icon: UsersRound,
     title: "Gestorías y asesorías",
-    text: "Reduce la investigación repetitiva y estructura mejor la información inicial de cada expediente.",
+    text: "Reduce búsquedas repetitivas y organiza la información inicial de cada expediente.",
     cta: "Locapto para gestorías",
     href: "/para-gestorias",
   },
   {
     icon: ClipboardCheck,
     title: "Arquitectura e ingeniería",
-    text: "Precalifica actividad y local antes de dedicar horas a un estudio o proyecto completo.",
+    text: "Revisa la actividad y el local antes de dedicar horas a un estudio o proyecto completo.",
     cta: "Locapto para técnicos",
     href: "/para-arquitectos-ingenieros",
   },
   {
     icon: Building2,
     title: "Empresas y cadenas",
-    text: "Compara ubicaciones y detecta condicionantes antes de comprometer una operación.",
+    text: "Compara ubicaciones y detecta posibles obstáculos antes de comprometer una operación.",
     cta: "Locapto para empresas",
     href: "/para-empresas",
   },
@@ -76,28 +76,28 @@ const audiences = [
   },
 ];
 const outputs = [
-  [Gauge, "Procedimiento probable"],
+  [Gauge, "Trámite más probable"],
   [ClipboardCheck, "Requisitos"],
-  [FileText, "Documentación"],
-  [Landmark, "Administraciones"],
-  [Search, "Variables críticas"],
-  [ShieldCheck, "Bloqueos habituales"],
+  [FileText, "Documentos habituales"],
+  [Landmark, "Organismos implicados"],
+  [Search, "Puntos clave"],
+  [ShieldCheck, "Posibles obstáculos"],
   [FileCheck2, "Fuentes oficiales"],
-  [Network, "Vigencia"],
-  [Search, "Información pendiente"],
+  [Network, "Fecha de revisión"],
+  [Search, "Datos por confirmar"],
 ] as const;
 const faqs = [
   [
     "¿Qué es Locapto?",
-    "Una herramienta en preparación para estructurar orientación regulatoria preliminar sobre aperturas por actividad, municipio y, cuando exista, local.",
+    "Una herramienta que reúne la información inicial para abrir un negocio: trámites, requisitos, documentos, dudas pendientes y fuentes oficiales según la actividad y el municipio.",
   ],
   [
     "¿Locapto concede licencias?",
     "No. Locapto no concede licencias, no representa una aprobación municipal y no sustituye la revisión profesional o administrativa necesaria.",
   ],
   [
-    "¿Dónde está disponible la beta?",
-    "Puedes solicitar acceso desde cualquier municipio de España. Locapto está planteado para prestar servicio en todo el territorio nacional.",
+    "¿Dónde estará disponible Locapto?",
+    "Locapto estará disponible para solicitudes de cualquier municipio de España. Puedes apuntarte ahora y te avisaremos cuando puedas utilizarlo.",
   ],
   [
     "¿Para quién está pensado?",
@@ -105,15 +105,15 @@ const faqs = [
   ],
   [
     "¿Qué fuentes utiliza Locapto?",
-    "La propuesta se basa en fuentes oficiales de las administraciones competentes, con trazabilidad y fecha de revisión.",
+    "Locapto se basa en fuentes oficiales de las administraciones competentes. Cada resultado indicará de dónde procede la información y cuándo se revisó.",
   ],
   [
     "¿Puedo usar Locapto si soy una gestoría?",
-    "Ese es uno de los perfiles prioritarios: queremos reducir investigación repetitiva y ordenar la información inicial de cada expediente.",
+    "Sí. Locapto está pensado para reducir búsquedas repetitivas y organizar la información inicial de cada expediente.",
   ],
   [
     "¿Puedo utilizarlo para comprobar un local antes de alquilarlo?",
-    "La precalificación puede ayudar a detectar preguntas y condicionantes, pero no sustituye visitas, informes técnicos, verificaciones jurídicas ni consultas municipales.",
+    "Sí. El resultado inicial puede ayudarte a detectar dudas y posibles obstáculos, pero no sustituye visitas, informes técnicos, revisiones jurídicas ni consultas municipales.",
   ],
 ];
 
@@ -147,12 +147,16 @@ export default function Home() {
         <section className="hero-section">
           <div className="shell hero-grid">
             <div className="hero-copy">
-              <p className="eyebrow">BETA PRIVADA · Lista de acceso</p>
-              <h1>Precalifica aperturas de negocio con fuentes oficiales.</h1>
+              <p className="eyebrow">{AVAILABILITY_CHIP_LABEL}</p>
+              <h1>
+                Descubre qué necesitas para abrir un negocio, con fuentes
+                oficiales.
+              </h1>
               <p className="hero-lead">
-                Locapto reúne requisitos, procedimientos, documentación y
-                condicionantes del local según actividad y municipio, para que
-                puedas detectar riesgos antes de invertir tiempo o dinero.
+                Locapto reúne en un solo lugar los trámites, requisitos,
+                documentos y condiciones del local según la actividad y el
+                municipio, para que detectes riesgos antes de invertir tiempo o
+                dinero.
               </p>
               <div className="hero-actions">
                 <TrackedBetaLink variant="home">
@@ -174,9 +178,9 @@ export default function Home() {
           <div className="shell trust-grid">
             {[
               "Fuentes oficiales",
-              "Trazabilidad",
+              "Información verificable",
               "Ámbito nacional",
-              "Sin falsas certezas",
+              "Datos por confirmar",
             ].map((item) => (
               <div key={item}>
                 <Check aria-hidden="true" />
@@ -201,9 +205,9 @@ export default function Home() {
                 utilizan criterios distintos.
               </p>
               <p>
-                Locapto aspira a estructurar esa información alrededor de una
-                actividad y una ubicación concretas, mostrando también lo que
-                falta por confirmar.
+                Locapto reúne esa información alrededor de una actividad y una
+                ubicación concretas, y muestra también lo que falta por
+                confirmar.
               </p>
             </div>
           </div>
@@ -214,8 +218,8 @@ export default function Home() {
               <p className="eyebrow">Para profesionales y empresas</p>
               <h2>Locapto para cada tipo de apertura</h2>
               <p>
-                Una base común para investigar mejor sin convertir una
-                orientación en una falsa certeza.
+                Una base común para revisar cada apertura sin confundir una
+                primera orientación con una aprobación.
               </p>
             </div>
             <div className="audience-grid">
@@ -255,10 +259,10 @@ export default function Home() {
               </li>
               <li>
                 <span>03</span>
-                <h3>Obtén una precalificación</h3>
+                <h3>Consulta el resultado inicial</h3>
                 <p>
-                  Consulta procedimiento probable, requisitos, preguntas
-                  pendientes y evidencia oficial.
+                  Consulta el trámite más probable, los requisitos, las dudas
+                  pendientes y las fuentes oficiales.
                 </p>
               </li>
             </ol>
@@ -272,11 +276,11 @@ export default function Home() {
         <section className="section dark-section">
           <div className="shell output-layout">
             <div>
-              <p className="eyebrow">Salida estructurada</p>
-              <h2>Una respuesta diseñada para poder actuar</h2>
+              <p className="eyebrow">Qué recibirás</p>
+              <h2>Una respuesta clara para decidir el siguiente paso</h2>
               <p>
-                Lo probable, lo pendiente y la evidencia permanecen separados
-                para que sepas qué puedes utilizar y qué necesitas validar.
+                Verás por separado lo que parece aplicable, lo que falta por
+                confirmar y las fuentes consultadas.
               </p>
             </div>
             <div className="output-grid">
@@ -306,10 +310,10 @@ export default function Home() {
               {[
                 "Menos investigación repetitiva",
                 "Expedientes estructurados",
-                "Evidencia oficial localizable",
-                "Preguntas pendientes identificadas",
-                "Histórico y seguimiento en el futuro producto",
-                "Resultados compartibles en el futuro producto",
+                "Fuentes oficiales fáciles de localizar",
+                "Dudas pendientes identificadas",
+                "Información ordenada para revisar",
+                "Resultados fáciles de compartir",
               ].map((item) => (
                 <li key={item}>
                   <Check aria-hidden="true" />
@@ -322,24 +326,24 @@ export default function Home() {
         <section className="beta-section" id="acceso-beta">
           <div className="shell beta-grid">
             <div>
-              <p className="eyebrow">Lista de acceso a la beta</p>
-              <h2>Apúntate para cuando Locapto esté disponible.</h2>
+              <p className="eyebrow">Aviso de disponibilidad</p>
+              <h2>Te avisaremos cuando Locapto esté disponible.</h2>
               <p>
-                Déjanos tu contacto ahora y podremos avisarte cuando abramos el
-                acceso en todo el territorio nacional.
+                Déjanos tu contacto. Podrás usar Locapto para solicitudes de
+                cualquier municipio de España.
               </p>
               <div className="beta-points">
                 <span>
                   <Check aria-hidden="true" />
-                  Solicitud breve
+                  Trámite más probable
                 </span>
                 <span>
                   <Check aria-hidden="true" />
-                  Sin compromiso
+                  Pasos y documentos necesarios
                 </span>
                 <span>
                   <Check aria-hidden="true" />
-                  Sin newsletter automática
+                  Fuentes oficiales consultadas
                 </span>
               </div>
             </div>
@@ -350,7 +354,7 @@ export default function Home() {
           <div className="shell faq-layout">
             <div>
               <p className="eyebrow">Preguntas frecuentes</p>
-              <h2>Lo importante antes de solicitar acceso</h2>
+              <h2>Lo que conviene saber antes de apuntarte</h2>
             </div>
             <div className="faq-list">
               {faqs.map(([question, answer]) => (

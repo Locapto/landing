@@ -209,10 +209,10 @@ export function BetaLeadForm({
     return (
       <div className="form-success" role="status">
         <span aria-hidden="true">✓</span>
-        <h3>Ya estás en la lista de acceso.</h3>
+        <h3>Ya estás en la lista de avisos.</h3>
         <p>
-          Podremos contactarte usando los datos que nos has facilitado cuando
-          Locapto esté disponible y abramos nuevas plazas.
+          Te avisaremos usando los datos que nos has facilitado en cuanto
+          Locapto esté disponible.
         </p>
       </div>
     );
@@ -223,10 +223,10 @@ export function BetaLeadForm({
         <form onSubmit={submitPartial} noValidate>
           <div className="form-heading">
             <p className="form-step">Paso 1 de 2</p>
-            <h3>Apúntate para cuando esté disponible</h3>
+            <h3>Te avisamos cuando esté disponible</h3>
             <p>
-              Empieza con dos datos. Los guardaremos para poder contactarte
-              cuando abramos el acceso.
+              Solo necesitamos dos datos para avisarte cuando puedas utilizar
+              Locapto.
             </p>
           </div>
           <div className="form-field">
@@ -323,11 +323,11 @@ export function BetaLeadForm({
       ) : (
         <form onSubmit={finish} noValidate>
           <div className="form-heading">
-            <p className="form-step">Solicitud guardada</p>
-            <h3>Dos preguntas para priorizar el contacto</h3>
+            <p className="form-step">Ya estás en la lista</p>
+            <h3>Cuéntanos un poco más</h3>
             <p>
-              Todo lo siguiente es opcional. Tu solicitud inicial ya está
-              guardada.
+              Todo lo siguiente es opcional y nos ayudará a entender mejor lo
+              que necesitas.
             </p>
           </div>
           <div className="form-row">
@@ -354,8 +354,7 @@ export function BetaLeadForm({
           </div>
           <div className="form-field">
             <label htmlFor={`cases-${landingVariant}`}>
-              ¿Cuántos expedientes de apertura o actividad gestionáis
-              aproximadamente al mes?
+              ¿Cuántas aperturas gestionáis aproximadamente al mes?
             </label>
             <select
               id={`cases-${landingVariant}`}
@@ -372,7 +371,7 @@ export function BetaLeadForm({
           </div>
           <div className="form-field">
             <label htmlFor={`locations-${landingVariant}`}>
-              ¿Dónde trabajáis principalmente?
+              ¿En qué municipios trabajáis principalmente?
             </label>
             <input
               id={`locations-${landingVariant}`}
@@ -406,7 +405,7 @@ export function BetaLeadForm({
               type="submit"
               disabled={pending}
             >
-              {pending ? "Guardando…" : "Terminar"}
+              {pending ? "Guardando…" : "Guardar respuestas"}
             </button>
             <button
               className="button button-quiet"
@@ -414,7 +413,7 @@ export function BetaLeadForm({
               onClick={skip}
               disabled={pending}
             >
-              Ahora no
+              Omitir
             </button>
           </div>
         </form>

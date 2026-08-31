@@ -63,7 +63,7 @@ export function PricingExperiment() {
   };
   return (
     <section ref={ref} className="pricing-card" aria-labelledby="pricing-title">
-      <p className="eyebrow">Validación de precio</p>
+      <p className="eyebrow">Plan profesional</p>
       <h2 id="pricing-title">Locapto Pro</h2>
       <p>Precio previsto para acceso profesional</p>
       <p className="price">
@@ -74,7 +74,7 @@ export function PricingExperiment() {
         {[
           "Múltiples expedientes",
           "Historial",
-          "Evidencias",
+          "Fuentes oficiales",
           "Seguimiento",
           "Informes",
           "Acceso profesional",

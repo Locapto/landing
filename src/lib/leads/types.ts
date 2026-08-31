@@ -31,10 +31,10 @@ export const MONTHLY_CASE_LABELS: Record<
 };
 
 export const INTERESTS = [
-  ["activities", "Precalificar actividades"],
+  ["activities", "Revisar los requisitos de una actividad"],
   ["premises", "Comprobar locales"],
   ["cases", "Gestionar varios expedientes"],
-  ["clients", "Generar información para clientes"],
+  ["clients", "Preparar información para clientes"],
   ["locations", "Evaluar ubicaciones"],
   ["integration", "Integrar Locapto en otro producto"],
   ["other", "Otro"],

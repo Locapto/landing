@@ -116,8 +116,8 @@ export function ConsentManager() {
           </div>
           <p>
             El almacenamiento necesario permite recordar tu elección y mantener
-            la atribución del formulario. Puedes activar por separado las
-            mediciones opcionales.
+            los datos mientras completas el formulario. Puedes activar por
+            separado las estadísticas de uso opcionales.
           </p>
           <label className="consent-option">
             <span>
