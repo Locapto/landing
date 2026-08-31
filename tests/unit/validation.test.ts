@@ -30,6 +30,18 @@ describe("beta payload validation", () => {
     expect(
       betaLeadSchema.safeParse({ ...base, persona: "unknown" }).success,
     ).toBe(false));
+  it("requires a description when the professional profile is other", () => {
+    expect(betaLeadSchema.safeParse({ ...base, persona: "otro" }).success).toBe(
+      false,
+    );
+    expect(
+      betaLeadSchema.safeParse({
+        ...base,
+        persona: "otro",
+        otherPersona: "Administración de fincas",
+      }).success,
+    ).toBe(true);
+  });
   it("requires a lead ID for completion", () =>
     expect(
       betaLeadSchema.safeParse({

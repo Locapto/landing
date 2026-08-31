@@ -45,4 +45,34 @@ describe("Apps Script payload", () => {
       "Precalificar actividades",
     );
   });
+  it("stores and sanitizes a custom professional profile", () => {
+    const parsed = betaLeadSchema.parse({
+      action: "upsert",
+      stage: "partial",
+      email: "otro@example.com",
+      persona: "otro",
+      otherPersona: "=Consultoría especializada",
+      selectedPlan: null,
+      priceSeen: null,
+      pricingExperiment: false,
+      website: "",
+      utmSource: "direct",
+      utmMedium: "",
+      utmCampaign: "",
+      utmContent: "",
+      utmTerm: "",
+      landingVariant: "home",
+      pagePath: "/",
+      referrer: "",
+    });
+    const payload = buildSheetsPayload(parsed, {
+      leadId: "123e4567-e89b-42d3-a456-426614174000",
+      score: 0,
+      qualified: false,
+    });
+    expect(payload).toMatchObject({
+      persona: "Otro",
+      persona_other: "'=Consultoría especializada",
+    });
+  });
 });

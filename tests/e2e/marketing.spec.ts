@@ -49,6 +49,22 @@ test("beta CTA reaches form and validates Step 1", async ({ page }) => {
   );
 });
 
+test("other professional profile asks for an explanation", async ({ page }) => {
+  await page.goto("/#acceso-beta");
+  await page.getByLabel(/Email profesional/).fill("qa@example.com");
+  await page.getByLabel(/Perfil profesional/).selectOption("otro");
+  const explanation = page.getByLabel(
+    /Cuéntanos cuál es tu perfil profesional/,
+  );
+  await expect(explanation).toBeVisible();
+  await page
+    .getByRole("button", { name: "Avisadme cuando esté disponible" })
+    .click();
+  await expect(page.locator("#form-error-home")).toContainText(
+    "Cuéntanos cuál es tu perfil profesional",
+  );
+});
+
 test("Step 1 saves before optional Step 2 and can be abandoned", async ({
   page,
 }) => {

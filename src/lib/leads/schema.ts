@@ -36,6 +36,7 @@ const common = {
   action: z.literal("upsert"),
   leadId: z.uuid().optional(),
   persona: z.enum(personaValues),
+  otherPersona: optionalText(120),
   selectedPlan: z.enum(["professional"]).nullable().optional(),
   priceSeen: z.number().int().min(0).max(10000).nullable().optional(),
   pricingExperiment: z.boolean().default(false),
@@ -43,26 +44,36 @@ const common = {
   ...attribution,
 };
 
-export const betaLeadSchema = z.discriminatedUnion("stage", [
-  z
-    .object({
-      ...common,
-      stage: z.literal("partial"),
-      email: z.email().max(254),
-    })
-    .strict(),
-  z
-    .object({
-      ...common,
-      stage: z.literal("complete"),
-      leadId: z.uuid(),
-      name: optionalText(120),
-      company: optionalText(160),
-      monthlyCases: z.enum(MONTHLY_CASES).optional(),
-      locations: optionalText(300),
-      interests: z.array(z.enum(interestValues)).max(7).default([]),
-    })
-    .strict(),
-]);
+export const betaLeadSchema = z
+  .discriminatedUnion("stage", [
+    z
+      .object({
+        ...common,
+        stage: z.literal("partial"),
+        email: z.email().max(254),
+      })
+      .strict(),
+    z
+      .object({
+        ...common,
+        stage: z.literal("complete"),
+        leadId: z.uuid(),
+        name: optionalText(120),
+        company: optionalText(160),
+        monthlyCases: z.enum(MONTHLY_CASES).optional(),
+        locations: optionalText(300),
+        interests: z.array(z.enum(interestValues)).max(7).default([]),
+      })
+      .strict(),
+  ])
+  .superRefine((input, context) => {
+    if (input.persona === "otro" && !input.otherPersona) {
+      context.addIssue({
+        code: "custom",
+        path: ["otherPersona"],
+        message: "Describe tu perfil profesional.",
+      });
+    }
+  });
 
 export type BetaLeadInput = z.infer<typeof betaLeadSchema>;

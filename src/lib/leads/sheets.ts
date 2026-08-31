@@ -15,6 +15,8 @@ export function buildSheetsPayload(
     updated_at: now,
     status: input.stage,
     persona: sanitizeForSheet(personaLabel(input.persona), 80),
+    persona_other:
+      input.persona === "otro" ? sanitizeForSheet(input.otherPersona, 120) : "",
     selected_plan: input.selectedPlan ?? "",
     price_seen: input.priceSeen ?? "",
     pricing_experiment: input.pricingExperiment,

@@ -38,6 +38,7 @@ export function BetaLeadForm({
   const [step, setStep] = useState<Step>("partial");
   const [email, setEmail] = useState("");
   const [persona, setPersona] = useState<Persona | "">("");
+  const [otherPersona, setOtherPersona] = useState("");
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [monthlyCases, setMonthlyCases] = useState("");
@@ -73,6 +74,7 @@ export function BetaLeadForm({
     return {
       action: "upsert",
       persona,
+      otherPersona,
       selectedPlan: pricing.selectedPlan,
       priceSeen: pricing.priceSeen,
       pricingExperiment: pricing.pricingExperiment,
@@ -110,6 +112,10 @@ export function BetaLeadForm({
     setError("");
     if (!email || !persona) {
       setError("Completa el email profesional y selecciona tu perfil.");
+      return;
+    }
+    if (persona === "otro" && !otherPersona.trim()) {
+      setError("Cuéntanos cuál es tu perfil profesional.");
       return;
     }
     setPending(true);
@@ -247,7 +253,11 @@ export function BetaLeadForm({
             <select
               id={`persona-${landingVariant}`}
               value={persona}
-              onChange={(e) => setPersona(e.target.value as Persona)}
+              onChange={(event) => {
+                const value = event.target.value as Persona | "";
+                setPersona(value);
+                if (value !== "otro") setOtherPersona("");
+              }}
               required
             >
               <option value="">Selecciona tu perfil</option>
@@ -258,6 +268,25 @@ export function BetaLeadForm({
               ))}
             </select>
           </div>
+          {persona === "otro" && (
+            <div className="form-field">
+              <label htmlFor={`other-persona-${landingVariant}`}>
+                Cuéntanos cuál es tu perfil profesional{" "}
+                <span aria-hidden="true">*</span>
+              </label>
+              <input
+                id={`other-persona-${landingVariant}`}
+                value={otherPersona}
+                onChange={(event) => setOtherPersona(event.target.value)}
+                placeholder="Por ejemplo, consultoría inmobiliaria"
+                maxLength={120}
+                required
+                aria-describedby={
+                  error ? `form-error-${landingVariant}` : undefined
+                }
+              />
+            </div>
+          )}
           <div className="honeypot" aria-hidden="true">
             <label>
               Web

@@ -17,6 +17,7 @@ Recommended filter views:
 
 - Gestorías
 - Arquitectura / ingeniería
+- Otros perfiles
 - 3+ expedientes
 - 10+ expedientes
 - Google Ads

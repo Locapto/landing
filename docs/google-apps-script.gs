@@ -1,7 +1,7 @@
 const SHEET_NAME = "Beta Leads";
 const HEADERS = [
   "lead_id", "created_at", "updated_at", "status", "email", "persona",
-  "name", "company", "monthly_cases", "locations", "interests",
+  "persona_other", "name", "company", "monthly_cases", "locations", "interests",
   "selected_plan", "price_seen", "pricing_experiment", "lead_score",
   "qualified", "utm_source", "utm_medium", "utm_campaign", "utm_content",
   "utm_term", "landing_variant", "page_path", "referrer"
@@ -57,6 +57,7 @@ function validatePayload_(body) {
   if (["partial", "complete"].indexOf(body.status) === -1) throw new Error("Invalid status");
   if (body.status === "partial" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(body.email || ""))) throw new Error("Invalid email");
   if (String(body.persona || "").length > 80) throw new Error("Invalid persona");
+  if (String(body.persona_other || "").length > 120) throw new Error("Invalid other persona");
   Object.keys(body).forEach(function (key) {
     if (typeof body[key] === "string" && body[key].length > 1000) throw new Error("Value too long");
   });
