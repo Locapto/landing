@@ -723,7 +723,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Tratamos el email profesional, el perfil, los datos opcionales de contacto y la información básica sobre cómo llegaste al sitio para gestionar tu solicitud, confirmar que la dirección de correo es correcta, entender qué necesitas y avisarte cuando Locapto esté disponible. Registramos el envío, los errores inmediatos de envío y la confirmación expresa del correo; no utilizamos píxeles para registrar aperturas. No solicitamos direcciones IP ni te suscribimos automáticamente a comunicaciones comerciales.",
+            text: "Tratamos el email profesional, el perfil, los datos opcionales de contacto y la información básica sobre cómo llegaste al sitio para gestionar tu solicitud, confirmar que la dirección de correo es correcta, entender qué necesitas y avisarte cuando Locapto esté disponible. Registramos el envío, los errores inmediatos de envío y la confirmación del correo; no utilizamos píxeles para registrar aperturas. No solicitamos direcciones IP ni te suscribimos automáticamente a comunicaciones comerciales.",
           },
         ],
       },

@@ -35,7 +35,7 @@ export async function recordEmailEvent({
 }
 
 function confirmationUrl(leadId: string) {
-  const url = new URL("/confirmar-email", marketingConfig.siteUrl);
+  const url = new URL("/api/email/confirm", marketingConfig.siteUrl);
   url.searchParams.set("token", createConfirmationToken(leadId));
   return url.toString();
 }

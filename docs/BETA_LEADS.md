@@ -53,7 +53,7 @@ Run `setup()` again whenever the documented header list changes. The email confi
 1. Confirm the exact outgoing server in **Zoho Mail → Settings → Mail Accounts → Server Configuration Details**.
 2. Set `ZOHO_SMTP_HOST`, `ZOHO_SMTP_PORT`, `ZOHO_SMTP_USER`, `ZOHO_SMTP_PASSWORD`, `ZOHO_FROM_EMAIL`, `ZOHO_REPLY_TO` and `EMAIL_CONFIRMATION_SECRET` in Vercel Production.
 3. Use port `465` with SSL or port `587` with TLS. The code selects SSL automatically for port `465`.
-4. Confirmation is recorded only after the recipient opens the signed link and presses the confirmation button on Locapto.
+4. The signed email link confirms idempotently and redirects to a noindex Locapto result page without requiring a second click.
 5. Send one real test and verify the row progresses from `sent` to `confirmed`. An SMTP authentication or recipient rejection is recorded as `failed`.
 
 Never commit the spreadsheet ID, webhook URL, or secret.

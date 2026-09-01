@@ -53,7 +53,7 @@ Step 1 sends email, persona and first-touch attribution to `POST /api/beta`. The
 
 The route validates with Zod, enforces same-origin requests, caps values, escapes spreadsheet formulas, uses an eight-second webhook timeout and logs no form PII. Apps Script repeats validation and sanitization and uses `LockService` for concurrent upserts.
 
-Confirmation links open `/confirmar-email` and require a POST from that page, so mail security scanners cannot confirm an address merely by following the link. Zoho SMTP acceptance and immediate failures are written to the same lead row. Open tracking is intentionally disabled.
+Signed confirmation links call an idempotent server endpoint and redirect immediately to `/confirmar-email` with a success or error state. Zoho SMTP acceptance, immediate failures and confirmations are written to the same lead row. Open tracking is intentionally disabled.
 
 See [docs/BETA_LEADS.md](docs/BETA_LEADS.md) for the operating workflow and [docs/google-apps-script.gs](docs/google-apps-script.gs) for the copy-ready webhook.
 

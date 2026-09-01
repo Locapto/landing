@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowLeft, MailCheck } from "lucide-react";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -28,10 +29,13 @@ export default async function ConfirmEmailPage({
       validToken = false;
     }
   }
+  if (token && validToken) {
+    redirect(`/api/email/confirm?token=${encodeURIComponent(token)}`);
+  }
 
   const confirmed = estado === "confirmado";
   const failed = estado === "error";
-  const invalid = estado === "invalido" || (Boolean(token) && !validToken);
+  const invalid = estado === "invalido" || Boolean(token);
 
   return (
     <>
@@ -66,32 +70,16 @@ export default async function ConfirmEmailPage({
                 a solicitar el aviso desde la landing.
               </p>
             </>
-          ) : validToken ? (
-            <>
-              <h1>Confirma tu correo.</h1>
-              <p>
-                Pulsa el botón para confirmar que quieres recibir el aviso de
-                disponibilidad de Locapto en esta dirección.
-              </p>
-              <form action="/api/email/confirm" method="post">
-                <input type="hidden" name="token" value={token} />
-                <button className="button button-dark" type="submit">
-                  Confirmar mi correo
-                </button>
-              </form>
-            </>
           ) : (
             <>
               <h1>Falta el enlace de confirmación.</h1>
               <p>Abre el enlace completo que has recibido por correo.</p>
             </>
           )}
-          {!validToken && (
-            <Link className="button button-quiet" href="/#acceso-beta">
-              <ArrowLeft aria-hidden="true" />
-              Volver a Locapto
-            </Link>
-          )}
+          <Link className="button button-quiet" href="/#acceso-beta">
+            <ArrowLeft aria-hidden="true" />
+            Volver a Locapto
+          </Link>
         </div>
       </main>
       <SiteFooter />

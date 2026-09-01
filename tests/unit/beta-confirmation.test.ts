@@ -46,7 +46,7 @@ describe("beta confirmation email", () => {
         to: "qa@example.com",
         headers: { "X-Locapto-Lead-Id": leadId },
         html: expect.stringContaining(
-          "https://locapto.com/confirmar-email?token=",
+          "https://locapto.com/api/email/confirm?token=",
         ),
       }),
     );
