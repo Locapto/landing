@@ -10,6 +10,11 @@ precedencia para evitar medición duplicada. LinkedIn usa
 No añadas GTM mientras siga activa la integración directa de GA salvo que sea
 una migración intencionada y validada.
 
+Vercel Web Analytics se carga de forma independiente mediante
+`@vercel/analytics`. Mide páginas vistas de forma first-party y sin cookies; no
+reemplaza GA, no reutiliza sus eventos de conversión y no depende del
+consentimiento de Google.
+
 ## Consent Mode v2
 
 La implementación usa modo básico. El `consent default` se define en el layout
@@ -61,6 +66,8 @@ Google Analytics.
    después del 200 de `/api/beta`.
 6. Activa DebugView en GA4 para revisar evento y parámetros. Marca
    `generate_lead` como evento clave/conversión en la propiedad de GA4.
+7. En Vercel, abre Web Analytics y comprueba que las páginas vistas aparecen
+   después de visitar la publicación de producción y navegar entre páginas.
 
 Repite la prueba con rechazo, error de validación, error 5xx y doble clic. En
 ningún caso debe enviarse `generate_lead`.

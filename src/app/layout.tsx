@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Geist } from "next/font/google";
 import Script from "next/script";
 import { ConsentManager } from "@/components/ConsentManager";
@@ -56,6 +57,7 @@ export default function RootLayout({
         </a>
         {children}
         <ConsentManager />
+        <Analytics />
       </body>
     </html>
   );
