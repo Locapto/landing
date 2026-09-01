@@ -2,14 +2,27 @@ import type { LandingVariant } from "@/config/marketing";
 
 const STORAGE_KEY = "locapto_first_touch_v1";
 
+const clickIdNames = [
+  "gclid",
+  "gbraid",
+  "wbraid",
+  "msclkid",
+  "li_fat_id",
+] as const;
+
 export type Attribution = {
   utmSource: string;
   utmMedium: string;
   utmCampaign: string;
   utmContent: string;
   utmTerm: string;
+  gclid: string;
+  gbraid: string;
+  wbraid: string;
+  msclkid: string;
+  liFatId: string;
   landingVariant: LandingVariant;
-  pagePath: string;
+  landingPage: string;
   referrer: string;
 };
 
@@ -39,8 +52,13 @@ export function getFirstTouchAttribution(
       utmCampaign: "",
       utmContent: "",
       utmTerm: "",
+      gclid: "",
+      gbraid: "",
+      wbraid: "",
+      msclkid: "",
+      liFatId: "",
       landingVariant,
-      pagePath: "/",
+      landingPage: "/",
       referrer: "",
     };
   }
@@ -61,8 +79,13 @@ export function getFirstTouchAttribution(
     utmCampaign: query.get("utm_campaign")?.slice(0, 160) || "",
     utmContent: query.get("utm_content")?.slice(0, 160) || "",
     utmTerm: query.get("utm_term")?.slice(0, 160) || "",
+    gclid: query.get(clickIdNames[0])?.slice(0, 200) || "",
+    gbraid: query.get(clickIdNames[1])?.slice(0, 200) || "",
+    wbraid: query.get(clickIdNames[2])?.slice(0, 200) || "",
+    msclkid: query.get(clickIdNames[3])?.slice(0, 200) || "",
+    liFatId: query.get(clickIdNames[4])?.slice(0, 200) || "",
     landingVariant,
-    pagePath: window.location.pathname.slice(0, 300),
+    landingPage: window.location.pathname.slice(0, 300),
     referrer: referrer.slice(0, 500),
   };
   window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(attribution));

@@ -9,7 +9,7 @@ export const publicPages: PublicPageDefinition[] = [
     eyebrow: "Para gestorías y asesorías",
     heading: "Empieza cada expediente con la información ya ordenada.",
     intro:
-      "Locapto reúne el trámite probable, los documentos habituales y las fuentes oficiales para que no tengas que reconstruir la misma investigación en cada apertura.",
+      "Locapto reunirá el procedimiento probable, los documentos habituales y las fuentes oficiales para evitar reconstruir la misma investigación en cada apertura.",
     kind: "audience",
     sections: [
       {
@@ -17,7 +17,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Los requisitos de una apertura suelen estar repartidos entre trámites, ordenanzas, formularios y sedes electrónicas. Locapto los organiza alrededor de una actividad y un municipio concretos.",
+            text: "Los requisitos de una apertura suelen estar repartidos entre trámites, ordenanzas, formularios y sedes electrónicas. Locapto los organizará alrededor de una actividad y una ubicación concretas.",
           },
           {
             type: "bullets",
@@ -82,7 +82,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Una dirección y una actividad no bastan para concluir la viabilidad. Locapto separa lo que puede orientarse con fuentes oficiales de aquello que necesita comprobación técnica o municipal.",
+            text: "Una dirección y una actividad no bastan para concluir la viabilidad. Locapto separará lo que pueda orientarse con fuentes oficiales de aquello que necesite comprobación técnica o municipal.",
           },
           {
             type: "bullets",
@@ -105,7 +105,7 @@ export const publicPages: PublicPageDefinition[] = [
           {
             type: "callout",
             title: "Qué incluye el resultado",
-            text: "Cada resultado identifica el municipio, la actividad y las fuentes revisadas, además de los elementos que requieren comprobación profesional.",
+            text: "La orientación identificará la ubicación, la actividad y las fuentes revisadas, además de los elementos que requieran comprobación profesional.",
           },
         ],
       },
@@ -185,7 +185,7 @@ export const publicPages: PublicPageDefinition[] = [
     heading:
       "De una idea y una ubicación a una primera revisión con fuentes oficiales.",
     intro:
-      "Locapto organiza la información inicial para mostrar qué parece aplicable, qué falta por saber y qué fuente oficial respalda cada resultado.",
+      "Locapto organizará la información inicial para mostrar qué parece aplicable, qué falta por saber y qué fuente oficial respalda cada orientación.",
     kind: "product",
     sections: [
       {
@@ -203,8 +203,8 @@ export const publicPages: PublicPageDefinition[] = [
                 text: "Selecciona municipio y, si ya existe un local, aporta sus características conocidas.",
               },
               {
-                title: "3. Consulta el resultado",
-                text: "Revisa el trámite más probable, los requisitos, los documentos, las dudas pendientes y las fuentes oficiales.",
+                title: "3. Revisa la orientación",
+                text: "Revisa el procedimiento probable, los requisitos, los documentos, las dudas pendientes y las fuentes oficiales.",
               },
             ],
           },
@@ -723,7 +723,7 @@ export const publicPages: PublicPageDefinition[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Tratamos el email profesional, el perfil, los datos opcionales de contacto y la información básica sobre cómo llegaste al sitio para gestionar tu solicitud, confirmar que la dirección de correo es correcta, entender qué necesitas y avisarte cuando Locapto esté disponible. Registramos el envío, los errores inmediatos de envío y la confirmación del correo; no utilizamos píxeles para registrar aperturas. No solicitamos direcciones IP ni te suscribimos automáticamente a comunicaciones comerciales.",
+            text: "Tratamos el email, el perfil, la actividad y ubicación opcionales, los datos profesionales que decidas añadir y la atribución de la primera visita —incluidos UTMs o identificadores publicitarios cuando existan— para gestionar el aviso, confirmar el correo y entender qué necesitas. Registramos el envío, los errores inmediatos y la confirmación del correo; no utilizamos píxeles de apertura, no solicitamos direcciones IP ni te suscribimos automáticamente a comunicaciones comerciales.",
           },
         ],
       },
@@ -738,7 +738,7 @@ export const publicPages: PublicPageDefinition[] = [
             type: "bullets",
             items: [
               "Puedes retirar el consentimiento o solicitar el acceso, rectificación, supresión, oposición, limitación o portabilidad escribiendo a victor@locapto.com.",
-              "Los datos se utilizarán para gestionar la lista de espera, avisar de la disponibilidad de Locapto y enviar invitaciones relacionadas con la beta; no se usarán para marketing general sin un consentimiento separado.",
+              "Los datos se utilizarán para gestionar la lista de avisos, confirmar el correo y comunicar la disponibilidad de Locapto; no se usarán para marketing general sin un consentimiento separado.",
               "Puedes presentar una reclamación ante la Agencia Española de Protección de Datos si consideras que el tratamiento no respeta la normativa aplicable.",
             ],
           },

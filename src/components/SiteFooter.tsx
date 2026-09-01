@@ -6,6 +6,7 @@ import { activitySeoDefinitions } from "@/content/seo/activities";
 import { geographyCatalog } from "@/content/seo/geography";
 import { activityPath, territoryPath } from "@/content/seo/routes";
 import { OpenConsentButton } from "./OpenConsentButton";
+import { TrackedBetaLink } from "./TrackedBetaLink";
 
 const groups = [
   [
@@ -49,10 +50,10 @@ export function SiteFooter() {
           <span>Locapto estará disponible próximamente</span>
           <h2>¿Quieres que te avisemos?</h2>
         </div>
-        <Link className="footer-callout-link" href="/#acceso-beta">
+        <TrackedBetaLink className="footer-callout-link" variant="content">
           {BETA_CTA_LABEL}
           <ArrowRight aria-hidden="true" />
-        </Link>
+        </TrackedBetaLink>
       </div>
       <div className="shell footer-main">
         <div className="footer-brand">
@@ -65,8 +66,8 @@ export function SiteFooter() {
             />
           </Link>
           <p>
-            Información para preparar aperturas de negocio con fuentes oficiales
-            en toda España.
+            Información para preparar aperturas según la actividad, la ubicación
+            y las características del local.
           </p>
         </div>
         <nav className="footer-nav" aria-label="Enlaces del pie de página">
@@ -97,7 +98,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div>
-          <strong>Por comunidad autónoma</strong>
+          <strong>Explorar por ubicación</strong>
           <div className="footer-directory-links footer-community-links">
             {geographyCatalog.communities.map((community) => (
               <Link key={community.code} href={territoryPath(community)}>

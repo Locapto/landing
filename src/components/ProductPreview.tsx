@@ -14,7 +14,7 @@ export function ProductPreview({ compact = false }: { compact?: boolean }) {
   return (
     <div
       className={compact ? "preview-wrap compact-preview" : "preview-wrap"}
-      aria-label="Demostración de un resultado de Locapto"
+      aria-label="Vista ilustrativa del formato futuro de Locapto; no es una consulta real"
     >
       <div className="product-preview">
         <div className="preview-progress" aria-hidden="true">
@@ -24,38 +24,38 @@ export function ProductPreview({ compact = false }: { compact?: boolean }) {
           <div className="preview-status-copy">
             <span className="preview-loading-label">
               <span className="preview-spinner" />
-              Consultando fuentes oficiales…
+              Ejemplo ilustrativo
             </span>
             <span className="preview-ready-label">
               <CheckCircle2 />
-              Resultado preparado
+              Formato previsto
             </span>
           </div>
           <div className="status-pill">
-            <span className="status-analyzing">ANALIZANDO</span>
-            <span className="status-ready">LISTO</span>
+            <span className="status-analyzing">EJEMPLO</span>
+            <span className="status-ready">ILUSTRATIVO</span>
           </div>
         </div>
         <div className="preview-fields">
           <div>
             <span>Actividad</span>
-            <strong>Peluquería y tratamientos de belleza</strong>
+            <strong>Actividad indicada</strong>
           </div>
           <div>
-            <span>Municipio</span>
-            <strong>Madrid</strong>
+            <span>Ubicación</span>
+            <strong>Ubicación indicada</strong>
           </div>
           <div>
             <span>Local</span>
-            <strong>85 m²</strong>
+            <strong>Características disponibles</strong>
           </div>
         </div>
         <div className="preview-result">
           <SearchCheck aria-hidden="true" />
           <div>
-            <span>Trámite más probable</span>
-            <strong>Declaración responsable</strong>
-            <small>Antes de iniciar la actividad</small>
+            <span>Procedimiento</span>
+            <strong>Por identificar y contrastar</strong>
+            <small>Según actividad, ubicación y local</small>
           </div>
         </div>
         <div className="preview-section-heading preview-requirements-heading">
@@ -66,8 +66,8 @@ export function ProductPreview({ compact = false }: { compact?: boolean }) {
           <div>
             <Building2 aria-hidden="true" />
             <span>
-              <strong>Uso compatible con peluquería</strong>
-              <small>Permitido por el planeamiento urbanístico</small>
+              <strong>Compatibilidad del uso</strong>
+              <small>Información que deberá comprobarse</small>
             </span>
           </div>
           <div>
@@ -116,8 +116,8 @@ export function ProductPreview({ compact = false }: { compact?: boolean }) {
           <li>
             <span className="preview-step-number">3</span>
             <div>
-              <strong>Presentar la declaración responsable</strong>
-              <span>En la sede electrónica municipal</span>
+              <strong>Identificar el procedimiento aplicable</strong>
+              <span>En la administración competente</span>
             </div>
             <Check aria-hidden="true" />
           </li>
@@ -132,14 +132,14 @@ export function ProductPreview({ compact = false }: { compact?: boolean }) {
         </ol>
         <div className="preview-sources">
           <div className="preview-section-heading">
-            <span>Fuentes oficiales consultadas</span>
-            <small>Verificadas</small>
+            <span>Fuentes oficiales relevantes</span>
+            <small>Por identificar</small>
           </div>
           <div className="preview-source-row">
             <Landmark aria-hidden="true" />
             <div>
-              <strong>Ayuntamiento de Madrid</strong>
-              <span>Sede electrónica · Actividades económicas</span>
+              <strong>Administración competente</strong>
+              <span>Sede electrónica y procedimiento aplicable</span>
               <small className="preview-source-review" aria-hidden="true">
                 Revisar fuente oficial ↗
               </small>
@@ -149,8 +149,8 @@ export function ProductPreview({ compact = false }: { compact?: boolean }) {
           <div className="preview-source-row">
             <FileText aria-hidden="true" />
             <div>
-              <strong>Comunidad de Madrid</strong>
-              <span>Normativa aplicable y accesibilidad</span>
+              <strong>Fuentes territoriales y sectoriales</strong>
+              <span>Normativa y documentación relevante</span>
               <small className="preview-source-review" aria-hidden="true">
                 Revisar fuente oficial ↗
               </small>

@@ -49,20 +49,15 @@ After regeneration, run the full quality suite and manually inspect an accent, `
 
 ## Sitemaps and crawl controls
 
-`/sitemap.xml` contains editorial pages, `/municipios` and every territorial directory. The ten activity sitemaps under `/sitemaps/{actividad}` contain the national activity page, its community and province directories, and every final municipality combination. Each final combination appears in exactly one activity sitemap; each sitemap remains well below 50,000 URLs.
+`/sitemap.xml` is the stable sitemap index. It separates static pages, resources, activity hubs and territorial hubs. Activity + municipality URLs remain available but are excluded while they return `noindex,follow`; reviewed local guides will use paginated sitemaps when any exist.
 
-`robots.txt` lists all eleven sitemaps, allows public crawlers through the general rule and explicitly allows `OAI-SearchBot`. Do not add `llms.txt` in this version.
+`robots.txt` lists only `/sitemap.xml`, allows public crawlers through the general rule and explicitly allows `OAI-SearchBot`. Do not add `llms.txt` in this version.
 
-Emergency rollback:
-
-1. Set `INDEX_MUNICIPALITY_ACTIVITIES=false` in the deployment environment.
-2. Deploy once.
-3. Confirm final combinations return `noindex,follow` and disappear from activity sitemaps.
-4. Keep directory pages available so the change is focused and reversible.
+Indexability is editorial, not environment-controlled. Add a route to the reviewed local evidence registry only after validating a differential local fact and an official territorial source.
 
 ## Search Console operation
 
-After deployment, submit the root sitemap and all ten activity sitemaps. Inspect the national `/abrir-negocio` page, one activity page, one community page, one province page and several final municipality pages.
+After deployment, submit only `/sitemap.xml`. Inspect `/abrir-negocio`, one activity page, one community page, one province page and several final municipality pages.
 
 Review at 2, 4 and 8 weeks:
 
@@ -70,8 +65,8 @@ Review at 2, 4 and 8 weeks:
 - “Crawled — currently not indexed” and “Discovered — currently not indexed”;
 - duplicate/canonical reports;
 - impressions, clicks and CTR by activity and territory;
-- organic `cta_beta_click` conversions using the existing `page_path` attribution;
+- organic `generate_lead` conversions using the stored landing attribution;
 - referrals from `chatgpt.com`;
 - signs of scaled-content classification.
 
-If quality or indexing deteriorates, use the central flag first, then revise activity content and source coverage before re-enabling combinations.
+If quality or indexing deteriorates, revise the central policy, activity content and source coverage without deleting routes.

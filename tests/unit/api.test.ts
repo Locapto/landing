@@ -4,6 +4,8 @@ import { POST } from "@/app/api/beta/route";
 
 const partial = {
   action: "upsert",
+  leadType: "launch_interest",
+  leadSource: "landing",
   stage: "partial",
   email: "qa@example.com",
   persona: "gestoria",
@@ -17,7 +19,7 @@ const partial = {
   utmContent: "",
   utmTerm: "",
   landingVariant: "home",
-  pagePath: "/",
+  landingPage: "/",
   referrer: "",
 };
 function request(body: unknown) {

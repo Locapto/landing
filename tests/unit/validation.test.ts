@@ -3,6 +3,8 @@ import { betaLeadSchema } from "@/lib/leads/schema";
 
 const base = {
   action: "upsert",
+  leadType: "launch_interest",
+  leadSource: "landing",
   stage: "partial",
   email: "persona@empresa.es",
   persona: "gestoria",
@@ -16,7 +18,7 @@ const base = {
   utmContent: "",
   utmTerm: "",
   landingVariant: "home",
-  pagePath: "/",
+  landingPage: "/",
   referrer: "",
 };
 describe("beta payload validation", () => {

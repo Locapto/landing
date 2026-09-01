@@ -69,7 +69,7 @@ export default function OpenGraphImage() {
       <div style={{ display: "flex", gap: 18, fontSize: 22, color: "#6556d9" }}>
         <span>Fuentes oficiales</span>
         <span>·</span>
-        <span>Ámbito nacional</span>
+        <span>Contexto territorial</span>
         <span>·</span>
         <span>Próximamente</span>
       </div>

@@ -14,6 +14,7 @@ import { Breadcrumbs, type Crumb } from "./Breadcrumbs";
 import { JsonLd } from "./JsonLd";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
+import { TrackedBetaLink } from "./TrackedBetaLink";
 
 const SITE = "https://locapto.com";
 const audienceHeroContent: Record<
@@ -22,7 +23,7 @@ const audienceHeroContent: Record<
 > = {
   "/para-gestorias": {
     label: "Expediente organizado",
-    context: "Peluquería · Madrid",
+    context: "Peluquería · Ubicación indicada",
     highlights: [
       "Trámite más probable",
       "Documentación habitual",
@@ -40,7 +41,7 @@ const audienceHeroContent: Record<
   },
   "/para-empresas": {
     label: "Comparación inicial",
-    context: "Nueva ubicación · Madrid",
+    context: "Nueva ubicación · Local indicado",
     highlights: [
       "Riesgos antes de alquilar",
       "Datos pendientes del local",
@@ -98,6 +99,15 @@ export function ContentPage({ page }: { page: PublicPageDefinition }) {
   const schemas: Record<string, unknown>[] = [
     {
       "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: page.heading,
+      description: page.description,
+      url: `${SITE}${page.path}`,
+      inLanguage: "es",
+      dateModified: "2026-09-01",
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Inicio", item: SITE },
@@ -118,6 +128,7 @@ export function ContentPage({ page }: { page: PublicPageDefinition }) {
       description: page.description,
       inLanguage: "es",
       mainEntityOfPage: `${SITE}${page.path}`,
+      dateModified: "2026-09-01",
       publisher: { "@type": "Organization", name: "Locapto", url: SITE },
     });
   return (
@@ -138,10 +149,10 @@ export function ContentPage({ page }: { page: PublicPageDefinition }) {
                 <h1>{page.heading}</h1>
                 <p>{page.intro}</p>
                 <div className="audience-hero-actions">
-                  <Link className="button button-dark" href="#acceso-beta">
+                  <TrackedBetaLink variant={variant} href="#acceso-beta">
                     {BETA_CTA_LABEL} <ArrowRight aria-hidden="true" />
-                  </Link>
-                  <span>Sin compromiso · Para solicitudes de toda España</span>
+                  </TrackedBetaLink>
+                  <span>Sin compromiso · Aviso de disponibilidad</span>
                 </div>
               </div>
               <div
@@ -240,17 +251,18 @@ export function ContentPage({ page }: { page: PublicPageDefinition }) {
               <h2>Prepara tu apertura con fuentes oficiales.</h2>
               <p>
                 Déjanos tu contacto y te avisaremos cuando Locapto esté
-                disponible para solicitudes de toda España.
+                disponible.
               </p>
-              <Link
+              <TrackedBetaLink
                 className="button button-dark aside-cta"
+                variant={variant}
                 href="#acceso-beta"
               >
                 <span>{BETA_CTA_LABEL}</span>
                 <span className="aside-cta-icon" aria-hidden="true">
                   <ArrowRight />
                 </span>
-              </Link>
+              </TrackedBetaLink>
             </div>
           </aside>
         </div>
@@ -289,8 +301,8 @@ export function ContentPage({ page }: { page: PublicPageDefinition }) {
               <p className="eyebrow">Aviso de disponibilidad</p>
               <h2>Te avisaremos cuando Locapto esté disponible.</h2>
               <p>
-                Déjanos tu contacto. Podrás usar Locapto para solicitudes de
-                cualquier municipio de España.
+                Déjanos tu contacto y, si quieres, indica la actividad y la
+                ubicación que te interesan.
               </p>
             </div>
             <BetaLeadForm landingVariant={variant} />

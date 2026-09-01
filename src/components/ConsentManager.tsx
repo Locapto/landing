@@ -9,6 +9,19 @@ type Consent = { analytics: boolean; marketing: boolean; decided: boolean };
 const KEY = "locapto_consent_v1";
 const empty: Consent = { analytics: false, marketing: false, decided: false };
 
+export function googleConsentState(consent: Consent) {
+  return {
+    analytics_storage: consent.analytics ? "granted" : "denied",
+    ad_storage: consent.marketing ? "granted" : "denied",
+    ad_user_data: consent.marketing ? "granted" : "denied",
+    ad_personalization: consent.marketing ? "granted" : "denied",
+  } as const;
+}
+
+function updateGoogleConsent(consent: Consent) {
+  window.gtag?.("consent", "update", googleConsentState(consent));
+}
+
 function readConsent(): Consent {
   if (typeof window === "undefined") return empty;
   try {
@@ -20,6 +33,7 @@ function readConsent(): Consent {
 
 export function ConsentManager() {
   const [consent, setConsent] = useState<Consent>(empty);
+  const [draft, setDraft] = useState<Consent>(empty);
   const [open, setOpen] = useState(false);
   const [ready, setReady] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -29,7 +43,12 @@ export function ConsentManager() {
   const linkedInId = process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID;
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setConsent(readConsent()), 0);
+    const timer = window.setTimeout(() => {
+      const restored = readConsent();
+      updateGoogleConsent(restored);
+      setConsent(restored);
+      setDraft(restored);
+    }, 0);
     const handler = () => setOpen(true);
     window.addEventListener("locapto:open-consent", handler);
     return () => {
@@ -40,9 +59,12 @@ export function ConsentManager() {
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
+    if (open && !dialog.open) {
+      setDraft(consent);
+      dialog.showModal();
+    }
     if (!open && dialog.open) dialog.close();
-  }, [open]);
+  }, [open, consent]);
   useEffect(() => {
     if (!ready || (!consent.analytics && !consent.marketing)) return;
     track("page_view", { page_path: pathname });
@@ -50,11 +72,12 @@ export function ConsentManager() {
 
   const save = (next: Consent) => {
     localStorage.setItem(KEY, JSON.stringify(next));
+    updateGoogleConsent(next);
     setConsent(next);
     setOpen(false);
     window.dispatchEvent(new CustomEvent("locapto:consent", { detail: next }));
   };
-  const useGtm = Boolean(gtmId && consent.marketing);
+  const useGtm = Boolean(gtmId && (consent.analytics || consent.marketing));
   const useGa = Boolean(!gtmId && gaId && consent.analytics);
 
   return (
@@ -136,9 +159,9 @@ export function ConsentManager() {
             </span>
             <input
               type="checkbox"
-              checked={consent.analytics}
+              checked={draft.analytics}
               onChange={(e) =>
-                setConsent((value) => ({
+                setDraft((value) => ({
                   ...value,
                   analytics: e.target.checked,
                 }))
@@ -152,9 +175,9 @@ export function ConsentManager() {
             </span>
             <input
               type="checkbox"
-              checked={consent.marketing}
+              checked={draft.marketing}
               onChange={(e) =>
-                setConsent((value) => ({
+                setDraft((value) => ({
                   ...value,
                   marketing: e.target.checked,
                 }))
@@ -172,7 +195,7 @@ export function ConsentManager() {
             </button>
             <button
               className="button button-dark"
-              onClick={() => save({ ...consent, decided: true })}
+              onClick={() => save({ ...draft, decided: true })}
             >
               Guardar configuración
             </button>
@@ -205,7 +228,7 @@ export function ConsentManager() {
             id="ga-init"
             strategy="afterInteractive"
             onReady={() => setReady(true)}
-          >{`window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','${gaId}',{send_page_view:false});`}</Script>
+          >{`window.gtag('js',new Date());window.gtag('config','${gaId}',{send_page_view:false});`}</Script>
         </>
       )}
       {linkedInId && consent.marketing && (

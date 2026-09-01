@@ -28,22 +28,21 @@ pnpm build
 
 ## Environment variables
 
-| Variable                          | Required          | Purpose                                                  |
-| --------------------------------- | ----------------- | -------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`            | Yes in production | Canonical origin; use `https://locapto.com`.             |
-| `INDEX_MUNICIPALITY_ACTIVITIES`   | Optional          | Set `false` to noindex and desitemap final combinations. |
-| `GOOGLE_SHEETS_WEBHOOK_URL`       | For live form     | Server-only Apps Script deployment URL.                  |
-| `GOOGLE_SHEETS_WEBHOOK_SECRET`    | For live form     | Server-only shared webhook secret.                       |
-| `ZOHO_SMTP_HOST`                  | For confirmation  | Account-specific Zoho SMTP server.                       |
-| `ZOHO_SMTP_PORT`                  | Optional          | SMTP port; defaults to `465` with SSL.                   |
-| `ZOHO_SMTP_USER`                  | For confirmation  | Zoho mailbox; use `victor@locapto.com`.                  |
-| `ZOHO_SMTP_PASSWORD`              | For confirmation  | Server-only Zoho password or app password.               |
-| `ZOHO_FROM_EMAIL`                 | Optional          | Sender; defaults to `Locapto <ZOHO_SMTP_USER>`.          |
-| `ZOHO_REPLY_TO`                   | Optional          | Reply address; defaults to `ZOHO_SMTP_USER`.             |
-| `EMAIL_CONFIRMATION_SECRET`       | For confirmation  | Random secret used to sign 30-day confirmation links.    |
-| `NEXT_PUBLIC_GTM_ID`              | Optional          | Google Tag Manager container.                            |
-| `NEXT_PUBLIC_GA_ID`               | Optional          | Direct Google Analytics fallback when GTM is absent.     |
-| `NEXT_PUBLIC_LINKEDIN_PARTNER_ID` | Optional          | LinkedIn Insight Tag.                                    |
+| Variable                          | Required          | Purpose                                               |
+| --------------------------------- | ----------------- | ----------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`            | Yes in production | Canonical origin; use `https://locapto.com`.          |
+| `GOOGLE_SHEETS_WEBHOOK_URL`       | For live form     | Server-only Apps Script deployment URL.               |
+| `GOOGLE_SHEETS_WEBHOOK_SECRET`    | For live form     | Server-only shared webhook secret.                    |
+| `ZOHO_SMTP_HOST`                  | For confirmation  | Account-specific Zoho SMTP server.                    |
+| `ZOHO_SMTP_PORT`                  | Optional          | SMTP port; defaults to `465` with SSL.                |
+| `ZOHO_SMTP_USER`                  | For confirmation  | Zoho mailbox; use `victor@locapto.com`.               |
+| `ZOHO_SMTP_PASSWORD`              | For confirmation  | Server-only Zoho password or app password.            |
+| `ZOHO_FROM_EMAIL`                 | Optional          | Sender; defaults to `Locapto <ZOHO_SMTP_USER>`.       |
+| `ZOHO_REPLY_TO`                   | Optional          | Reply address; defaults to `ZOHO_SMTP_USER`.          |
+| `EMAIL_CONFIRMATION_SECRET`       | For confirmation  | Random secret used to sign 30-day confirmation links. |
+| `NEXT_PUBLIC_GTM_ID`              | Optional          | Google Tag Manager container.                         |
+| `NEXT_PUBLIC_GA_ID`               | Optional          | Direct Google Analytics fallback when GTM is absent.  |
+| `NEXT_PUBLIC_LINKEDIN_PARTNER_ID` | Optional          | LinkedIn Insight Tag.                                 |
 
 Never prefix the webhook URL or secret with `NEXT_PUBLIC_`.
 
@@ -81,7 +80,9 @@ The first page load stores UTMs, landing variant, initial path and referrer in s
 
 Analytics and marketing scripts remain disabled until the corresponding consent. GTM takes precedence over direct GA to prevent duplicate Google measurement. Event payloads accept no email, name or company.
 
-Events: `page_view`, `cta_beta_click`, `example_result_view`, `beta_form_view`, `beta_step1_submit`, `beta_step1_success`, `beta_step2_submit`, `beta_complete`, `pricing_view`, `pricing_cta_click`.
+Events: `page_view`, `cta_click`, `form_start`, `generate_lead`, `form_error`, `persona_selected`, `activity_selected`, `municipality_selected`, `example_result_view`, `pricing_view`, `pricing_cta_click`.
+
+See [docs/analytics.md](docs/analytics.md) for Consent Mode v2, attribution, PII and verification.
 
 ## SEO content
 
@@ -89,9 +90,9 @@ Events: `page_view`, `cta_beta_click`, `example_result_view`, `beta_form_view`, 
 
 The national, community, province and activity hierarchy is pre-rendered. Municipality pages are generated on first request and cached until the next deployment. Builds and visits read only the committed INE catalog and never download official data or call the regulatory platform.
 
-The root sitemap contains editorial and territorial directory URLs. Each activity has a separate XML sitemap under `/sitemaps/{actividad}`. Set `INDEX_MUNICIPALITY_ACTIVITIES=false` to remove final municipality × activity combinations from those sitemaps and apply `noindex,follow` in one deployment.
+`/sitemap.xml` is a sitemap index segmented by static pages, resources, activity hubs and territorial hubs. Activity × municipality routes remain available with `noindex,follow` until reviewed local evidence makes a specific URL indexable. Historical activity sitemap endpoints remain available for compatibility.
 
-See [docs/TERRITORIAL_SEO.md](docs/TERRITORIAL_SEO.md) for activity selection status, annual INE updates, editorial rules, sitemap operation and Search Console review.
+See [docs/seo.md](docs/seo.md) and [docs/TERRITORIAL_SEO.md](docs/TERRITORIAL_SEO.md) for indexability, activity selection, INE updates and Search Console review.
 
 Campaign pages under `/lp/` and `/gracias` are always noindex and excluded from the sitemap.
 

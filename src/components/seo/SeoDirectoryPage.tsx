@@ -221,6 +221,101 @@ function Directory({ route }: { route: SeoRoute }) {
   );
 }
 
+function HubContent({ route }: { route: SeoRoute }) {
+  const activity = route.activity;
+  if (activity && route.kind !== "activity-municipality")
+    return (
+      <section className="section" aria-labelledby="activity-overview-title">
+        <div className="shell seo-article-layout">
+          <article className="seo-article">
+            <section>
+              <h2 id="activity-overview-title">
+                Qué conviene revisar antes de abrir {activity.name}
+              </h2>
+              <p>{activity.summary}</p>
+              <p>
+                El procedimiento y las condiciones concretas pueden cambiar con
+                la ubicación, el alcance de la actividad y las características
+                del local. Este hub organiza la orientación general y el acceso
+                al siguiente nivel territorial.
+              </p>
+            </section>
+            <section>
+              <h2>Requisitos generales</h2>
+              <ul className="check-list">
+                {activity.requirements.map((requirement) => (
+                  <li key={requirement}>
+                    <Check aria-hidden="true" />
+                    {requirement}
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section>
+              <h2>Pasos habituales</h2>
+              <ol className="step-list">
+                {activity.steps.map((step, index) => (
+                  <li key={step}>
+                    <span>{index + 1}</span>
+                    <p>{step}</p>
+                  </li>
+                ))}
+              </ol>
+            </section>
+            <section>
+              <h2>Fuentes generales de referencia</h2>
+              <ul className="seo-source-list">
+                {activity.sources.map((source) => (
+                  <li key={source.url}>
+                    <a href={source.url} target="_blank" rel="noreferrer">
+                      <span>
+                        <strong>{source.title}</strong>
+                        <small>{source.organization}</small>
+                      </span>
+                      <ArrowRight aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </article>
+          <aside className="seo-product-aside">
+            <div>
+              <p className="eyebrow">Guías relacionadas</p>
+              <h2>Prepara mejor la revisión del local.</h2>
+              <p>
+                Consulta conceptos habituales antes de concretar el trámite y la
+                documentación aplicables.
+              </p>
+              <Link href="/recursos/que-comprobar-antes-de-alquilar-un-local">
+                Qué comprobar antes de alquilar un local
+                <ArrowRight aria-hidden="true" />
+              </Link>
+              <Link href="/recursos/licencia-actividad-vs-declaracion-responsable">
+                Licencia o declaración responsable
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </div>
+          </aside>
+        </div>
+      </section>
+    );
+
+  return (
+    <section className="section" aria-labelledby="territory-context-title">
+      <div className="shell narrow seo-article">
+        <h2 id="territory-context-title">La ubicación cambia la revisión.</h2>
+        <p>
+          El municipio, la actividad concreta y las características del local
+          determinan qué administración, procedimiento y documentación conviene
+          contrastar. Utiliza el directorio para avanzar por la jerarquía
+          territorial sin interpretar la ruta como una comprobación del caso.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function FinalActivityPage({ route }: { route: SeoRoute }) {
   const activity = route.activity;
   const municipality = route.municipality;
@@ -347,7 +442,15 @@ function FinalActivityPage({ route }: { route: SeoRoute }) {
             local, documentación personalizada, fuentes trazables y seguimiento
             de cambios.
           </p>
-          <TrackedBetaLink variant="content">
+          <TrackedBetaLink
+            variant="content"
+            qualification={{
+              activity: activity.name,
+              activityKey: activity.slug,
+              municipality: municipality.name,
+              municipalityCode: municipality.code,
+            }}
+          >
             Avísame cuando esté disponible
             <ArrowRight aria-hidden="true" />
           </TrackedBetaLink>
@@ -376,7 +479,10 @@ export function SeoDirectoryPage({ route }: { route: SeoRoute }) {
         {route.kind === "activity-municipality" ? (
           <FinalActivityPage route={route} />
         ) : (
-          <Directory route={route} />
+          <>
+            <HubContent route={route} />
+            <Directory route={route} />
+          </>
         )}
       </main>
       <SiteFooter />

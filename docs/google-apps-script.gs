@@ -6,7 +6,9 @@ const HEADERS = [
   "qualified", "utm_source", "utm_medium", "utm_campaign", "utm_content",
   "utm_term", "landing_variant", "page_path", "referrer", "email_provider_id",
   "email_status", "email_sent_at", "email_delivered_at", "email_confirmed_at",
-  "email_failed_at"
+  "email_failed_at", "lead_type", "lead_source", "activity", "municipality",
+  "company_website", "gclid", "gbraid", "wbraid", "msclkid", "li_fat_id",
+  "landing_page"
 ];
 
 function setup() {
@@ -72,6 +74,8 @@ function validatePayload_(body) {
   if (body.status === "partial" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(body.email || ""))) throw new Error("Invalid email");
   if (String(body.persona || "").length > 80) throw new Error("Invalid persona");
   if (String(body.persona_other || "").length > 120) throw new Error("Invalid other persona");
+  if (String(body.activity || "").length > 160) throw new Error("Invalid activity");
+  if (String(body.municipality || "").length > 160) throw new Error("Invalid municipality");
   Object.keys(body).forEach(function (key) {
     if (typeof body[key] === "string" && body[key].length > 1000) throw new Error("Value too long");
   });

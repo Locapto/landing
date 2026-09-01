@@ -5,7 +5,7 @@ describe("first-touch attribution", () => {
     window.history.replaceState(
       {},
       "",
-      "/?utm_source=google&utm_medium=cpc&utm_campaign=first",
+      "/?utm_source=google&utm_medium=cpc&utm_campaign=first&gclid=google-click&msclkid=bing-click",
     );
     const first = getFirstTouchAttribution("home");
     window.history.replaceState(
@@ -17,6 +17,8 @@ describe("first-touch attribution", () => {
     expect(first.utmSource).toBe("google");
     expect(second.utmSource).toBe("google");
     expect(second.utmCampaign).toBe("first");
+    expect(second.gclid).toBe("google-click");
+    expect(second.msclkid).toBe("bing-click");
     expect(second.landingVariant).toBe("home");
   });
   it("classifies an empty referrer as direct", () =>

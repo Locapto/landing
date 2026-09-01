@@ -24,14 +24,14 @@ import { TrackedProductPreview } from "@/components/TrackedProductPreview";
 import { AVAILABILITY_CHIP_LABEL, BETA_CTA_LABEL } from "@/config/marketing";
 
 export const metadata: Metadata = {
-  title: "Qué necesitas para abrir un negocio o local | Locapto",
+  title: "Locapto | Qué necesitas para abrir un negocio",
   description:
-    "Consulta trámites, requisitos, documentos y fuentes oficiales para abrir un negocio en cualquier municipio de España.",
+    "Consulta trámites, requisitos, documentos y fuentes oficiales según la actividad, la ubicación y las características del local.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Qué necesitas para abrir un negocio o local | Locapto",
+    title: "Locapto | Qué necesitas para abrir un negocio",
     description:
-      "Consulta trámites, requisitos y fuentes oficiales para preparar una apertura en cualquier municipio de España.",
+      "Consulta trámites, requisitos y fuentes oficiales según la actividad, la ubicación y las características del local.",
     url: "/",
     locale: "es_ES",
     siteName: "Locapto",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Qué necesitas para abrir un negocio o local | Locapto",
+    title: "Locapto | Qué necesitas para abrir un negocio",
     description:
-      "Consulta trámites, requisitos y fuentes oficiales para preparar una apertura en cualquier municipio de España.",
+      "Consulta trámites, requisitos y fuentes oficiales según la actividad, la ubicación y las características del local.",
   },
 };
 
@@ -96,8 +96,8 @@ const faqs = [
     "No. Locapto no concede licencias, no representa una aprobación municipal y no sustituye la revisión profesional o administrativa necesaria.",
   ],
   [
-    "¿Dónde estará disponible Locapto?",
-    "Locapto estará disponible para solicitudes de cualquier municipio de España. Puedes apuntarte ahora y te avisaremos cuando puedas utilizarlo.",
+    "¿Cómo influye la ubicación?",
+    "Los requisitos pueden cambiar según la actividad, el municipio y las características del local. Locapto organizará ese contexto para facilitar su revisión.",
   ],
   [
     "¿Para quién está pensado?",
@@ -105,7 +105,7 @@ const faqs = [
   ],
   [
     "¿Qué fuentes utiliza Locapto?",
-    "Locapto se basa en fuentes oficiales de las administraciones competentes. Cada resultado indicará de dónde procede la información y cuándo se revisó.",
+    "Locapto se basará en fuentes oficiales de las administraciones competentes. La información mostrará de dónde procede y cuándo se revisó.",
   ],
   [
     "¿Puedo usar Locapto si soy una gestoría?",
@@ -113,7 +113,7 @@ const faqs = [
   ],
   [
     "¿Puedo utilizarlo para comprobar un local antes de alquilarlo?",
-    "Sí. El resultado inicial puede ayudarte a detectar dudas y posibles obstáculos, pero no sustituye visitas, informes técnicos, revisiones jurídicas ni consultas municipales.",
+    "Cuando esté disponible, la orientación inicial podrá ayudarte a detectar dudas y posibles obstáculos, sin sustituir visitas, informes técnicos, revisiones jurídicas ni consultas municipales.",
   ],
 ];
 
@@ -130,10 +130,6 @@ export default function Home() {
               name: "Locapto",
               url: "https://locapto.com",
               logo: "https://locapto.com/brand/icon-colors.webp",
-              areaServed: {
-                "@type": "Country",
-                name: "España",
-              },
             },
             {
               "@context": "https://schema.org",
@@ -149,14 +145,14 @@ export default function Home() {
             <div className="hero-copy">
               <p className="eyebrow">{AVAILABILITY_CHIP_LABEL}</p>
               <h1>
-                Descubre qué necesitas para abrir un negocio, con fuentes
-                oficiales.
+                Descubre qué necesitas para abrir un negocio según tu actividad
+                y ubicación.
               </h1>
               <p className="hero-lead">
-                Locapto reúne en un solo lugar los trámites, requisitos,
-                documentos y condiciones del local según la actividad y el
-                municipio, para que detectes riesgos antes de invertir tiempo o
-                dinero.
+                Cuando esté disponible, Locapto reunirá los trámites,
+                requisitos, documentos y condiciones del local según la
+                actividad y el municipio, para que detectes riesgos antes de
+                invertir tiempo o dinero.
               </p>
               <div className="hero-actions">
                 <TrackedBetaLink variant="home">
@@ -167,8 +163,8 @@ export default function Home() {
                 </Link>
               </div>
               <p className="hero-note">
-                Para gestorías, técnicos, empresas y emprendedores de toda
-                España.
+                Para gestorías, técnicos, empresas y emprendedores que preparan
+                aperturas.
               </p>
             </div>
             <TrackedProductPreview variant="home" />
@@ -179,7 +175,7 @@ export default function Home() {
             {[
               "Fuentes oficiales",
               "Información verificable",
-              "Ámbito nacional",
+              "Contexto territorial",
               "Datos por confirmar",
             ].map((item) => (
               <div key={item}>
@@ -205,8 +201,8 @@ export default function Home() {
                 utilizan criterios distintos.
               </p>
               <p>
-                Locapto reúne esa información alrededor de una actividad y una
-                ubicación concretas, y muestra también lo que falta por
+                Locapto organizará esa información alrededor de una actividad y
+                una ubicación concretas, y mostrará también lo que falta por
                 confirmar.
               </p>
             </div>
@@ -259,10 +255,10 @@ export default function Home() {
               </li>
               <li>
                 <span>03</span>
-                <h3>Consulta el resultado inicial</h3>
+                <h3>Revisa la orientación inicial</h3>
                 <p>
-                  Consulta el trámite más probable, los requisitos, las dudas
-                  pendientes y las fuentes oficiales.
+                  Cuando esté disponible, revisa el procedimiento probable, los
+                  requisitos, las dudas pendientes y las fuentes oficiales.
                 </p>
               </li>
             </ol>
@@ -329,8 +325,8 @@ export default function Home() {
               <p className="eyebrow">Aviso de disponibilidad</p>
               <h2>Te avisaremos cuando Locapto esté disponible.</h2>
               <p>
-                Déjanos tu contacto. Podrás usar Locapto para solicitudes de
-                cualquier municipio de España.
+                Déjanos tu contacto y, si quieres, indica la actividad y la
+                ubicación que te interesan.
               </p>
               <div className="beta-points">
                 <span>

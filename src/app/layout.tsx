@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
+import Script from "next/script";
 import { ConsentManager } from "@/components/ConsentManager";
 import "./globals.css";
 
@@ -17,11 +18,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://locapto.com",
   ),
   title: {
-    default: "Qué necesitas para abrir un negocio o local | Locapto",
+    default: "Locapto | Qué necesitas para abrir un negocio",
     template: "%s",
   },
   description:
-    "Consulta trámites, requisitos, documentos y fuentes oficiales según la actividad y el municipio.",
+    "Consulta trámites, requisitos, documentos y fuentes oficiales según la actividad y la ubicación.",
   applicationName: "Locapto",
   authors: [{ name: "Locapto" }],
   creator: "Locapto",
@@ -45,8 +46,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={geist.variable}>
+    <html lang="es" className={geist.variable} data-scroll-behavior="smooth">
       <body>
+        <Script id="google-consent-default" strategy="beforeInteractive">
+          {`window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments)};window.gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});`}
+        </Script>
         <a className="skip-link" href="#contenido">
           Saltar al contenido
         </a>

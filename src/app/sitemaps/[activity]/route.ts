@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
-import { marketingConfig } from "@/config/marketing";
 import {
   activityBySlug,
   activitySeoDefinitions,
 } from "@/content/seo/activities";
-import { geographyCatalog } from "@/content/seo/geography";
 import { activityPath } from "@/content/seo/routes";
+import {
+  activityHubSitemapEntries,
+  localGuideSitemapEntries,
+} from "@/lib/seo/sitemaps";
 
 export const dynamic = "force-static";
 
@@ -27,20 +29,10 @@ function escapeXml(value: string): string {
 export function activitySitemapEntries(activitySlug: string) {
   const activity = activityBySlug.get(activitySlug);
   if (!activity) return null;
-  const paths = [activityPath(activity)];
-  for (const community of geographyCatalog.communities) {
-    paths.push(activityPath(activity, community));
-    for (const province of community.provinces) {
-      paths.push(activityPath(activity, community, province));
-      if (marketingConfig.municipalityActivityIndexingEnabled)
-        for (const municipality of province.municipalities)
-          paths.push(activityPath(activity, community, province, municipality));
-    }
-  }
-  return paths.map((path) => ({
-    url: new URL(path, marketingConfig.siteUrl).toString(),
-    lastModified: activity.lastReviewedAt,
-  }));
+  const marker = `${activityPath(activity)}`;
+  return [...activityHubSitemapEntries(), ...localGuideSitemapEntries()].filter(
+    ({ url }) => new URL(url).pathname.startsWith(marker),
+  );
 }
 
 export async function GET(

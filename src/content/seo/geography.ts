@@ -21,11 +21,16 @@ export const municipalityByCode = new Map<
     municipality: Municipality;
   }
 >();
+export const municipalityNameCounts = new Map<string, number>();
 
 for (const community of geographyCatalog.communities) {
   for (const province of community.provinces) {
     provinceByCode.set(province.code, province);
     for (const municipality of province.municipalities) {
+      municipalityNameCounts.set(
+        municipality.name,
+        (municipalityNameCounts.get(municipality.name) ?? 0) + 1,
+      );
       municipalityByCode.set(municipality.code, {
         community,
         province,

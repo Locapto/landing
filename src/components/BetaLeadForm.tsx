@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { BETA_CTA_LABEL, type LandingVariant } from "@/config/marketing";
 import { getFirstTouchAttribution } from "@/lib/analytics/attribution";
-import { track } from "@/lib/analytics/events";
+import { track, trackGenerateLeadOnce } from "@/lib/analytics/events";
 import {
   INTERESTS,
   MONTHLY_CASES,
@@ -16,7 +16,20 @@ import {
 import { PRICING_CONTEXT_KEY } from "./PricingExperiment";
 
 const LEAD_KEY = "locapto_beta_lead_id";
-type Step = "partial" | "details-saving" | "details" | "done-saving" | "done";
+const CONTEXT_KEY = "locapto_lead_context_v1";
+const professionalPersonas = new Set<Persona>([
+  "gestoria",
+  "tecnico",
+  "consultoria",
+  "empresa",
+  "proptech",
+  "otro",
+]);
+
+type Step = "partial" | "details" | "done";
+type FieldErrors = Partial<
+  Record<"email" | "persona" | "otherPersona", string>
+>;
 type PricingContext = {
   selectedPlan: "professional" | null;
   priceSeen: number | null;
@@ -28,6 +41,15 @@ const noPricing: PricingContext = {
   pricingExperiment: false,
 };
 
+function landingPageType(pathname: string) {
+  if (pathname === "/") return "home";
+  if (pathname.startsWith("/lp/")) return "campaign";
+  if (pathname.startsWith("/recursos/")) return "resource";
+  if (pathname.startsWith("/abrir-negocio/")) return "activity";
+  if (pathname.startsWith("/municipios/")) return "territory";
+  return "content";
+}
+
 export function BetaLeadForm({
   landingVariant = "home",
   compact = false,
@@ -36,11 +58,18 @@ export function BetaLeadForm({
   compact?: boolean;
 }) {
   const [step, setStep] = useState<Step>("partial");
+  const [savingPartial, setSavingPartial] = useState(false);
+  const [savingDetails, setSavingDetails] = useState(false);
   const [email, setEmail] = useState("");
   const [persona, setPersona] = useState<Persona | "">("");
   const [otherPersona, setOtherPersona] = useState("");
+  const [activity, setActivity] = useState("");
+  const [municipality, setMunicipality] = useState("");
+  const [analyticsActivity, setAnalyticsActivity] = useState("");
+  const [analyticsMunicipality, setAnalyticsMunicipality] = useState("");
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
+  const [companyWebsite, setCompanyWebsite] = useState("");
   const [monthlyCases, setMonthlyCases] = useState("");
   const [locations, setLocations] = useState("");
   const [interests, setInterests] = useState<Interest[]>([]);
@@ -48,32 +77,80 @@ export function BetaLeadForm({
   const [leadId, setLeadId] = useState("");
   const [pricing, setPricing] = useState<PricingContext>(noPricing);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const submittingRef = useRef(false);
+  const formStartedRef = useRef(false);
+  const contextReadyRef = useRef(false);
 
   useEffect(() => {
     getFirstTouchAttribution(landingVariant);
-    track("beta_form_view", { landing_variant: landingVariant });
-    const saved = sessionStorage.getItem(PRICING_CONTEXT_KEY);
-    if (saved) {
+    const timer = window.setTimeout(() => {
+      const query = new URLSearchParams(window.location.search);
+      let savedContext: Record<string, string> = {};
       try {
-        const restored = { ...noPricing, ...JSON.parse(saved) };
-        window.setTimeout(() => setPricing(restored), 0);
+        savedContext = JSON.parse(sessionStorage.getItem(CONTEXT_KEY) ?? "{}");
       } catch {
-        sessionStorage.removeItem(PRICING_CONTEXT_KEY);
+        sessionStorage.removeItem(CONTEXT_KEY);
       }
-    }
+      const nextActivity =
+        query.get("activity")?.slice(0, 160) ?? savedContext.activity;
+      const nextMunicipality =
+        query.get("municipality")?.slice(0, 160) ?? savedContext.municipality;
+      if (nextActivity) setActivity(nextActivity);
+      if (nextMunicipality) setMunicipality(nextMunicipality);
+      setAnalyticsActivity(query.get("activity_key")?.slice(0, 80) ?? "");
+      setAnalyticsMunicipality(
+        query.get("municipality_code")?.slice(0, 10) ?? "",
+      );
+
+      const savedPricing = sessionStorage.getItem(PRICING_CONTEXT_KEY);
+      if (savedPricing) {
+        try {
+          setPricing({ ...noPricing, ...JSON.parse(savedPricing) });
+        } catch {
+          sessionStorage.removeItem(PRICING_CONTEXT_KEY);
+        }
+      }
+      contextReadyRef.current = true;
+    }, 0);
     const select = (event: Event) =>
       setPricing((event as CustomEvent<PricingContext>).detail);
     window.addEventListener("locapto:pricing-selected", select);
-    return () => window.removeEventListener("locapto:pricing-selected", select);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("locapto:pricing-selected", select);
+    };
   }, [landingVariant]);
 
+  useEffect(() => {
+    if (!contextReadyRef.current) return;
+    sessionStorage.setItem(
+      CONTEXT_KEY,
+      JSON.stringify({ activity, municipality }),
+    );
+  }, [activity, municipality]);
+
   const attribution = () => getFirstTouchAttribution(landingVariant);
+  const startForm = () => {
+    if (formStartedRef.current) return;
+    formStartedRef.current = true;
+    const value = attribution();
+    track("form_start", {
+      landing_variant: landingVariant,
+      landing_page_type: landingPageType(value.landingPage),
+      page_path: value.landingPage,
+    });
+  };
   const commonPayload = () => {
     const value = attribution();
     return {
       action: "upsert",
+      leadType: "launch_interest",
+      leadSource: "landing",
       persona,
       otherPersona,
+      activity,
+      municipality,
       selectedPlan: pricing.selectedPlan,
       priceSeen: pricing.priceSeen,
       pricingExperiment: pricing.pricingExperiment,
@@ -83,8 +160,13 @@ export function BetaLeadForm({
       utmCampaign: value.utmCampaign,
       utmContent: value.utmContent,
       utmTerm: value.utmTerm,
+      gclid: value.gclid,
+      gbraid: value.gbraid,
+      wbraid: value.wbraid,
+      msclkid: value.msclkid,
+      liFatId: value.liFatId,
       landingVariant: value.landingVariant,
-      pagePath: value.pagePath,
+      landingPage: value.landingPage,
       referrer: value.referrer,
     };
   };
@@ -106,31 +188,30 @@ export function BetaLeadForm({
       qualified: boolean;
     };
   };
+
   const submitPartial = async (event: FormEvent) => {
     event.preventDefault();
+    if (submittingRef.current) return;
     setError("");
-    if (!email || !persona) {
-      setError("Completa el email profesional y selecciona tu perfil.");
+    const nextErrors: FieldErrors = {};
+    if (!/^\S+@\S+\.\S+$/.test(email.trim()))
+      nextErrors.email = "Introduce un email válido.";
+    if (!persona) nextErrors.persona = "Selecciona tu perfil.";
+    if (persona === "otro" && !otherPersona.trim())
+      nextErrors.otherPersona = "Describe brevemente tu perfil.";
+    setFieldErrors(nextErrors);
+    if (Object.keys(nextErrors).length) {
+      track("form_error", { landing_variant: landingVariant });
       return;
     }
-    if (persona === "otro" && !otherPersona.trim()) {
-      setError("Cuéntanos cuál es tu perfil profesional.");
-      return;
-    }
+
+    submittingRef.current = true;
+    setSavingPartial(true);
     const value = attribution();
-    track("beta_step1_submit", {
-      persona,
-      landing_variant: landingVariant,
-      selected_plan: pricing.selectedPlan ?? undefined,
-      price_seen: pricing.priceSeen ?? undefined,
-      utm_source: value.utmSource,
-      utm_campaign: value.utmCampaign,
-    });
     const nextLeadId =
       leadId || sessionStorage.getItem(LEAD_KEY) || crypto.randomUUID();
     setLeadId(nextLeadId);
     sessionStorage.setItem(LEAD_KEY, nextLeadId);
-    setStep("details-saving");
     try {
       const data = await post({
         ...commonPayload(),
@@ -140,59 +221,65 @@ export function BetaLeadForm({
       });
       setLeadId(data.leadId);
       sessionStorage.setItem(LEAD_KEY, data.leadId);
-      setStep("details");
-      track("beta_step1_success", {
+      trackGenerateLeadOnce(data.leadId, {
+        lead_type: "launch_interest",
         persona,
+        activity: analyticsActivity || undefined,
+        municipality: analyticsMunicipality || undefined,
         landing_variant: landingVariant,
-        selected_plan: pricing.selectedPlan ?? undefined,
-        price_seen: pricing.priceSeen ?? undefined,
+        landing_page_type: landingPageType(value.landingPage),
         utm_source: value.utmSource,
+        utm_medium: value.utmMedium,
         utm_campaign: value.utmCampaign,
       });
+      if (professionalPersonas.has(persona as Persona)) setStep("details");
+      else {
+        sessionStorage.removeItem(LEAD_KEY);
+        setStep("done");
+      }
     } catch (reason) {
-      setStep("partial");
       setError(
         reason instanceof Error
           ? reason.message
           : "No hemos podido guardar la solicitud.",
       );
+      track("form_error", { landing_variant: landingVariant });
+    } finally {
+      submittingRef.current = false;
+      setSavingPartial(false);
     }
   };
+
   const finish = async (event: FormEvent) => {
     event.preventDefault();
+    if (submittingRef.current) return;
+    submittingRef.current = true;
+    setSavingDetails(true);
     setError("");
-    track("beta_step2_submit", {
-      persona: persona || undefined,
-      landing_variant: landingVariant,
-    });
-    setStep("done-saving");
     try {
-      const data = await post({
+      await post({
         ...commonPayload(),
         stage: "complete",
         leadId,
         name,
         company,
+        companyWebsite,
         monthlyCases: monthlyCases || undefined,
         locations,
         interests,
       });
-      track("beta_complete", {
-        persona: persona || undefined,
-        landing_variant: landingVariant,
-        selected_plan: pricing.selectedPlan ?? undefined,
-        price_seen: pricing.priceSeen ?? undefined,
-        qualified: data.qualified,
-      });
       sessionStorage.removeItem(LEAD_KEY);
       setStep("done");
     } catch (reason) {
-      setStep("details");
       setError(
         reason instanceof Error
           ? reason.message
           : "No hemos podido completar la solicitud.",
       );
+      track("form_error", { landing_variant: landingVariant });
+    } finally {
+      submittingRef.current = false;
+      setSavingDetails(false);
     }
   };
   const skip = () => {
@@ -206,42 +293,33 @@ export function BetaLeadForm({
         : [...current, value],
     );
 
-  if (step === "done" || step === "done-saving") {
-    const saving = step === "done-saving";
+  if (step === "done")
     return (
       <div className="form-success" role="status" aria-live="polite">
-        <span aria-hidden="true">{saving ? "…" : "✓"}</span>
-        <h3>
-          {saving
-            ? "Guardando tus respuestas…"
-            : "Ya estás en la lista de avisos."}
-        </h3>
+        <span aria-hidden="true">✓</span>
+        <h3>Gracias. Te avisaremos cuando Locapto esté disponible.</h3>
         <p>
-          {saving
-            ? "Estamos terminando de guardar la información."
-            : "Revisa tu bandeja de entrada para confirmar el correo. Después te avisaremos cuando Locapto esté disponible."}
+          Revisa tu bandeja de entrada para confirmar el correo y completar el
+          alta en la lista de avisos.
         </p>
       </div>
     );
-  }
-
-  const savingDetails = step === "details-saving";
 
   return (
     <div className={compact ? "beta-form compact-form" : "beta-form"}>
       {step === "partial" ? (
-        <form onSubmit={submitPartial} noValidate>
+        <form onSubmit={submitPartial} onFocus={startForm} noValidate>
           <div className="form-heading">
-            <p className="form-step">Paso 1 de 2</p>
+            <p className="form-step">Aviso de disponibilidad</p>
             <h3>Te avisamos cuando esté disponible</h3>
             <p>
-              Solo necesitamos dos datos para avisarte cuando puedas utilizar
-              Locapto.
+              Indica cómo contactarte y, si quieres, qué actividad y ubicación
+              te interesan.
             </p>
           </div>
           <div className="form-field">
             <label htmlFor={`email-${landingVariant}`}>
-              Email profesional <span aria-hidden="true">*</span>
+              Email <span aria-hidden="true">*</span>
             </label>
             <input
               id={`email-${landingVariant}`}
@@ -249,16 +327,25 @@ export function BetaLeadForm({
               type="email"
               autoComplete="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
               required
+              aria-invalid={Boolean(fieldErrors.email)}
               aria-describedby={
-                error ? `form-error-${landingVariant}` : undefined
+                fieldErrors.email ? `email-error-${landingVariant}` : undefined
               }
             />
+            {fieldErrors.email && (
+              <small
+                id={`email-error-${landingVariant}`}
+                className="form-error"
+              >
+                {fieldErrors.email}
+              </small>
+            )}
           </div>
           <div className="form-field">
             <label htmlFor={`persona-${landingVariant}`}>
-              Perfil profesional <span aria-hidden="true">*</span>
+              ¿Cuál es tu perfil? <span aria-hidden="true">*</span>
             </label>
             <select
               id={`persona-${landingVariant}`}
@@ -266,9 +353,20 @@ export function BetaLeadForm({
               onChange={(event) => {
                 const value = event.target.value as Persona | "";
                 setPersona(value);
+                setFieldErrors((current) => ({
+                  ...current,
+                  persona: undefined,
+                }));
                 if (value !== "otro") setOtherPersona("");
+                if (value) track("persona_selected", { persona: value });
               }}
               required
+              aria-invalid={Boolean(fieldErrors.persona)}
+              aria-describedby={
+                fieldErrors.persona
+                  ? `persona-error-${landingVariant}`
+                  : undefined
+              }
             >
               <option value="">Selecciona tu perfil</option>
               {PERSONAS.map(([value, label]) => (
@@ -277,12 +375,19 @@ export function BetaLeadForm({
                 </option>
               ))}
             </select>
+            {fieldErrors.persona && (
+              <small
+                id={`persona-error-${landingVariant}`}
+                className="form-error"
+              >
+                {fieldErrors.persona}
+              </small>
+            )}
           </div>
           {persona === "otro" && (
             <div className="form-field">
               <label htmlFor={`other-persona-${landingVariant}`}>
-                Cuéntanos cuál es tu perfil profesional{" "}
-                <span aria-hidden="true">*</span>
+                Describe tu perfil <span aria-hidden="true">*</span>
               </label>
               <input
                 id={`other-persona-${landingVariant}`}
@@ -291,12 +396,50 @@ export function BetaLeadForm({
                 placeholder="Por ejemplo, consultoría inmobiliaria"
                 maxLength={120}
                 required
+                aria-invalid={Boolean(fieldErrors.otherPersona)}
                 aria-describedby={
-                  error ? `form-error-${landingVariant}` : undefined
+                  fieldErrors.otherPersona
+                    ? `other-persona-error-${landingVariant}`
+                    : undefined
                 }
               />
+              {fieldErrors.otherPersona && (
+                <small
+                  id={`other-persona-error-${landingVariant}`}
+                  className="form-error"
+                >
+                  {fieldErrors.otherPersona}
+                </small>
+              )}
             </div>
           )}
+          <div className="form-row">
+            <div className="form-field">
+              <label htmlFor={`activity-${landingVariant}`}>
+                ¿Qué quieres abrir? <span>(opcional)</span>
+              </label>
+              <input
+                id={`activity-${landingVariant}`}
+                value={activity}
+                onChange={(event) => setActivity(event.target.value)}
+                placeholder="Por ejemplo, una cafetería"
+                maxLength={160}
+              />
+            </div>
+            <div className="form-field">
+              <label htmlFor={`municipality-${landingVariant}`}>
+                ¿Dónde? <span>(opcional)</span>
+              </label>
+              <input
+                id={`municipality-${landingVariant}`}
+                value={municipality}
+                onChange={(event) => setMunicipality(event.target.value)}
+                placeholder="Municipio o ubicación"
+                autoComplete="address-level2"
+                maxLength={160}
+              />
+            </div>
+          </div>
           <div className="honeypot" aria-hidden="true">
             <label>
               Web
@@ -304,38 +447,36 @@ export function BetaLeadForm({
                 tabIndex={-1}
                 autoComplete="off"
                 value={website}
-                onChange={(e) => setWebsite(e.target.value)}
+                onChange={(event) => setWebsite(event.target.value)}
               />
             </label>
           </div>
           {error && (
-            <p
-              className="form-error"
-              id={`form-error-${landingVariant}`}
-              role="alert"
-            >
+            <p className="form-error" role="alert">
               {error}
             </p>
           )}
-          <button className="button button-dark form-submit" type="submit">
-            {BETA_CTA_LABEL}
+          <button
+            className="button button-dark form-submit"
+            type="submit"
+            disabled={savingPartial}
+          >
+            {savingPartial ? "Guardando…" : BETA_CTA_LABEL}
           </button>
           <p className="privacy-copy">
-            Usaremos tus datos para gestionar tu solicitud y avisarte cuando
-            Locapto esté disponible. Te enviaremos un correo para confirmar la
-            dirección. Consulta nuestra{" "}
+            Usaremos tus datos para gestionar el aviso de disponibilidad. Te
+            enviaremos un correo de confirmación. Consulta nuestra{" "}
             <Link href="/privacidad">Política de privacidad</Link>.
           </p>
         </form>
       ) : (
         <form onSubmit={finish} noValidate>
           <div className="form-heading">
-            <p className="form-step">Ya estás en la lista</p>
+            <p className="form-step">El aviso ya está guardado</p>
             <h3>Cuéntanos un poco más</h3>
             <p>
-              Te enviaremos un enlace para confirmar el correo. Todo lo
-              siguiente es opcional y nos ayudará a entender mejor lo que
-              necesitas.
+              Estos datos profesionales son opcionales y nos ayudan a entender
+              mejor las necesidades de uso.
             </p>
           </div>
           <div className="form-row">
@@ -344,7 +485,7 @@ export function BetaLeadForm({
               <input
                 id={`name-${landingVariant}`}
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(event) => setName(event.target.value)}
                 autoComplete="name"
                 maxLength={120}
               />
@@ -354,11 +495,25 @@ export function BetaLeadForm({
               <input
                 id={`company-${landingVariant}`}
                 value={company}
-                onChange={(e) => setCompany(e.target.value)}
+                onChange={(event) => setCompany(event.target.value)}
                 autoComplete="organization"
                 maxLength={160}
               />
             </div>
+          </div>
+          <div className="form-field">
+            <label htmlFor={`company-website-${landingVariant}`}>
+              Web de la empresa
+            </label>
+            <input
+              id={`company-website-${landingVariant}`}
+              type="url"
+              value={companyWebsite}
+              onChange={(event) => setCompanyWebsite(event.target.value)}
+              autoComplete="url"
+              placeholder="https://"
+              maxLength={200}
+            />
           </div>
           <div className="form-field">
             <label htmlFor={`cases-${landingVariant}`}>
@@ -367,7 +522,7 @@ export function BetaLeadForm({
             <select
               id={`cases-${landingVariant}`}
               value={monthlyCases}
-              onChange={(e) => setMonthlyCases(e.target.value)}
+              onChange={(event) => setMonthlyCases(event.target.value)}
             >
               <option value="">Selecciona una opción</option>
               {MONTHLY_CASES.map((value) => (
@@ -379,13 +534,12 @@ export function BetaLeadForm({
           </div>
           <div className="form-field">
             <label htmlFor={`locations-${landingVariant}`}>
-              ¿En qué municipios trabajáis principalmente?
+              ¿En qué ubicaciones trabajáis principalmente?
             </label>
             <input
               id={`locations-${landingVariant}`}
               value={locations}
-              onChange={(e) => setLocations(e.target.value)}
-              placeholder="Madrid, Barcelona, Getafe…"
+              onChange={(event) => setLocations(event.target.value)}
               maxLength={300}
             />
           </div>
@@ -413,7 +567,7 @@ export function BetaLeadForm({
               type="submit"
               disabled={savingDetails}
             >
-              {savingDetails ? "Confirmando alta…" : "Guardar respuestas"}
+              {savingDetails ? "Guardando…" : "Guardar respuestas"}
             </button>
             <button
               className="button button-quiet"

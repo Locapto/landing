@@ -48,6 +48,11 @@ Scoring is calculated by the Vercel server in `src/lib/leads/scoring.ts`. A lead
 
 Run `setup()` again whenever the documented header list changes. The email confirmation version adds `email_provider_id`, `email_status`, `email_sent_at`, `email_delivered_at`, `email_confirmed_at` and `email_failed_at`.
 
+The launch-interest version also stores activity, municipality, optional company
+website, lead type/source, first-touch UTMs, Google/Microsoft/LinkedIn click IDs,
+landing page and referrer. Publish a new Apps Script deployment after updating
+the headers; changing the repository file does not update the live script.
+
 ## Confirmation email
 
 1. Confirm the exact outgoing server in **Zoho Mail → Settings → Mail Accounts → Server Configuration Details**.

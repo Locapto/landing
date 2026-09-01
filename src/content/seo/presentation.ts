@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { marketingConfig } from "@/config/marketing";
-import { geographyCatalog } from "./geography";
+import { geographyCatalog, municipalityNameCounts } from "./geography";
+import { seoIndexabilityForRoute } from "./indexability";
 import type { SeoRoute } from "./routes";
 
 export type SeoPagePresentation = {
@@ -13,16 +13,22 @@ export type SeoPagePresentation = {
 };
 
 export function seoPagePresentation(route: SeoRoute): SeoPagePresentation {
+  const municipalityPlace = route.municipality
+    ? municipalityNameCounts.get(route.municipality.name)! > 1
+      ? `${route.municipality.name}, ${route.province?.name}`
+      : route.municipality.name
+    : undefined;
   const place =
-    route.municipality?.name ?? route.province?.name ?? route.community?.name;
+    municipalityPlace ?? route.province?.name ?? route.community?.name;
   const activity = route.activity;
   switch (route.kind) {
     case "territory-index":
       return {
-        title: "Municipios de España para abrir un negocio | Locapto",
+        title:
+          "Abrir un negocio por comunidad, provincia y municipio | Locapto",
         description:
           "Consulta el directorio territorial de comunidades, provincias y municipios para preparar la apertura de un negocio.",
-        heading: "Abrir un negocio en cualquier municipio de España.",
+        heading: "Explora dónde quieres abrir un negocio.",
         eyebrow: "Directorio territorial",
         intro:
           "Elige una comunidad autónoma o ciudad autónoma para llegar a la provincia, el municipio y la actividad que quieres iniciar.",
@@ -112,14 +118,12 @@ export function seoPagePresentation(route: SeoRoute): SeoPagePresentation {
 
 export function metadataForSeoRoute(route: SeoRoute): Metadata {
   const presentation = seoPagePresentation(route);
-  const indexable =
-    route.kind !== "activity-municipality" ||
-    marketingConfig.municipalityActivityIndexingEnabled;
+  const indexability = seoIndexabilityForRoute(route);
   return {
     title: presentation.title,
     description: presentation.description,
     alternates: { canonical: route.canonicalPath },
-    robots: { index: indexable, follow: true },
+    robots: { index: indexability.seoIndexable, follow: true },
     openGraph: {
       type: "website",
       locale: "es_ES",

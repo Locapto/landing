@@ -20,7 +20,7 @@ const campaigns = {
     title:
       "Reduce el tiempo que dedicas a investigar cada expediente de apertura.",
     intro:
-      "Locapto reúne requisitos, el trámite más probable, datos pendientes y fuentes oficiales según la actividad y el municipio.",
+      "Locapto reunirá requisitos, el procedimiento probable, datos pendientes y fuentes oficiales según la actividad y la ubicación.",
     benefits: [
       "Estructura la investigación inicial",
       "Detecta información pendiente",
@@ -31,7 +31,7 @@ const campaigns = {
     variant: "lp_tecnicos" as LandingVariant,
     title: "Revisa un local antes de dedicar horas al estudio completo.",
     intro:
-      "Identifica el trámite más probable, posibles obstáculos y dudas pendientes antes de iniciar el análisis técnico completo.",
+      "Locapto ayudará a identificar el procedimiento probable, posibles obstáculos y dudas pendientes antes del análisis técnico completo.",
     benefits: [
       "Prioriza comprobaciones",
       "Ordena las condiciones del local",
@@ -43,7 +43,7 @@ const campaigns = {
     title:
       "Detecta riesgos de un local antes de alquilar, reformar o comprometer capital.",
     intro:
-      "Compara ubicaciones con criterios consistentes y descubre qué necesita validación antes de avanzar.",
+      "Locapto ayudará a comparar ubicaciones con criterios consistentes y a identificar qué necesita validación antes de avanzar.",
     benefits: [
       "Compara ubicaciones",
       "Detecta bloqueos habituales",
@@ -113,9 +113,8 @@ export default async function CampaignPage({
                 {BETA_CTA_LABEL} <ArrowRight aria-hidden="true" />
               </TrackedBetaLink>
               <p className="hero-note">
-                Cuando se lance, estará disponible para solicitudes de toda
-                España. Locapto ofrece información inicial y no concede
-                licencias.
+                Cuando se lance, Locapto ofrecerá información inicial según la
+                actividad y la ubicación. No concederá licencias.
               </p>
             </div>
             <TrackedProductPreview variant={campaign.variant} compact />

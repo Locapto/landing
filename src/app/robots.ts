@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { activitySeoDefinitions } from "@/content/seo/activities";
 import { marketingConfig } from "@/config/marketing";
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -11,12 +10,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       { userAgent: "OAI-SearchBot", allow: "/" },
     ],
-    sitemap: [
-      `${marketingConfig.siteUrl}/sitemap.xml`,
-      ...activitySeoDefinitions.map(
-        (activity) => `${marketingConfig.siteUrl}/sitemaps/${activity.slug}`,
-      ),
-    ],
+    sitemap: `${marketingConfig.siteUrl}/sitemap.xml`,
     host: marketingConfig.siteUrl,
   };
 }

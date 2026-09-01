@@ -115,7 +115,7 @@ a:focus-visible {
   min-height: calc(100svh - 72px);
   display: flex;
   align-items: center;
-  padding: 30px 0;
+  padding: 20px 0;
   background:
     radial-gradient(
       circle at 78% 22%,
@@ -1738,6 +1738,20 @@ button:disabled {
   min-height: 50px;
   padding-block: 12px;
   text-align: center;
+}
+.seo-product-aside > div > a:not(.button) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  color: var(--accent-strong);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+.seo-product-aside > div > a:not(.button) svg {
+  flex: 0 0 auto;
 }
 .page-hero {
   padding: 56px 0 78px;

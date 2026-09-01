@@ -5,6 +5,8 @@ describe("Apps Script payload", () => {
   it("maps a complete request to sheet columns", () => {
     const parsed = betaLeadSchema.parse({
       action: "upsert",
+      leadType: "launch_interest",
+      leadSource: "landing",
       stage: "complete",
       leadId: "123e4567-e89b-42d3-a456-426614174000",
       persona: "gestoria",
@@ -18,10 +20,11 @@ describe("Apps Script payload", () => {
       utmContent: "",
       utmTerm: "",
       landingVariant: "lp_gestorias",
-      pagePath: "/lp/gestorias",
+      landingPage: "/lp/gestorias",
       referrer: "",
       name: "Ana",
       company: "Acme",
+      companyWebsite: "https://acme.example",
       monthlyCases: "3-5",
       locations: "Madrid",
       interests: ["activities", "cases"],
@@ -48,6 +51,8 @@ describe("Apps Script payload", () => {
   it("stores and sanitizes a custom professional profile", () => {
     const parsed = betaLeadSchema.parse({
       action: "upsert",
+      leadType: "launch_interest",
+      leadSource: "landing",
       stage: "partial",
       email: "otro@example.com",
       persona: "otro",
@@ -62,7 +67,7 @@ describe("Apps Script payload", () => {
       utmContent: "",
       utmTerm: "",
       landingVariant: "home",
-      pagePath: "/",
+      landingPage: "/",
       referrer: "",
     });
     const payload = buildSheetsPayload(parsed, {

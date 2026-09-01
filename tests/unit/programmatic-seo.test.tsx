@@ -1,7 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import robots from "@/app/robots";
-import sitemap from "@/app/sitemap";
 import { activitySitemapEntries } from "@/app/sitemaps/[activity]/route";
 import { SeoDirectoryPage } from "@/components/seo/SeoDirectoryPage";
 import {
@@ -14,8 +13,15 @@ import {
   municipalityCount,
 } from "@/content/seo/geography";
 import { metadataForSeoRoute } from "@/content/seo/presentation";
+import { seoIndexabilityForRoute } from "@/content/seo/indexability";
 import { resolveSeoRoute, upperLevelStaticParams } from "@/content/seo/routes";
 import { slugifyTerritory } from "@/content/seo/slug";
+import {
+  activityHubSitemapEntries,
+  sitemapIndexXml,
+  territorialHubSitemapEntries,
+  urlsetXml,
+} from "@/lib/seo/sitemaps";
 
 describe("INE geography catalog", () => {
   it("contains complete, unique five-digit municipality codes", () => {
@@ -124,8 +130,29 @@ describe("SEO route resolution", () => {
     const metadata = metadataForSeoRoute(route!);
     expect(metadata.alternates?.canonical).toBe(route?.canonicalPath);
     expect(metadata.title).toContain("Madrid");
-    expect(metadata.robots).toMatchObject({ index: true, follow: true });
+    expect(metadata.robots).toMatchObject({ index: false, follow: true });
+    expect(seoIndexabilityForRoute(route!)).toEqual({
+      seoIndexable: false,
+      seoIndexabilityReason: "insufficient-local-evidence",
+    });
     expect(route?.activity?.lastReviewedAt).toBe("2026-08-31");
+  });
+
+  it("indexes useful hubs independently from local guide evidence", () => {
+    const activity = resolveSeoRoute(["abrir-negocio", "bar"]);
+    const territory = resolveSeoRoute([
+      "municipios",
+      "comunidad-de-madrid",
+      "madrid",
+    ]);
+    expect(seoIndexabilityForRoute(activity!)).toEqual({
+      seoIndexable: true,
+      seoIndexabilityReason: "useful-activity-hub",
+    });
+    expect(seoIndexabilityForRoute(territory!)).toEqual({
+      seoIndexable: true,
+      seoIndexabilityReason: "useful-territorial-hub",
+    });
   });
 
   it("keeps the build-time route count below the agreed ceiling", () => {
@@ -155,7 +182,7 @@ describe("final activity pages", () => {
 
 describe("sitemap and robots coverage", () => {
   it("keeps the root sitemap unique and covers every territorial page", () => {
-    const urls = sitemap().map((entry) => entry.url);
+    const urls = territorialHubSitemapEntries().map((entry) => entry.url);
     expect(new Set(urls).size).toBe(urls.length);
     expect(urls).toContain("https://locapto.com/municipios");
     expect(urls).toContain(
@@ -166,8 +193,7 @@ describe("sitemap and robots coverage", () => {
   });
 
   it("creates one complete sitemap below 50,000 URLs per activity", () => {
-    const expectedCount = municipalityCount + 52 + 19 + 1;
-    const allMunicipalityUrls = new Set<string>();
+    const expectedCount = 52 + 19 + 1;
     for (const activity of activitySeoDefinitions) {
       const entries = activitySitemapEntries(activity.slug);
       expect(entries).not.toBeNull();
@@ -176,20 +202,26 @@ describe("sitemap and robots coverage", () => {
       expect(new Set(entries!.map((entry) => entry.url)).size).toBe(
         entries!.length,
       );
-      for (const entry of entries!)
-        if (/\d{5}$/.test(entry.url)) allMunicipalityUrls.add(entry.url);
+      expect(entries!.some((entry) => /\d{5}$/.test(entry.url))).toBe(false);
     }
-    expect(allMunicipalityUrls.size).toBe(
-      municipalityCount * activitySeoDefinitions.length,
+    expect(activityHubSitemapEntries().length).toBe(
+      expectedCount * activitySeoDefinitions.length + 1,
     );
   });
 
-  it("lists eleven sitemaps and explicitly allows OAI-SearchBot", () => {
+  it("publishes one sitemap index and explicitly allows OAI-SearchBot", () => {
     const configuration = robots();
-    expect(configuration.sitemap).toHaveLength(11);
+    expect(configuration.sitemap).toBe("https://locapto.com/sitemap.xml");
     expect(configuration.rules).toContainEqual({
       userAgent: "OAI-SearchBot",
       allow: "/",
     });
+    const index = sitemapIndexXml();
+    expect(index).toContain("<sitemapindex");
+    expect(index).toContain("/sitemaps/territorial-hubs.xml");
+    expect(index).not.toContain("business-guides-1.xml");
+    expect(urlsetXml(activityHubSitemapEntries())).not.toContain(
+      "<changefreq>",
+    );
   });
 });
