@@ -1002,38 +1002,74 @@ button:disabled {
 .feature-card a svg {
   width: 16px;
 }
+.process-section {
+  padding-block: 88px;
+}
+.process-section .section-heading {
+  margin-bottom: 34px;
+}
 .process-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: process;
 }
 .process-grid li {
-  min-height: 260px;
-  padding: 30px;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 26px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: white;
+  background: linear-gradient(145deg, white 0%, #fbfaff 100%);
+  box-shadow: 0 10px 30px rgba(24, 24, 45, 0.035);
+}
+.process-grid li:not(:last-child)::after {
+  position: absolute;
+  z-index: 1;
+  top: 41px;
+  right: -11px;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid #bcb6dc;
+  border-right: 1px solid #bcb6dc;
+  background: #fbfaff;
+  content: "";
+  transform: rotate(45deg);
 }
 .process-grid li > span {
   display: inline-flex;
-  margin-bottom: 66px;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd8f7;
+  border-radius: 12px;
+  background: var(--accent-100);
   color: var(--accent-700);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.08em;
 }
+.process-copy {
+  padding-top: 2px;
+}
+.process-copy h3 {
+  margin-bottom: 8px;
+}
 .process-grid p {
-  margin-bottom: 0;
+  margin: 0;
   font-size: 0.93rem;
+  line-height: 1.65;
 }
 .centered-action {
   display: flex;
   justify-content: center;
-  margin-top: 34px;
+  margin-top: 26px;
 }
 .dark-section {
   background: var(--brand-950);
@@ -2511,12 +2547,17 @@ button:disabled {
   }
   .process-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
   .process-grid li {
-    min-height: auto;
+    padding: 22px;
   }
-  .process-grid li > span {
-    margin-bottom: 38px;
+  .process-grid li:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: -8px;
+    left: 38px;
+    transform: rotate(135deg);
   }
   .beta-grid > div:first-child,
   .faq-layout > div:first-child {

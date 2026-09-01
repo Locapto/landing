@@ -233,7 +233,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="section" id="como-funciona">
+        <section className="section process-section" id="como-funciona">
           <div className="shell">
             <div className="section-heading centered">
               <p className="eyebrow">Cómo funciona</p>
@@ -242,24 +242,31 @@ export default function Home() {
             <ol className="process-grid">
               <li>
                 <span>01</span>
-                <h3>Describe la actividad</h3>
-                <p>Explícanos qué quieres abrir en lenguaje normal.</p>
+                <div className="process-copy">
+                  <h3>Describe la actividad</h3>
+                  <p>Explícanos qué quieres abrir en lenguaje normal.</p>
+                </div>
               </li>
               <li>
                 <span>02</span>
-                <h3>Indica dónde</h3>
-                <p>
-                  Selecciona municipio y, si ya tienes local, proporciona sus
-                  características.
-                </p>
+                <div className="process-copy">
+                  <h3>Indica dónde</h3>
+                  <p>
+                    Selecciona municipio y, si ya tienes local, proporciona sus
+                    características.
+                  </p>
+                </div>
               </li>
               <li>
                 <span>03</span>
-                <h3>Revisa la orientación inicial</h3>
-                <p>
-                  Cuando esté disponible, revisa el procedimiento probable, los
-                  requisitos, las dudas pendientes y las fuentes oficiales.
-                </p>
+                <div className="process-copy">
+                  <h3>Revisa la orientación inicial</h3>
+                  <p>
+                    Cuando esté disponible, revisa el procedimiento probable,
+                    los requisitos, las dudas pendientes y las fuentes
+                    oficiales.
+                  </p>
+                </div>
               </li>
             </ol>
             <div className="centered-action">
