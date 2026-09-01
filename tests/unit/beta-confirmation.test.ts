@@ -50,6 +50,13 @@ describe("beta confirmation email", () => {
         ),
       }),
     );
+    const message = sendMail.mock.calls[0]?.[0];
+    expect(message.html).toContain(
+      'src="https://locapto.com/brand/full-logo-colors.png"',
+    );
+    expect(message.html.match(/<table\b/g)).toHaveLength(
+      message.html.match(/<\/table>/g)?.length,
+    );
     expect(postToLeadWebhook).toHaveBeenCalledWith(
       expect.objectContaining({
         action: "email_event",

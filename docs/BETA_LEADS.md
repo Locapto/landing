@@ -56,4 +56,6 @@ Run `setup()` again whenever the documented header list changes. The email confi
 4. The signed email link confirms idempotently and redirects to a noindex Locapto result page without requiring a second click.
 5. Send one real test and verify the row progresses from `sent` to `confirmed`. An SMTP authentication or recipient rejection is recorded as `failed`.
 
+The transactional template uses the public PNG at `/brand/full-logo-colors.png` for broad email-client compatibility. Keep that path stable or update the template before replacing the asset.
+
 Never commit the spreadsheet ID, webhook URL, or secret.
