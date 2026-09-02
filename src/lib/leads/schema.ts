@@ -34,7 +34,7 @@ const attribution = {
   msclkid: optionalText(200),
   liFatId: optionalText(200),
   landingVariant: z.string().trim().min(1).max(80),
-  landingPage: z.string().trim().min(1).max(300),
+  landingPage: z.string().trim().min(1).max(300).optional().default("/"),
   referrer: optionalText(500),
 };
 const common = {

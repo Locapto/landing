@@ -100,4 +100,36 @@ describe("availability lead form", () => {
       ).toHaveLength(1),
     );
   });
+
+  it("replaces an incompatible lead ID saved by an older session", async () => {
+    sessionStorage.setItem("locapto_beta_lead_id", "legacy-id");
+    const fetchMock = vi.spyOn(window, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          ok: true,
+          leadId: "123e4567-e89b-42d3-a456-426614174000",
+          status: "partial",
+          qualified: false,
+        }),
+        { status: 200, headers: { "content-type": "application/json" } },
+      ),
+    );
+    render(<BetaLeadForm />);
+    await userEvent.type(screen.getByLabelText(/^Email/), "qa@example.com");
+    await userEvent.selectOptions(
+      screen.getByLabelText("¿Cuál es tu perfil? *"),
+      "emprendedor",
+    );
+    await userEvent.click(
+      screen.getByRole("button", { name: "Avísame cuando esté disponible" }),
+    );
+
+    const payload = JSON.parse(
+      String((fetchMock.mock.calls[0]?.[1] as RequestInit | undefined)?.body),
+    ) as { leadId: string };
+    expect(payload.leadId).not.toBe("legacy-id");
+    expect(payload.leadId).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+    );
+  });
 });

@@ -65,7 +65,34 @@ export function getFirstTouchAttribution(
   const existing = window.sessionStorage.getItem(STORAGE_KEY);
   if (existing) {
     try {
-      return JSON.parse(existing) as Attribution;
+      const stored = JSON.parse(existing) as Partial<Attribution> & {
+        pagePath?: unknown;
+      };
+      const legacyPage =
+        typeof stored.pagePath === "string" ? stored.pagePath : "";
+      const landingPage =
+        typeof stored.landingPage === "string" && stored.landingPage
+          ? stored.landingPage
+          : legacyPage || window.location.pathname;
+      const restored = {
+        utmSource: "direct",
+        utmMedium: "none",
+        utmCampaign: "",
+        utmContent: "",
+        utmTerm: "",
+        gclid: "",
+        gbraid: "",
+        wbraid: "",
+        msclkid: "",
+        liFatId: "",
+        landingVariant,
+        referrer: "",
+        ...stored,
+        landingPage: landingPage.slice(0, 300),
+      } as Attribution & { pagePath?: unknown };
+      delete restored.pagePath;
+      window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(restored));
+      return restored;
     } catch {
       window.sessionStorage.removeItem(STORAGE_KEY);
     }

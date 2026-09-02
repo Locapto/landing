@@ -23,4 +23,27 @@ describe("first-touch attribution", () => {
   });
   it("classifies an empty referrer as direct", () =>
     expect(getFirstTouchAttribution("home").utmSource).toBe("direct"));
+
+  it("migrates the legacy pagePath field without losing first-touch data", () => {
+    sessionStorage.setItem(
+      "locapto_first_touch_v1",
+      JSON.stringify({
+        utmSource: "linkedin",
+        utmMedium: "referral",
+        utmCampaign: "legacy-campaign",
+        landingVariant: "home",
+        pagePath: "/para-gestorias",
+        referrer: "",
+      }),
+    );
+
+    const attribution = getFirstTouchAttribution("lp_empresas");
+
+    expect(attribution.landingPage).toBe("/para-gestorias");
+    expect(attribution.utmCampaign).toBe("legacy-campaign");
+    expect(attribution.gclid).toBe("");
+    expect(
+      JSON.parse(sessionStorage.getItem("locapto_first_touch_v1") ?? "{}"),
+    ).not.toHaveProperty("pagePath");
+  });
 });

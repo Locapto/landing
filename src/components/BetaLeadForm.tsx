@@ -17,6 +17,8 @@ import { PRICING_CONTEXT_KEY } from "./PricingExperiment";
 
 const LEAD_KEY = "locapto_beta_lead_id";
 const CONTEXT_KEY = "locapto_lead_context_v1";
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const professionalPersonas = new Set<Persona>([
   "gestoria",
   "tecnico",
@@ -179,7 +181,9 @@ export function BetaLeadForm({
     const data = await response.json().catch(() => ({}));
     if (!response.ok || !data.ok)
       throw new Error(
-        "No hemos podido guardar la solicitud. Inténtalo de nuevo.",
+        typeof data.message === "string"
+          ? data.message
+          : "No hemos podido guardar la solicitud. Inténtalo de nuevo.",
       );
     return data as {
       ok: true;
@@ -208,8 +212,10 @@ export function BetaLeadForm({
     submittingRef.current = true;
     setSavingPartial(true);
     const value = attribution();
-    const nextLeadId =
-      leadId || sessionStorage.getItem(LEAD_KEY) || crypto.randomUUID();
+    const savedLeadId = leadId || sessionStorage.getItem(LEAD_KEY) || "";
+    const nextLeadId = UUID_PATTERN.test(savedLeadId)
+      ? savedLeadId
+      : crypto.randomUUID();
     setLeadId(nextLeadId);
     sessionStorage.setItem(LEAD_KEY, nextLeadId);
     try {

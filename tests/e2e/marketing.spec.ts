@@ -311,6 +311,55 @@ test("generate_lead is emitted once and optional details do not repeat it", asyn
   ).toBe(1);
 });
 
+test("legacy attribution is migrated before submitting the lead", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem(
+      "locapto_first_touch_v1",
+      JSON.stringify({
+        utmSource: "linkedin",
+        utmMedium: "referral",
+        utmCampaign: "legacy-campaign",
+        landingVariant: "home",
+        pagePath: "/para-gestorias",
+        referrer: "",
+      }),
+    );
+  });
+  let submittedLandingPage = "";
+  await page.route("**/api/beta", async (route) => {
+    const body = route.request().postDataJSON() as {
+      landingPage: string;
+      stage: string;
+    };
+    submittedLandingPage = body.landingPage;
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        ok: true,
+        leadId: "123e4567-e89b-42d3-a456-426614174000",
+        status: body.stage,
+        qualified: false,
+      }),
+    });
+  });
+  await page.goto("/#acceso-beta");
+  await page.getByLabel(/^Email/).fill("qa@example.com");
+  await page.getByLabel(/Cuál es tu perfil/).selectOption("emprendedor");
+  await page
+    .getByRole("button", { name: "Avísame cuando esté disponible" })
+    .click();
+
+  await expect(
+    page.getByRole("heading", {
+      name: "Gracias. Te avisaremos cuando Locapto esté disponible.",
+    }),
+  ).toBeVisible();
+  expect(submittedLandingPage).toBe("/para-gestorias");
+});
+
 test("activity and municipality context is prefilled and kept in session", async ({
   page,
 }) => {

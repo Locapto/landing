@@ -34,6 +34,14 @@ function sameOrigin(request: Request) {
   }
 }
 
+function normalizeLegacyPayload(raw: unknown) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return raw;
+  const { pagePath, ...input } = raw as Record<string, unknown>;
+  if (input.landingPage === undefined && typeof pagePath === "string")
+    input.landingPage = pagePath;
+  return input;
+}
+
 export async function POST(request: Request) {
   const contentLength = Number(request.headers.get("content-length") ?? 0);
   if (contentLength > MAX_BODY_BYTES)
@@ -47,12 +55,16 @@ export async function POST(request: Request) {
   } catch {
     return json({ ok: false, message: "Solicitud no válida." }, 400);
   }
-  const parsed = betaLeadSchema.safeParse(raw);
-  if (!parsed.success)
+  const parsed = betaLeadSchema.safeParse(normalizeLegacyPayload(raw));
+  if (!parsed.success) {
+    console.warn("Beta lead validation failed", {
+      fields: [...new Set(parsed.error.issues.map((issue) => issue.path[0]))],
+    });
     return json(
       { ok: false, message: "Revisa los campos e inténtalo de nuevo." },
       400,
     );
+  }
   const input = parsed.data;
   const leadId = input.leadId ?? crypto.randomUUID();
 

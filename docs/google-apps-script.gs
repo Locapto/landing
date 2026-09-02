@@ -15,6 +15,8 @@ function setup() {
   const spreadsheetId = requireProperty_("SPREADSHEET_ID");
   const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
   const sheet = spreadsheet.getSheetByName(SHEET_NAME) || spreadsheet.insertSheet(SHEET_NAME);
+  const missingColumns = HEADERS.length - sheet.getMaxColumns();
+  if (missingColumns > 0) sheet.insertColumnsAfter(sheet.getMaxColumns(), missingColumns);
   const current = sheet.getRange(1, 1, 1, HEADERS.length).getValues()[0];
   if (current.join("|") !== HEADERS.join("|")) {
     sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);

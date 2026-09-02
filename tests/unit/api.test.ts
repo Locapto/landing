@@ -86,6 +86,25 @@ describe("POST /api/beta", () => {
     expect(response.status).toBe(200);
     expect(fetch).not.toHaveBeenCalled();
   });
+  it("accepts the legacy pagePath field from an already-open tab", async () => {
+    const legacy = { ...partial, landingPage: undefined };
+    const response = await POST(
+      request({ ...legacy, pagePath: "/para-gestorias" }),
+    );
+    expect(response.status).toBe(200);
+    expect(fetch).toHaveBeenCalledOnce();
+    expect(
+      JSON.parse(String(vi.mocked(fetch).mock.calls[0]?.[1]?.body)),
+    ).toEqual(expect.objectContaining({ landing_page: "/para-gestorias" }));
+  });
+  it("uses the homepage when an older client sends no landing path", async () => {
+    const legacy = { ...partial, landingPage: undefined };
+    const response = await POST(request(legacy));
+    expect(response.status).toBe(200);
+    expect(
+      JSON.parse(String(vi.mocked(fetch).mock.calls[0]?.[1]?.body)),
+    ).toEqual(expect.objectContaining({ landing_page: "/" }));
+  });
   it("rejects cross-origin requests", async () => {
     const bad = new Request("https://locapto.com/api/beta", {
       method: "POST",

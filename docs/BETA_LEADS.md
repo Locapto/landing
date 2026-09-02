@@ -46,7 +46,16 @@ Scoring is calculated by the Vercel server in `src/lib/leads/scoring.ts`. A lead
 9. Copy the deployment URL to Vercel as `GOOGLE_SHEETS_WEBHOOK_URL` and the same secret as `GOOGLE_SHEETS_WEBHOOK_SECRET`.
 10. Submit a synthetic test lead and verify that Step 2 updates the same row.
 
-Run `setup()` again whenever the documented header list changes. The email confirmation version adds `email_provider_id`, `email_status`, `email_sent_at`, `email_delivered_at`, `email_confirmed_at` and `email_failed_at`.
+Run `setup()` again whenever the documented header list changes. It expands the
+sheet when new columns are required and keeps existing rows intact. The email
+confirmation version adds `email_provider_id`, `email_status`, `email_sent_at`,
+`email_delivered_at`, `email_confirmed_at` and `email_failed_at`.
+
+The browser keeps a UUID only while an unfinished lead is in progress. Invalid
+identifiers left by an older session are discarded before the first save.
+Legacy first-touch attribution using `pagePath` is migrated to `landingPage`
+without discarding its UTMs or click IDs. The API also accepts that legacy field
+and defaults a missing landing path to `/` for tabs opened before a deployment.
 
 The launch-interest version also stores activity, municipality, optional company
 website, lead type/source, first-touch UTMs, Google/Microsoft/LinkedIn click IDs,
