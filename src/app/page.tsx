@@ -185,6 +185,20 @@ export default function Home() {
             ))}
           </div>
         </section>
+        <section className="section" id="precios" aria-labelledby="plan-estudio">
+          <div className="shell split-copy">
+            <div>
+              <p className="eyebrow">Una suscripción por organización</p>
+              <h2 id="plan-estudio">Plan Estudio · 149 €/mes más impuestos</h2>
+              <p>Documentos, cálculos, análisis territorial y comparación de locales para los proyectos recurrentes de tu estudio.</p>
+            </div>
+            <div>
+              <p>Sin límite comercial de usuarios y sin compras por informe. Se mantienen los límites técnicos de archivos, almacenamiento y concurrencia.</p>
+              <p>La presentación ante la Administración se realiza externamente. Contratación próximamente; no se realizan cobros desde esta página.</p>
+              <TrackedBetaLink variant="home">{BETA_CTA_LABEL} <ArrowRight aria-hidden="true" /></TrackedBetaLink>
+            </div>
+          </div>
+        </section>
         <section className="section problem-section">
           <div className="shell split-copy">
             <div>
